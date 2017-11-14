@@ -10,8 +10,11 @@
   var Search = require('../models/searchPoint');
   var webServiceAdress = "http://localhost:3000";
   const request = require('request');
-  
-  /*  
+  var yearExtra;
+  var nameExtra;
+  var geomExtra;
+
+/*  
 +---------------------------------------------------+
 |Connection
 +---------------------------------------------------+*/
@@ -40,6 +43,49 @@ function getDateTime() {
       return  hour + ":" + min + ":" + sec+ " "+ day + "/" + month  + "/" + year;
   } 
 
+/*  
++---------------------------------------------------+
+|request
++---------------------------------------------------+*/
+function getJsonUrl(url1) {
+  request(url1, function (error, response, body) {
+    if (!error) {
+      var bodyjson = JSON.parse(body);
+      console.log(bodyjson[2][0].geom);
+      return bodyjson[2][0].geom
+      } 
+  });
+} 
+
+/*  
++---------------------------------------------------+
+|processYear
++---------------------------------------------------+*/
+function processName(name)
+{
+    nameExtra = name;
+    console.log(nameExtra);
+}
+
+/*  
++---------------------------------------------------+
+|processName
++---------------------------------------------------+*/
+function processYear(year)
+{
+    yearExtra = year;
+    console.log(yearExtra);
+}
+
+/*  
++---------------------------------------------------+
+|processGeom
++---------------------------------------------------+*/
+function processGeom(geom)
+{
+    geomExtra = geom;
+    console.log(geomExtra);
+}
 
 /*  
 +---------------------------------------------------+
@@ -564,10 +610,18 @@ router.get('/api/geolocation/:textpoint,:number,:year/json', (req, res, next) =>
   const results = [];
   const head = [];
   const textpoint = req.params.textpoint;
-  const year = req.params.year;
-  const number = req.params.number;
+  const year = req.params.year.replace(" ", "");;
+  const number = req.params.number.replace(" ", "");
   const total = [];
-
+  var url = "";
+  
+  if (!number || !textpoint || !year || number == null || textpoint == null || year == null /*|| typeof number === 'number' ||  typeof year === 'number' */){
+    head.push("created_at: " + getDateTime());
+    head.push("type: 'GET'");
+    results.push({Alert: ""});
+    head.push(results);
+    return res.json(head);
+  }
   // Get a Postgres client from the connection pool
   pg.connect(connectionString, (err, client, done) => {
     // Handle connection errors
@@ -576,7 +630,7 @@ router.get('/api/geolocation/:textpoint,:number,:year/json', (req, res, next) =>
       console.log(err);
       return res.status(500).json({success: false, data: err});
     }
-    
+
     // SQL Query > Select Data
     const query = client.query("SELECT tb_places.name, ST_ASTEXT(tb_places.geom) AS geom FROM tb_places JOIN tb_street ON tb_places.id_street = tb_street.id WHERE tb_places.number = ($3) AND tb_street.name LIKE ($1) AND tb_places.first_year <= ($2) AND tb_places.last_year >= ($2)",['%'+textpoint+'%', year, number]);
 
@@ -602,55 +656,52 @@ router.get('/api/geolocation/:textpoint,:number,:year/json', (req, res, next) =>
                     console.log(err);
                     return res.status(500).json({success: false, data: err});
                   }
-                  
+
                   const query = client.query("SELECT geometry , nf, nl, ($3) AS num FROM (SELECT (SELECT ST_AsText(ST_Line_SubString(street, startfraction, endfraction)) as geometry FROM(SELECT(SELECT St_AsText(a.geom) FROM tb_street AS a WHERE a.name LIKE ($1)) AS street,(SELECT ST_LineLocatePoint(line, point) FROM(SELECT(SELECT St_AsText(ST_LineMerge(a.geom)) AS street FROM tb_street AS a WHERE a.name LIKE ($1)) AS line,	(SELECT(SELECT ST_AsText(ST_ClosestPoint(line, pt)) FROM (SELECT (SELECT st_astext(a.geom) FROM tb_places AS a JOIN tb_street AS b ON a.id_street = b.id WHERE a.number = (SELECT MIN(number) FROM tb_places AS a JOIN tb_street AS b ON a.id_street = b.id WHERE b.name LIKE ($1) AND a.number > ($3) AND a.first_year >= ($2) AND a.last_year >= ($2) LIMIT 1) AND b.name LIKE ($1)  ) As pt, (SELECT ST_AsText(geom) FROM tb_street WHERE name LIKE ($1)) As line) As foo)) AS point)AS foo) AS startfraction,(SELECT ST_LineLocatePoint(line, point) FROM (SELECT(SELECT St_AsText(ST_LineMerge(a.geom)) AS street FROM tb_street AS a WHERE a.name LIKE ($1)) AS line,	(SELECT (SELECT ST_AsText(ST_ClosestPoint(line, pt)) FROM (SELECT (SELECT st_astext(a.geom) FROM tb_places AS a JOIN tb_street AS b ON a.id_street = b.id WHERE a.number = (SELECT MAX(number) FROM tb_places AS a JOIN tb_street AS b ON a.id_street = b.id WHERE b.name LIKE ($1) AND a.number < ($3) AND a.first_year >= ($2) AND a.last_year >= ($2) LIMIT 1) AND b.name LIKE ($1)  ) As pt, (SELECT ST_AsText(geom) FROM tb_street WHERE name LIKE ($1)  ) As line) As foo)) AS point) AS foo) AS endfraction) AS foo) AS geometry, (SELECT number_max FROM (SELECT (SELECT MIN(number) FROM tb_places AS a JOIN tb_street AS b ON a.id_street = b.id WHERE b.name LIKE ($1) AND a.number > ($3) AND a.first_year >= ($2) AND a.last_year >= ($2) LIMIT 1) as number_max) AS foo) As nf, (SELECT number_min FROM (SELECT (SELECT MAX(number) FROM tb_places AS a JOIN tb_street AS b ON a.id_street = b.id WHERE b.name LIKE ($1) AND a.number < ($3) AND a.first_year >= ($2) AND a.last_year >= ($2) LIMIT 1) as number_min) AS foo) AS nl) As foo;",['%'+textpoint+'%', year, number]);
-                  
                   query.on('row', (row) => {
-                    
                     if (!row.geometry || !row.nf || !row.num || !row.nl) {
-                    
-                      //Extrapolação ano
-                      
-                      
-                      const query = client.query("SELECT tb_street.name FROM tb_places JOIN tb_street ON tb_places.id_street = tb_street.id WHERE tb_places.number = ($3) AND tb_street.name LIKE ($1) AND tb_places.first_year <= ($2) AND tb_places.last_year >= ($2)",['%'+textpoint+'%', year, number]);
-                     
-                      query.on('row', (row) => {
-                        results.push({Alert: "Ponto Não Encontrado", Results: ""});
-                      });
                   
-                      // After all data is returned, close connection and return results
-                      query.on('end', () => {
-                        done();
-                  
-                      return res.json(results);
-                  
-                     });
+                      if (row.num < row.nf){
 
+                        const query2 = client.query("select name, first_year, ST_AsText(geom) from tb_places where id_street = (select id from tb_street where name like $1) and number = $2",['%'+textpoint+'%', row.nf]);
+                        query2.on('row', (row) => {
+                          processName(row.name);
+                          processYear(row.first_year);
+                          processGeom(row.st_astext);
+                        });
+                        const ads1 = textpoint+", "+row.nf+", "+yearExtra;
+                      results.push({Address: ads1, name: nameExtra, geom: geomExtra});
+                        processName("");
+                        processYear("");
+                        processGeom("");
+                      } else {
 
+                        const query3 = client.query("select name, first_year, ST_AsText(geom)  from tb_places where id_street = (select id from tb_street where name like $1) and number = $2",['%'+textpoint+'%', row.nl]);
+                        query3.on('row', (row) => {
+                          processName(row.name);
+                          processYear(row.first_year);
+                          processGeom(row.st_astext);
+                        });
+                          const ads2 = textpoint+", "+row.nl+", "+yearExtra;
+                        results.push({Address:  ads2, name: nameExtra, geom: geomExtra});
+                          processName("");
+                          processYear("");
+                          processGeom("");
+                      } 
                     } else {
-                      
-                      //results.push(row);
-                      
-                      results.push({name: "Ponto Geolocalizado", geom: ("POINT("+Search.getPoint(row.geometry, row.nl, row.nf, row.num).point)+")"});
-
+                      results.push({name: "Point Geolocated", geom: ("POINT("+Search.getPoint(row.geometry, row.nl, row.nf, row.num).point)+")"});
                     }
                   });
-
-                  // After all data is returned, close connection and return results
                   query.on('end', () => {
                     done(); 
-                    
                     head.push(results);
                     return res.json(head);
-                
                     });
                 });
-
             } else {
-                //if it isn't emptt
+             
               head.push(results);
               return res.json(head);
-
             }
       });
   }); 
