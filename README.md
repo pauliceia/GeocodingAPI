@@ -49,6 +49,8 @@ npm install apidoc --save-dev
 ```
 
 ## Executando a API 
+
+```
 git clone https://github.com/Pauliceia/GeocodingAPI.git
 cd GeocodingAPI
 
@@ -57,6 +59,7 @@ npm install supervisor@0.11.0 -g
 npm install
 
 psql ...
+```
 
 ## Executando API com Docker completo
 link ...
