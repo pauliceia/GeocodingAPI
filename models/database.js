@@ -7,15 +7,16 @@ const db_name = process.env.DATABASE_NAME || "db_pauliceia";
 
 //console.log("-user: "+db_user+" -pass: "+db_pass+" -host: "+db_host+" -name: "+db_name);
 
-const connectionString = new Client({
+const connectionString = {
   host: db_host,
   port: 5432,
   user: db_user,
   database: db_name,
   password: db_pass
-});
+}
 
-connectionString.connect();
+const client = new pg.Client(connectionString);
+
 const query = connectionString.query('select * from tb_street');
 console.log('Done!')
 query.on('end', () => { connectionString.end(); });

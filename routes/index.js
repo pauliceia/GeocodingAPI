@@ -28,15 +28,17 @@
   const db_host = process.env.DATABASE_HOST || "localhost";
   const db_name = process.env.DATABASE_NAME || "db_pauliceia";
 
-  const connectionString = new Client({
+  const connectionString = {
     host: db_host,
     port: 5432,
     user: db_user,
     database: db_name,
     password: db_pass
-  })
+  }
+
+  const client = new pg.Client(connectionString);
   
-  connectionString.connect();
+  client.connect();
   
 /*--------------------------------------------------+
 | function getJsonUrl(url)                          |
