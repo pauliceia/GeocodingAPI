@@ -30,15 +30,13 @@
 
   const connectionString = new Client({
     host: db_host,
-    port: 5334,
+    port: 5432,
     user: db_user,
     database: db_name,
     password: db_pass
   })
-
-  const client = new pg.Client(connectionString);
   
-  client.connect();
+  connectionString.connect();
   
 /*--------------------------------------------------+
 | function getJsonUrl(url)                          |
