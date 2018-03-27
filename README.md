@@ -1,4 +1,3 @@
-![image](https://raw.githubusercontent.com/GSansigolo/Pauliceia-Geocoding-Front-End/master/logo.png)
 # Web Service para Geocodificação de Endereços em Banco de Dados Espaços-Temporais.
 
 ## Gabriel Sansigolo<br>
