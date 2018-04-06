@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "supervisor ./bin/www",
+    "start": "npm run apidoc && supervisor ./bin/www",
     "test": "mocha test",
     "apidoc": "apidoc -i routes/doc -o public/apidoc"
   },
