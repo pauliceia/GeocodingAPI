@@ -7,15 +7,22 @@
 /*--------------------------------------------------+
 | Var                                               |
 +--------------------------------------------------*/
+  var webServiceAddress = process.env.PORT ? "http://localhost:"+process.env.PORT : "http://localhost:3000";
+  //var webServiceAddress = "http://pauliceia.dpi.inpe.br";
   var express = require('express');
   var router = express.Router();
   var GeoJSON = require('geojson');
   var postgeo = require("postgeo");
   var js2xmlparser = require("js2xmlparser");
+  var fs = require('fs');
   var Search = require('../controllers/searchPoint');
-  var webServiceAddress = process.env.PORT ? "http://localhost:"+process.env.PORT : "http://localhost:3000";
+  var Fix = require('../controllers/closestPoint');
+  var Locate = require('../controllers/lineLocate');
+  var Merge = require('../controllers/lineMerge');
+  var Create = require('../controllers/lineSubstring');
   const request = require('request');
   var assert = require('assert');
+  var obj = [];
 
 /*--------------------------------------------------+
 | Connection                                        |
@@ -112,7 +119,7 @@ router.get('/placeslist', (req, res, next) => {
     }
 
     //Build the SQL Query
-    const SQL_Query_Select_List = "select b.name, a.number, a.first_year as year from tb_street as b join tb_places as a on a.id_street = b.id where a.first_year >= 1 and a.last_year >= 1 order by number;";
+    const SQL_Query_Select_List = "select b.name, a.number, a.first_year as year from tb_street as b join tb_places as a on a.id_street = b.id where a.first_year >= 1 and a.last_year >= 1 order by b.name;";
 
     //Execute SQL Query
     const query = client.query(SQL_Query_Select_List);
@@ -218,7 +225,7 @@ router.get('/streets', (req, res, next) => {
 /*--------------------------------------------------+
 | Geolocation                                       |
 +--------------------------------------------------*/
-router.get('/geolocation/:textpoint,:number,:year/json', (req, res, next) => {    
+router.get('/geolocation/:textpoint,:number,:year/json/old', (req, res, next) => {    
 
   //Results Variables
   const results = [];
@@ -324,7 +331,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', (req, res, next) => {
                     /*--------------------------------------------------+
                     | If The Geom was found                             |
                     +--------------------------------------------------*/
-
+      
                       //Result
                       results.push({name: "Point Geolocated", geom: ("POINT("+Search.getPoint(row.geometry, row.nl, row.nf, row.num).point)+")"});
 
@@ -336,8 +343,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', (req, res, next) => {
                     done(); 
 
                     //Stream results back one row at a time
-                    head.push("created_at: " + getDateTime());
-                    head.push("type: 'GET'");
+                    head.push({createdAt:  getDateTime(), type: 'GET'});
 
                     //Push Head
                       head.push(results);
@@ -348,8 +354,8 @@ router.get('/geolocation/:textpoint,:number,:year/json', (req, res, next) => {
             } else {
 
               //Stream results back one row at a time
-              head.push("created_at: " + getDateTime());
-              head.push("type: 'GET'");
+              head.push({createdAt:  getDateTime(), type: 'GET'});
+              
 
               //Push Head
               head.push(results);
@@ -399,22 +405,31 @@ router.get('/multiplegeolocation/:jsonquery/json', (req, res, next) => {
     request(urlList[i], function (error, response, body) {
       if (!error) {
 
+        //recive the data from the get call
         var bodyjson = JSON.parse(body);
-        results.push({address: textList[k], geom:  bodyjson[2][0].geom, url: urlList[k] });
-      
-      //Count the id results
+    
+        //handle the recived geom
+        var geomPoint = bodyjson[2][0].geom.substr(bodyjson[2][0].geom.indexOf("(")+1);
+        geomPoint = geomPoint.substr(0,geomPoint.indexOf(")"));
+
+        //build the coordinates (x, y)
+        var x = parseFloat(geomPoint.split(' ')[0]);
+        var y = parseFloat(geomPoint.split(' ')[1]);
+
+        //Push
+        results.push({street: textList[k].split(',')[0],number: textList[k].split(',')[1].replace(" ", ""), year: textList[k].split(',')[2].replace(" ", ""),geom: [x,y]});
+
+      //Count
       k=k+1;
 
+      //stop the loop
       if (k >= urlList.length){
+
+        //build the geojson 
+        const results2 = GeoJSON.parse(results, {'Point': 'geom'});
         
-        // Stream results back one row at a time
-        head.push("created_at: " + getDateTime());
-        head.push("type: 'GET'");
-      
-        //Results
-        head.push(results);
-        
-        return res.json(head);
+        //return
+        return res.json(results2);
 
       }
 
@@ -426,7 +441,7 @@ router.get('/multiplegeolocation/:jsonquery/json', (req, res, next) => {
 /*--------------------------------------------------+
 | New Geolocation                                   |
 +--------------------------------------------------*/
-router.get('/geolocation/:textpoint,:number,:year/json/new', (req, res, next) => {
+router.get('/geolocation/:textpoint,:number,:year/json', (req, res, next) => {
 
   //Results variables
   const results = [];
@@ -459,12 +474,33 @@ router.get('/geolocation/:textpoint,:number,:year/json/new', (req, res, next) =>
     //Check if only one result was found
     if (places_filter.length == 1){
 
+      /*--------------------+
+      | Log                 |
+      +--------------------*/
+
+        //build the serch query
+        var queryText = textpoint + ', ' + number + ', ' + year;
+
+        //use the fs to read the log
+        fs.readFile('log.json', 'utf8', function readFileCallback(err, data){
+          if (err){
+              console.log(err);
+          } else {
+          
+            //append the new log into log.json
+            obj = JSON.parse(data); 
+            obj.data.push({id: parseInt(obj.data.length), createdAt: getDateTime() , query: queryText, type: 'Geolocation', status: 'SUCESS'});
+            json = JSON.stringify(obj); 
+            fs.writeFile('log.json', json, 'utf8'); 
+        }});
+
+      /*-------------------*/
+
       //Organize the Json results
       results.push({name: places_filter[0].place_name, geom: places_filter[0].place_geom});
 
       //Write header
-      head.push("created_at: " + getDateTime());
-      head.push("type: 'GET'");
+      head.push({createdAt:  getDateTime(), type: 'GET'});
 
       //Push Head
       head.push(results);
@@ -472,92 +508,277 @@ router.get('/geolocation/:textpoint,:number,:year/json/new', (req, res, next) =>
       //Return the json with results
       return res.json(head);
 
-    //Geocode
     } else {
 
-        //--------------------------
-        //      Geocode
-        //-------------------------
+      /*--------------------+
+      | Geocode             |
+      +--------------------*/
 
-        //Write header
-        head.push("created_at: " + getDateTime());
-        head.push("type: 'GET'");
+        //Set the url
+        url = webServiceAddress + '/api/geocoding/streets';
 
-        //Push Head
-        head.push(results);
+        //Request the json with all streets
+        request(url, function (error, response, body) {
+          if (!error) {
 
-        //Return the json with results
-        return res.json(head);
+          //Set the bodyjson with the body of the request
+          var streets = JSON.parse(body);
+
+          //Filter json streets using the entering variables
+          var streets_filter = streets.filter(el=>el.street_name == textpoint);
+
+          //get the street and merge it into linestring
+          var linemerge = (streets_filter[0].street_geom);
+
+          //Filter json places using the entering variables
+          places_filter = places.filter(el=>el.street_name == textpoint);
+          //places_filter = places_filter.filter(el=>el.place_lastyear >= year);
+          places_filter = places_filter.filter(el=>el.place_firstyear <= year);
+
+          //Declare array with numbers
+          const numbers = [];
+
+          //Loop to fill the array numbers
+          for(var i = 0; i < places_filter.length; i++){
+              numbers[i] = places_filter[i].place_number;
+          }
+
+          //Filter the json places to get the p1
+          var p1 = places_filter.filter(el=>el.place_number < number);
+
+          //define array numbers 1
+          var numbers_p1 = [];
+          var j = 0;
+
+          //Loop to fill the array numbers
+          for(var i = 0; i < p1.length; i++){
+            
+            //Check if the number is even if that so append it to the array numbers
+            if(number%2 == 0){
+              if(p1[i].place_number%2 == 0){
+                numbers_p1[j] = p1[i].place_number;
+                j++;
+              }
+
+            //Check if the number is odd if that so append it to the array numbers
+            } else {
+              if(p1[i].place_number%2 != 0){
+                numbers_p1[j] = p1[i].place_number;
+                j++;
+              }
+            }
+          }
+
+          //filter the p1
+          p1 = p1.filter(el=>el.place_number == Math.max.apply(Math, numbers_p1));
+
+          //Filter the json places to get the p2
+          var p2 = places_filter.filter(el=>el.place_number > number);
+
+          //define array numbers 1-
+          var numbers_p2 = [];
+          j = 0;
+
+          //Loop to fill the array numbers
+          for(var i = 0; i < p2.length; i++){
+            
+            //Check if the number is even if that so append it to the array numbers
+            if(number%2 == 0){
+              if(p2[i].place_number%2 == 0){
+                numbers_p2[j] = p2[i].place_number;
+                j++;
+              }
+
+            //Check if the number is odd if that so append it to the array numbers
+            } else {
+              if(p2[i].place_number%2 != 0){
+                numbers_p2[j] = p2[i].place_number;
+                j++;
+              }
+            }
+          }
+        
+          //filter the p2
+          p2 = p2.filter(el=>el.place_number == Math.min.apply(Math, numbers_p2));
+
+          //check if the point can be geolocated
+          if(p2.length != 1 || p1.length != 1){
+
+             //Result
+             results.push({alert: "Point not found", alertMsg: "System did not find ("+ textpoint +", "+ number +", "+ year + ")"});
+            
+            /*--------------------+
+            | Log                 |
+            +--------------------*/
+
+              //build the serch query
+              var queryText = textpoint + ', ' + number + ', ' + year;
+
+              //use the fs to read the log
+              fs.readFile('log.json', 'utf8', function readFileCallback(err, data){
+                if (err){
+                    console.log(err);
+                } else {
+                
+                 //append the new log into log.json
+                 obj = JSON.parse(data);
+                 obj.data.push({id: parseInt(obj.data.length), createdAt: getDateTime() , query: queryText, type: 'Geocode', status: 'FAIL'}); 
+                 json = JSON.stringify(obj); 
+                 fs.writeFile('log.json', json, 'utf8'); 
+              }});
+
+            /*-------------------*/
+         
+          } else {
+
+            //set the geometry of the P1 and P2
+            var p1_geom = p1[0].place_geom;
+            var p2_geom = p2[0].place_geom;
+
+            //get the startfraction
+            var startfraction = Locate.lineLocate(linemerge, p1_geom);
+
+            //get the endfraction
+            var endfraction = Locate.lineLocate(linemerge, p2_geom);
+        
+
+            //check if end is bigger then start
+            if (endfraction > startfraction){
+
+              //get the geom of lineSubString
+              var sublinestring = Create.lineSubstring(linemerge, startfraction, endfraction);
+                  
+            } else {
+
+              //get the geom of lineSubString
+              var sublinestring = Create.lineSubstring(linemerge, endfraction, startfraction);
+              
+            }
+            
+            //take the geom number of p1_geom
+            p1_geom = p1_geom.substr(p1_geom.indexOf("(")+1);
+            p1_geom =p1_geom.substr(0,p1_geom.indexOf(")"));
+
+            //take the geom number of p2_geom
+            p2_geom = p2_geom.substr(p2_geom.indexOf("(")+1);
+            p2_geom = p2_geom.substr(0,p2_geom.indexOf(")"));
+            
+            if (sublinestring == ','){
+
+              //build the street geom
+              var geometry  = ("MULTILINESTRING(("+ p1_geom+","+p2_geom +"))");
+
+            }else{
+              
+              //build the street geom
+              var geometry  = ("MULTILINESTRING(("+ p1_geom+","+sublinestring + p2_geom +"))");
+            }
+            
+            //get the four variable to geocode
+            var nl =  p2[0].place_number;
+            var nf = p1[0].place_number;
+            var num = parseInt(number)
+            
+            //Organize the Json results
+            results.push({name: "Point Geolocated", geom: ("POINT("+Search.getPoint(geometry, parseInt(nf), parseInt(nl), parseInt(num)).point+")")});
+            
+            /*--------------------+
+            | Log                 |
+            +--------------------*/
+
+              //build the serch query
+              var queryText = textpoint + ', ' + number + ', ' + year;
+
+              //use the fs to read the log
+              fs.readFile('log.json', 'utf8', function readFileCallback(err, data){
+                if (err){
+                    console.log(err);
+                } else {
+                
+                  //append the new log into log.json
+                  obj = JSON.parse(data);
+                  obj.data.push({id: parseInt(obj.data.length), createdAt: getDateTime() , query: queryText, type: 'Geocode', status: 'SUCESS'}); 
+                  json = JSON.stringify(obj);
+                  fs.writeFile('log.json', json, 'utf8');
+              }});
+
+            /*-------------------*/
+
+            }   
+
+            //Write header
+            head.push({createdAt:  getDateTime(), type: 'GET'});
+            
+            //Push Head
+            head.push(results);
+
+            //Return the json with results
+            return res.json(head);
+            
+          }  
+        });
+      }
     }
-  }
- })
+  });
 });
 
-/*--------------------------------------------------+
-| Streetlocation                                    |
-+--------------------------------------------------*/
-router.get('/streetlocation/:textpoint,:year/json', (req, res, next) => {
+/*-----------------------------------------------+
+| Log                                            |
++-----------------------------------------------*/
+router.get('/log', (req, res, next) => {
+  
+  const head = []
 
- //Results variables
- const results = [];
- const head = [];
+  //use the fs to read the log
+  fs.readFile('log.json', 'utf8', function readFileCallback(err, data){
+  if (err){
+    console.log(err);
+  } else {
+        
+  //append the new log into log.json
+  obj = JSON.parse(data); //now it an object
+  
+  //Write header
+  head.push({createdAt:  getDateTime(), type: 'GET'});
 
- //Develop variables
- var url;
+  //Push Head
+  head.push(obj);
+          
+  //Return the json with results
+  return res.json(head);
 
- //Entering variables
- const textpoint = req.params.textpoint;
- const year = req.params.year.replace(" ", "");
+  }});
+});
 
-  //Set the url
-  url = webServiceAddress + '/api/geocoding/streets';
+/*-----------------------------------------------+
+| Log--clean                                     |
++-----------------------------------------------*/
+router.get('/log--clean', (req, res, next) => {
+  
+  const head = []
 
- //Request the json with all places
- request(url, function (error, response, body) {
-  if (!error) {
-    
-    //Set the bodyjson with the body of the request
-    var street = JSON.parse(body);
+  //use the fs to read the log
+  fs.readFile('log.json', 'utf8', function readFileCallback(err, data){
+  if (err){
+    console.log(err);
+  } else {
+        
+  //append the new log into log.json
+  obj = JSON.parse(data); //now it an object
+  obj = ({"data":[]}); //add some data
+  json = JSON.stringify(obj); //convert it back to json
+  fs.writeFile('log.json', json, 'utf8'); // write it back 
 
-    //Filter json places using the entering variables
-    var street_filter = street.filter(el=>el.street_name == textpoint);
-    //street_filter = street_filter.filter(el=>el.street_lastyear >= year);
-    //street_filter = street_filter.filter(el=>el.street_firstyear <= year);
+  //Write header
+  head.push({createdAt:  getDateTime(), type: 'GET'});
 
-    //Check if only one result was found
-    if (street_filter.length == 1){
+  //Push Head
+  head.push({Results: "Done"});
+          
+  //Return the json with results
+  return res.json(head);
 
-      //Organize the Json results
-      results.push({name: street_filter[0].street_name, geom: street_filter[0].street_geom});
-
-      //Write header
-      head.push("created_at: " + getDateTime());
-      head.push("type: 'GET'");
-
-      //Push Head
-      head.push(results);
-
-      //Return the json with results
-      return res.json(head);
-
-    } else {
-
-      //Result
-      results.push({alert: "Street not found", alertMsg: "System did not find ("+ textpoint +", "+ year + ")", help: "Make sure the search is spelled correctly. (street, year)"});
-      
-      //Write header
-      head.push("created_at: " + getDateTime());
-      head.push("type: 'GET'");
-
-      //Push Head
-      head.push(results);
-
-      //Return the json with results
-      return res.json(head);
-                     
-    }
-  }
- })
+  }});
 });
 
 /*---------------------------------------------------+
