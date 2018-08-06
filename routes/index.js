@@ -53,7 +53,7 @@ function getJsonUrl(url1) {
   request(url1, function (error, response, body) {
     if (!error) {
       var bodyjson = JSON.parse(body);
-      console.log(bodyjson[2][0].geom);
+      //console.log(bodyjson[2][0].geom);
       return bodyjson[2][0].geom
       } 
   });
@@ -373,18 +373,13 @@ router.get('/geolocation/:textpoint,:number,:year/json/old', (req, res, next) =>
 router.get('/multiplegeolocation/:jsonquery/json', (req, res, next) => {
 
   //Results Variables
-  const results = [];
   var urlList = [];
   var textList = [];
   var content = "";
 
   //Entering Variables
-  var jsonObject = JSON.parse(req.params.jsonquery);
+  var jsonObject = JSON.parse(decodeURIComponent(req.params.jsonquery));
   const sizeJson = Object.keys(jsonObject).length;
-
-  //Count Variables
-  var k = 0;
-  const head = [];
 
   //Read all the Json
   for(index in jsonObject)
@@ -400,42 +395,44 @@ router.get('/multiplegeolocation/:jsonquery/json', (req, res, next) => {
   }
  
   //Push all results
-  for (i in urlList) {
-    request(urlList[i], function (error, response, body) {
-      if (!error) {
-
-        //recive the data from the get call
-        var bodyjson = JSON.parse(body);
-
-        //handle the recived geom
-        var geomPoint = bodyjson[1][0].geom.substr(bodyjson[1][0].geom.indexOf("(")+1);
-        geomPoint = geomPoint.substr(0,geomPoint.indexOf(")"));
-
-        //build the coordinates (x, y)
-        var x = parseFloat(geomPoint.split(' ')[0]);
-        var y = parseFloat(geomPoint.split(' ')[1]);
-
-        //Push
-        results.push({street: textList[k].split(',')[0],number: textList[k].split(',')[1].replace(" ", ""), year: textList[k].split(',')[2].replace(" ", ""),geom: [x,y]});
-
-      //Count
-      k=k+1;
-
-      //stop the loop
-      if (k >= urlList.length){
-
-        //build the geojson 
-        const results2 = GeoJSON.parse(results, {'Point': 'geom'});
+  var promises = urlList.map( (url, i) => {
+    return new Promise( resolve => {
+        console.log(url)
+        request(url, (error, _, body) => {
+          if (!error) {
+            //recive the data from the get call
+            var bodyjson = JSON.parse(body);
         
-        //return
-        return res.json(results2);
+            if (bodyjson[1][0].name != "Point not found"){
+        
+              //handle the recived geom
+              var geomPoint = bodyjson[1][0].geom.substr(bodyjson[1][0].geom.indexOf("(")+1);
+              geomPoint = geomPoint.substr(0,geomPoint.indexOf(")"));
+        
+              //build the coordinates (x, y)
+              var x = parseFloat(geomPoint.split(' ')[0]);
+              var y = parseFloat(geomPoint.split(' ')[1]);
+              
+              resolve({street: textList[i].split(',')[0],number: textList[i].split(',')[1].replace(" ", ""), year: textList[i].split(',')[2].replace(" ", ""),geom: [x,y]})
+            
+            } else {
+              resolve('erro')
+            }
+          } else {
+            resolve('erro')
+          }
+        })
+        
+    })
+  })
 
-      }
+  Promise.all(promises).then( resultsPromise => {
+    const results = resultsPromise.filter( result => result != 'erro')
+    const resultGeoJSON = GeoJSON.parse(results, {'Point': 'geom'})
+    res.json(resultGeoJSON)
+  })
 
-    } 
-      });  
-  }
-});
+})
 
 /*--------------------------------------------------+
 | New Geolocation                                   |
@@ -466,6 +463,47 @@ router.get('/geolocation/:textpoint,:number,:year/json', (req, res, next) => {
 
     //Filter json places using the entering variables
     var places_filter = places.filter(el=>el.street_name == textpoint);
+
+
+    //Check if the street is empty, year is less then 1869 ou higher then current year
+    if (places_filter.length == 0){
+
+      //Result
+      results.push({name: "Point not found", alertMsg: "System did not find ("+ textpoint +", "+ number +", "+ year + ")"});
+      
+      /*--------------------+
+      | Log                 |
+      +--------------------*/
+
+        //build the serch query
+        var queryText = textpoint + ', ' + number + ', ' + year;
+
+        //use the fs to read the log
+        fs.readFile('log.json', 'utf8', function readFileCallback(err, data){
+          if (err){
+              console.log(err);
+          } else {
+          
+          //append the new log into log.json
+          obj = JSON.parse(data);
+          obj.data.push({id: parseInt(obj.data.length), createdAt: getDateTime() , query: queryText, type: 'Geocode', status: 'FAIL'}); 
+          json = JSON.stringify(obj); 
+          fs.writeFile('log.json', json, 'utf8'); 
+        }});
+
+      /*-------------------*/
+
+      //Write header
+      head.push({createdAt:  getDateTime(), type: 'GET'});
+      
+      //Push Head
+      head.push(results);
+
+      //Return the json with results
+      return res.json(head);   
+
+    }
+
     places_filter = places_filter.filter(el=>el.place_number == number);
     places_filter = places_filter.filter(el=>el.place_lastyear >= year);
     places_filter = places_filter.filter(el=>el.place_firstyear <= year);
@@ -604,7 +642,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', (req, res, next) => {
           if(p2.length != 1 || p1.length != 1){
 
              //Result
-             results.push({alert: "Point not found", alertMsg: "System did not find ("+ textpoint +", "+ number +", "+ year + ")"});
+             results.push({name: "Point not found", alertMsg: "System did not find ("+ textpoint +", "+ number +", "+ year + ")"});
             
             /*--------------------+
             | Log                 |
