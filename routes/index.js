@@ -14,12 +14,13 @@
   var GeoJSON = require('geojson');
   var postgeo = require("postgeo");
   var js2xmlparser = require("js2xmlparser");
-  var fs = require('fs');
   var Search = require('../controllers/searchPoint');
   var Fix = require('../controllers/closestPoint');
   var Locate = require('../controllers/lineLocate');
   var Merge = require('../controllers/lineMerge');
   var Create = require('../controllers/lineSubstring');
+  var Match = require('../controllers/neuralNetwork');
+  var Calculate = require('../controllers/confidenceRate');
   const request = require('request');
   var assert = require('assert');
   var obj = [];
@@ -222,6 +223,52 @@ router.get('/streets', (req, res, next) => {
   });
 });
 
+/*-----------------------------------------------+
+| Train Dataset                                 |
++-----------------------------------------------*/
+router.get('/traindataset', (req, res, next) => {
+
+  //Results Variable
+  const results = [];
+
+  //Get a Postgres client from the connection pool
+  pg.connect(connectionString, (err, client, done) => {
+    
+    //Handle connection errors
+    if(err) {
+      done();
+      console.log(err);
+      return res.status(500).json({success: false, data: err});
+    }
+
+    //Build the SQL Query
+    const SQL_Query_Select_List = "select b.name, b.first_year as firstyear, b.last_year as lastyear, ST_astext(b.geom) as geom from tb_street as b join tb_places as a on a.id_street = b.id where a.first_year >= 1 and a.last_year >= 1 order by number;";
+
+    //Execute SQL Query
+    const query = client.query(SQL_Query_Select_List);
+
+    //Push Results
+    query.on('row', (row) => {
+    
+      results.push({input:row.name, output: row.name});
+      results.push({input:row.name.replace("rua", ""), output: row.name});
+      results.push({input:row.name.replace("avenida", ""), output: row.name});
+      results.push({input:row.name.replace("rua", "r."), output: row.name});
+      results.push({input:row.name.replace("avenida", "av."), output: row.name});
+      results.push({input:row.name.replace("avenida", "avevida"), output: row.name});
+    });
+
+    //After all data is returned, close connection and return results
+    query.on('end', () => {
+      done();
+
+    //Resuts
+    return res.json(results);
+
+  });
+  });
+});
+
 /*--------------------------------------------------+
 | Geolocation                                       |
 +--------------------------------------------------*/
@@ -233,7 +280,7 @@ router.get('/geolocation/:textpoint,:number,:year/json/old', (req, res, next) =>
 
   //Entering Variables
   const textpoint = req.params.textpoint;
-  const year = req.params.year.replace(" ", "");;
+  const year = req.params.year.replace(" ", "");
   const number = req.params.number.replace(" ", "");
 
   //Get a Postgres client from the connection pool
@@ -437,18 +484,18 @@ router.get('/multiplegeolocation/:jsonquery/json', (req, res, next) => {
 /*--------------------------------------------------+
 | New Geolocation                                   |
 +--------------------------------------------------*/
-router.get('/geolocation/:textpoint,:number,:year/json', (req, res, next) => {
+router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res, next) {
 
   //Results variables
-  const results = [];
-  const head = [];
+  let results = [];
+  let head = [];
 
   //Develop variables
-  var url;
+  let url;
 
-  //Entering variables
-  const textpoint = req.params.textpoint;
-  const year = req.params.year.replace(" ", "");;
+  //Entering variables  
+  let textpoint = await Match.neuralNetwork(req.params.textpoint);
+  const year = req.params.year.replace(" ", "");
   const number = req.params.number.replace(" ", "");
 
  //Set the url
@@ -464,13 +511,11 @@ router.get('/geolocation/:textpoint,:number,:year/json', (req, res, next) => {
     //Filter json places using the entering variables
     var places_filter = places.filter(el=>el.street_name == textpoint);
 
-
     //Check if the street is empty, year is less then 1869 ou higher then current year
     if (places_filter.length == 0){
 
       //Result
       results.push({name: "Point not found", alertMsg: "System did not find ("+ textpoint +", "+ number +", "+ year + ")"});
-
 
       //Write header
       head.push({createdAt:  getDateTime(), type: 'GET'});
@@ -491,7 +536,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', (req, res, next) => {
     if (places_filter.length == 1){
 
       //Organize the Json results
-      results.push({name: places_filter[0].place_name, geom: places_filter[0].place_geom});
+      results.push({name: places_filter[0].place_name, geom: places_filter[0].place_geom, confidenceRate: Calculate.confidenceRateLocate(year)});
 
       //Write header
       head.push({createdAt:  getDateTime(), type: 'GET'});
@@ -631,33 +676,42 @@ router.get('/geolocation/:textpoint,:number,:year/json', (req, res, next) => {
             
             //take the geom number of p1_geom
             p1_geom = p1_geom.substr(p1_geom.indexOf("(")+1);
-            p1_geom =p1_geom.substr(0,p1_geom.indexOf(")"));
+            p1_geom = p1_geom.substr(0,p1_geom.indexOf(")"));
+            var p1_g = p1_geom;
 
             //take the geom number of p2_geom
             p2_geom = p2_geom.substr(p2_geom.indexOf("(")+1);
             p2_geom = p2_geom.substr(0,p2_geom.indexOf(")"));
-            
+            var p2_g = p2_geom;
+
             if (sublinestring == ','){
 
               //build the street geom
               var geometry  = ("MULTILINESTRING(("+ p1_geom+","+p2_geom +"))");
 
             }else{
+              if(!sublinestring){
+
+                //build the street geom
+                var geometry  = ("MULTILINESTRING(("+ p1_geom+","+ p2_geom +"))");
               
-              //build the street geom
-              var geometry  = ("MULTILINESTRING(("+ p1_geom+","+sublinestring + p2_geom +"))");
+              }else{
+              
+                //build the street geom
+                var geometry  = ("MULTILINESTRING(("+ p1_geom+","+sublinestring + p2_geom +"))");
+              
+              }
+             
             }
             
             //get the four variable to geocode
             var nl =  p2[0].place_number;
             var nf = p1[0].place_number;
-            var num = parseInt(number)
-            
-            //Organize the Json results
-            results.push({name: "Point Geolocated", geom: ("POINT("+Search.getPoint(geometry, parseInt(nf), parseInt(nl), parseInt(num)).point+")")});
-            
-            
+            var num = parseInt(number);
 
+            //Organize the Json results
+            results.push({name: "Point Geolocated", geom: ("POINT("+Search.getPoint(geometry, parseInt(nf), parseInt(nl), parseInt(num)).point+")"), confidenceRate: Calculate.confidenceRateCode(p1_g.split(" "), p2_g.split(" "), year)});
+            
             }   
 
             //Write header
@@ -675,7 +729,6 @@ router.get('/geolocation/:textpoint,:number,:year/json', (req, res, next) => {
     }
   });
 });
-
 
 /*---------------------------------------------------+
 | Console Log                                        |
