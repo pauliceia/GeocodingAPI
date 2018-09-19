@@ -5,8 +5,7 @@
   "scripts": {
     "start": "supervisor ./bin/www",
     "test": "mocha test",
-    "apidoc": "apidoc -i routes/doc -o public/apidoc",
-    "docker": "npm install && npm start"
+    "apidoc": "apidoc -i routes/doc -o public/apidoc"
   },
   "dependencies": {
     "async": "^2.5.0",
@@ -32,6 +31,7 @@
     "request-promise": "^4.2.2",
     "serialization": "^0.2.0",
     "serve-favicon": "^2.4.5",
+    "shp-write": "^0.3.2",
     "supertest": "^3.0.0",
     "supervisor": "^0.12.0"
   },
