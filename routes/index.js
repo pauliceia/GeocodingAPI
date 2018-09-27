@@ -7,8 +7,8 @@
 /*--------------------------------------------------+
 | Var                                               |
 +--------------------------------------------------*/
-  var webServiceAddress = process.env.PORT ? "http://localhost:"+process.env.PORT : "http://localhost:3000";
-  //var webServiceAddress = "http://pauliceia.dpi.inpe.br";
+  //var webServiceAddress = process.env.PORT ? "http://localhost:"+process.env.PORT : "http://localhost:3000";
+  var webServiceAddress = "http://pauliceia.dpi.inpe.br";
   var express = require('express');
   var router = express.Router();
   var GeoJSON = require('geojson');
@@ -86,7 +86,7 @@ router.get('/placeslist', (req, res, next) => {
     }
 
     //Build the SQL Query
-    const SQL_Query_Select_List = "select b.name as name_s, a.name as name_p, a.number::float, a.first_year::integer as firstyear, a.last_year::integer as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area as a on a.id_street::integer = b.id::integer where a.number::float > 1 and b.name IS NOT NULL and a.first_year::integer IS NOT NULL order by b.name;";
+    const SQL_Query_Select_List = "select b.name as name_s, a.name as name_p, a.number::float, a.first_year::integer as firstyear, a.last_year::integer as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area as a on a.id_street::integer = b.id::integer where a.number::float > 1 and b.name IS NOT NULL order by b.name;";
     //const SQL_Query_Select_List = "select b.name, a.number::float, a.first_year::integer as year from streets_pilot_area as b join places_pilot_area as a on a.id_street::integer = b.id::integer where a.number::float >= 1 and  a.first_year::integer is not null and  b.name is not null order by b.name;";
     
     //Execute SQL Query
@@ -94,7 +94,12 @@ router.get('/placeslist', (req, res, next) => {
 
     //Push Results
     query.on('row', (row) => {
-        results.push(row.name_s +', '+ row.number+', '+ row.firstyear);
+        
+        if (!row.firstyear){
+          results.push(row.name_s +', '+ row.number+', '+ row.lastyear);
+        } else {
+          results.push(row.name_s +', '+ row.number+', '+ row.firstyear);
+        }
     });
 
     //After all data is returned, close connection and return results
