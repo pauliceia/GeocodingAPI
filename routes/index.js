@@ -229,12 +229,12 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
     //Filter json places using the entering variables
     var places_filter = places.filter(el=>el.street_name == textpoint);
+    console.log(places_filter)
 
-    //Check if the street is empty, year is less then 1869 ou higher then current year
-    if (places_filter.length == 0){
-
+    //Check if the street is empty, year is less than 1869 ou higher than current year
+    if (places_filter.length == 1 && places_filter[0].place_number == 0){
       //Result
-      results.push({name: "Point not found", alertMsg: "System did not find ("+ textpoint +", "+ number +", "+ year + ")"});
+      results.push({name: "Point not found", alertMsg: "Não encontramos pontos nesse logradouro, refente ao ano buscado ("+ textpoint +", "+ number +", "+ year + ")"});
 
       //Write header
       head.push({createdAt:  getDateTime(), type: 'GET'});
@@ -243,15 +243,12 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
       head.push(results);
 
       //Return the json with results
-      return res.json(head);   
-
+      return res.status(404).json(head);
     }
 
     places_filter = places_filter.filter(el=>el.place_number == number);
 
-    console.log(places_filter)
-
-    places_filter = places_filter.filter(el=>el.place_lastyear >= year);
+    places_filter = places_filter.filter(el=>el.place_lastyear > year);
     places_filter = places_filter.filter(el=>el.place_firstyear <= year);
 
     //Check if only one result was found
@@ -293,8 +290,26 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
           //Filter json places using the entering variables
           places_filter = places.filter(el=>el.street_name == textpoint);
-          //places_filter = places_filter.filter(el=>el.place_lastyear >= year);
+          places_filter = places_filter.filter(el=>el.place_lastyear > year);
           places_filter = places_filter.filter(el=>el.place_firstyear <= year);
+          
+          //Very big number
+          places_filter.sort( (a, b) => {
+            return parseInt(a.place_number) - parseInt(b.place_number)
+          })
+          if(parseInt(places_filter[places_filter.length-1].place_number) < number) {
+            //Result
+            results.push({name: "Very big number", alertMsg: "O número ("+number+") buscado é muito grande para os dados desse ano, o maior número dessa rua é o "+parseInt(places_filter[places_filter.length-1].place_number)});
+
+            //Write header
+            head.push({createdAt:  getDateTime(), type: 'GET'});
+            
+            //Push Head
+            head.push(results);
+
+            //Return the json with results
+            return res.status(409).json(head);
+          }
 
           //Declare array with numbers
           const numbers = [];
