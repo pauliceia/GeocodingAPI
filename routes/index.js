@@ -234,7 +234,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
     //Check if the street is empty, year is less than 1869 ou higher than current year
     if (places_filter.length == 1 && places_filter[0].place_number == 0){
       //Result
-      results.push({name: "Point not found", alertMsg: "Não encontramos pontos nesse logradouro, refente ao ano buscado ("+ textpoint +", "+ number +", "+ year + ")"});
+      results.push({name: "Point not found", alertMsg: "Não encontramos pontos nesse logradouro referentes ao ano buscado ("+ textpoint +", "+ number +", "+ year + ")"});
 
       //Write header
       head.push({createdAt:  getDateTime(), type: 'GET'});
@@ -255,7 +255,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
     if (places_filter.length == 1){
 
       //Organize the Json results
-      results.push({name: places_filter[0].place_name, geom: places_filter[0].place_geom, confidenceRate: Calculate.confidenceRateLocate(year)});
+      results.push({name: places_filter[0].place_name, geom: places_filter[0].place_geom, confidence: Calculate.confidenceRateLocate(year)});
 
       //Write header
       head.push({createdAt:  getDateTime(), type: 'GET'});
@@ -293,13 +293,13 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
           places_filter = places_filter.filter(el=>el.place_lastyear > year);
           places_filter = places_filter.filter(el=>el.place_firstyear <= year);
           
-          //Very big number
+          //Big number
           places_filter.sort( (a, b) => {
             return parseInt(a.place_number) - parseInt(b.place_number)
           })
           if(parseInt(places_filter[places_filter.length-1].place_number) < number) {
             //Result
-            results.push({name: "Very big number", alertMsg: "O número ("+number+") buscado é muito grande para os dados desse ano, o maior número dessa rua é o "+parseInt(places_filter[places_filter.length-1].place_number)});
+            results.push({name: "Point not found", alertMsg: "O número ["+number+"] é maior do que o último número cadastrado nessa rua ["+parseInt(places_filter[places_filter.length-1].place_number)+"]" });
 
             //Write header
             head.push({createdAt:  getDateTime(), type: 'GET'});
@@ -381,7 +381,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
           if(p2.length != 1 || p1.length != 1){
 
              //Result
-             results.push({name: "Point not found", alertMsg: "System did not find ("+ textpoint +", "+ number +", "+ year + ")"});
+             results.push({name: "Point not found", alertMsg: "Não encontramos pontos nesse logradouro referentes ao ano buscado ("+ textpoint +", "+ number +", "+ year + ")"});
             
             
          
@@ -446,7 +446,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
             var num = parseInt(number);
 
             //Organize the Json results
-            results.push({name: "Point Geolocated", geom: ("POINT("+Search.getPoint(geometry, parseInt(nf), parseInt(nl), parseInt(num)).point+")"), confidenceRate: Calculate.confidenceRateCode(p1_g.split(" "), p2_g.split(" "), year)});
+            results.push({name: "Point Geolocated", geom: ("POINT("+Search.getPoint(geometry, parseInt(nf), parseInt(nl), parseInt(num)).point+")"), confidence: Calculate.confidenceRateCode(p1_g.split(" "), p2_g.split(" "), year)});
             
             }   
 
