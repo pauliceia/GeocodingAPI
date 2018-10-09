@@ -65,7 +65,7 @@ df = df.rename(columns={'id_da rua': 'id_street', 'numero': 'number', 'numero or
 
 #Print df
 print(df)
-
+id
 #Save df
 df.to_csv('saida/new.csv')
 
@@ -112,5 +112,7 @@ statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN last_year TYPE i
 engine.execute(statement)
 statement = "ALTER TABLE public.places_pilot_area2 ADD CONSTRAINT constraint_fk_id_street FOREIGN KEY (id_street) REFERENCES public.streets_pilot_area (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;"
 engine.execute(statement)
-
-
+statement = "ALTER TABLE public.places_pilot_area2 RENAME index TO id;"
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 ADD CONSTRAINT places_pkey PRIMARY KEY (id);"
+engine.execute(statement)
