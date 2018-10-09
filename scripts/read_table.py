@@ -11,7 +11,7 @@ cur = con.cursor()
 df = pd.read_csv('entrada/tabelao.csv')
 
 #Create new collumns
-df.loc[:,'geom'] = 'null'
+df.loc[:,'cord'] = 'null'
 df.loc[:,'first_day'] = 1
 df.loc[:,'first_month'] = 1
 df.loc[:,'first_year'] = 1800
@@ -30,7 +30,7 @@ for i in range(len(df)):
         cur.execute(sql)
         recset = cur.fetchall()
         geom = str(recset).replace("[('","").replace("',)]","")
-        df['geom'][i] = geom
+        df['cord'][i] = geom.replace("POINT","")
         if (pd.notna(df['data_inicial (DD/MM/AAAA)'][i])):
             df['first_day'][i] = df['data_inicial (DD/MM/AAAA)'][i].split('/')[0]
             df['first_month'][i] = df['data_inicial (DD/MM/AAAA)'][i].split('/')[1]
@@ -46,7 +46,7 @@ for i in range(len(df)):
         cur.execute(sql)
         recset = cur.fetchall()
         geom = str(recset).replace("[('","").replace("',)]","")
-        df['geom'][i] = geom
+        df['cord'][i] = geom.replace("POINT","")
         if (pd.notna(df['data_inicial (DD/MM/AAAA)'][i])):
             df['first_day'][i] = df['data_inicial (DD/MM/AAAA)'][i].split('/')[0]
             df['first_month'][i] = df['data_inicial (DD/MM/AAAA)'][i].split('/')[1]
@@ -76,3 +76,41 @@ engine = create_engine(
 
 #Run SQL
 df.to_sql('places_pilot_area2', con=engine, schema='public')
+
+#Fix database
+statement = 'ALTER TABLE public.places_pilot_area2 ADD COLUMN geom geometry(Point, 4326);'
+engine.execute(statement)
+statement = "UPDATE public.places_pilot_area2 SET geom = ST_SetSRID('POINT' || cord, 4326);"
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 DROP COLUMN cord;"
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN index TYPE integer;"
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN id_street TYPE integer;" 
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN number TYPE float;"
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN original_n TYPE VARCHAR(255);"
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN source TYPE VARCHAR(255);"
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN autor TYPE VARCHAR(255);"
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN date TYPE VARCHAR(255);"
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN first_day TYPE integer;"
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN first_month TYPE integer;"
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN first_year TYPE integer;"
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN last_day TYPE integer;"
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN last_month TYPE integer;"
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN last_year TYPE integer;"
+engine.execute(statement)
+statement = "ALTER TABLE public.places_pilot_area2 ADD CONSTRAINT constraint_fk_id_street FOREIGN KEY (id_street) REFERENCES public.streets_pilot_area (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;"
+engine.execute(statement)
+
+
