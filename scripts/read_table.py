@@ -8,7 +8,7 @@ con = psycopg2.connect(host="localhost",database="db_pauliceia", user="postgres"
 cur = con.cursor()
 
 #Dataframe Open
-df = pd.read_csv('entrada/tabelao.csv')
+df = pd.read_csv('entrada/TABELAO_PARCIAL09.10.csv')
 
 #Create new collumns
 df.loc[:,'cord'] = 'null'
@@ -23,8 +23,8 @@ df.loc[:,'last_year'] = 2000
 id_dict = {}
 
 #For loop
-for i in range(len(df)):
-    if(df['metragem'][i] != True):
+for i in range(0,len(df)):
+    if(str(df['sistema_metrico'][i]) == 'n'):
         j = id_dict[df['Id_ponto'][i]]
         sql = 'SELECT saboya_geometry('+str(df['id_da rua'][i])+', '+str(df['numero'][j])+') AS saboya_geometry;'
         cur.execute(sql)
@@ -58,14 +58,14 @@ for i in range(len(df)):
         df['fonte'][i] = '"'+df['fonte'][i]+'"'
 
 #Drop columns
-df = df.drop(['logradouro', 'metragem','data_final (DD/MM/AAAA)', 'data_inicial (DD/MM/AAAA)', 'Id_ponto'], axis=1)
+df = df.drop(['logradouro', 'metragem','sistema_metrico','data_final (DD/MM/AAAA)', 'data_inicial (DD/MM/AAAA)', 'Id_ponto'], axis=1)
 
 #Rename columns
 df = df.rename(columns={'id_da rua': 'id_street', 'numero': 'number', 'numero original':'original_n', 'fonte':'source', 'autor_da_alimentacao':'autor', 'Data':'date'})
 
-#Print df
-print(df)
-id
+#Print
+print(df.tail())
+
 #Save df
 df.to_csv('saida/new.csv')
 
@@ -88,13 +88,13 @@ statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN index TYPE integ
 engine.execute(statement)
 statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN id_street TYPE integer;" 
 engine.execute(statement)
-statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN number TYPE float;"
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN number TYPE float USING number::double precision;"
 engine.execute(statement)
 statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN original_n TYPE VARCHAR(255);"
 engine.execute(statement)
 statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN source TYPE VARCHAR(255);"
 engine.execute(statement)
-statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN autor TYPE VARCHAR(255);"
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN autor_da_alimentação TYPE VARCHAR(255);"
 engine.execute(statement)
 statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN date TYPE VARCHAR(255);"
 engine.execute(statement)
