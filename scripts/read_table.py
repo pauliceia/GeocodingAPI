@@ -20,24 +20,47 @@ df.loc[:,'last_day'] = np.NaN
 df.loc[:,'last_month'] = np.NaN
 df.loc[:,'last_year'] = np.NaN
 
+#id_dict
+id_dict = {}
+
 #For loop
 for i in range(0,len(df)):
-    print(i)
-    sql = 'SELECT saboya_geometry('+str(df['id_da rua'][i])+', '+str(df['metragem'][i])+') AS saboya_geometry;'
-    print(sql)
-    cur.execute(sql)
-    recset = cur.fetchall()
-    geom = str(recset).replace("[('","").replace("',)]","")
-    df['cord'][i] = geom.replace("POINT","")
-    if (pd.notna(df['data inicial'][i])):
-        df['first_day'][i] = df['data inicial'][i].split('/')[0]
-        df['first_month'][i] = df['data inicial'][i].split('/')[1]
-        df['first_year'][i] = df['data inicial'][i].split('/')[2]
-    if (pd.notna(df['data_final'][i])):        
-        df['last_day'][i] = df['data_final'][i].split('/')[0]
-        df['last_month'][i] = df['data_final'][i].split('/')[1]
-        df['last_year'][i] = df['data_final'][i].split('/')[2]
-    df['fonte'][i] = df['fonte'][i]
+    if(str(df['metragem'][i]) != str(df['numero'][i])):
+        j = id_dict['old_id']
+        print(i)
+        sql = 'SELECT saboya_geometry('+str(df['id_da rua'][i])+', '+str(df['metragem'][i])+') AS saboya_geometry;'
+        print(sql)
+        cur.execute(sql)
+        recset = cur.fetchall()
+        geom = str(recset).replace("[('","").replace("',)]","")
+        df['cord'][i] = geom.replace("POINT","")
+        if (pd.notna(df['data inicial'][i])):
+            df['first_day'][i] = df['data inicial'][i].split('/')[0]
+            df['first_month'][i] = df['data inicial'][i].split('/')[1]
+            df['first_year'][i] = df['data inicial'][i].split('/')[2]
+        if (pd.notna(df['data_final'][i])):        
+            df['last_day'][i] = df['data inicial'][j].split('/')[0]
+            df['last_month'][i] = df['data inicial'][j].split('/')[1]
+            df['last_year'][i] = df['data inicial'][j].split('/')[2]
+        df['fonte'][i] = df['fonte'][i]
+    else:
+        print(i)
+        id_dict['old_id'] = i
+        sql = 'SELECT saboya_geometry('+str(df['id_da rua'][i])+', '+str(df['metragem'][i])+') AS saboya_geometry;'
+        print(sql)
+        cur.execute(sql)
+        recset = cur.fetchall()
+        geom = str(recset).replace("[('","").replace("',)]","")
+        df['cord'][i] = geom.replace("POINT","")
+        if (pd.notna(df['data inicial'][i])):
+            df['first_day'][i] = df['data inicial'][i].split('/')[0]
+            df['first_month'][i] = df['data inicial'][i].split('/')[1]
+            df['first_year'][i] = df['data inicial'][i].split('/')[2]
+        if (pd.notna(df['data_final'][i])):        
+            df['last_day'][i] = df['data_final'][i].split('/')[0]
+            df['last_month'][i] = df['data_final'][i].split('/')[1]
+            df['last_year'][i] = df['data_final'][i].split('/')[2]
+        df['fonte'][i] = df['fonte'][i]
 
 #Drop columns
 df = df.drop(['logradouro', 'metragem','sistema metrico','data_final', 'data inicial', 'Id_ponto'], axis=1)

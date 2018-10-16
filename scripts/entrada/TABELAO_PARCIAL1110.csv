@@ -190,9 +190,6 @@ id_da rua,Id_ponto,metragem,sistema metrico,logradouro,numero,numero original,da
 65,65-48,48,n,Rua Alvaro de Carvalho,2,2,12/07/1928,06/08/1940,"Livro de Emplacamento n.27, p.182; n.13, p.33; n.1, p.43; n.1, p.11",Cintia,09/10/2018
 65,65-48,48,n,Rua Alvaro de Carvalho,59,59,17/06/1908,11/07/1928,"Livro de Emplacamento n.27, p.182; n.13, p.33; n.1, p.43; n.1, p.11",Cintia,09/10/2018
 65,65-48,48,n,Rua Alvaro de Carvalho,51,51,16/06/1908,16/06/1908,"Livro de Emplacamento n.27, p.182; n.13, p.33; n.1, p.43; n.1, p.11",Cintia,09/10/2018
-65,65-146,146,s,Rua Alvaro de Carvalho,136,136,07/08/1940,,"Livro de Emplacamento n.27, p.182; n.13, p.33; n.1, p.43; n.1, p.11",Cintia,09/10/2018
-65,65-136,136,n,Rua Alvaro de Carvalho,34,34,12/07/1928,06/08/1940,"Livro de Emplacamento n.27, p.182; n.13, p.33; n.1, p.43; n.1, p.11",Cintia,09/10/2018
-65,65-136,136,n,Rua Alvaro de Carvalho,29,29,17/06/1928,11/07/1928,"Livro de Emplacamento n.27, p.182; n.13, p.33; n.1, p.43; n.1, p.11",Cintia,09/10/2018
 65,65-272,272,s,Rua Alvaro de Carvalho,272,272,07/08/1940,,"Livro de Emplacamento n.27, p.182; n.13, p.33; n.1, p.43; n.1, p.11",Cintia,09/10/2018
 65,65-272,272,n,Rua Alvaro de Carvalho,64.1,64A,12/07/1928,06/08/1940,"Livro de Emplacamento n.27, p.182; n.13, p.33; n.1, p.43; n.1, p.11",Cintia,09/10/2018
 65,65-272,272,n,Rua Alvaro de Carvalho,1,1 E/T,11/07/1928,11/07/1928,"Livro de Emplacamento n.27, p.182; n.13, p.33; n.1, p.43; n.1, p.11",Cintia,09/10/2018
@@ -213,7 +210,6 @@ id_da rua,Id_ponto,metragem,sistema metrico,logradouro,numero,numero original,da
 69,69-44,44,n,Rua Braulio Gomes,2,2,08/08/1930,13/01/1936,"Livro de Emplacamento, n.20, p.297; n.17, p.64; n.2, p.8",Cintia,09/10/2018
 69,69-50,50,s,Rua Braulio Gomes,50,50,14/01/1936,,"Livro de Emplacamento, n.20, p.297; n.17, p.64; n.2, p.8",Cintia,09/10/2018
 69,69-50,50,n,Rua Braulio Gomes,2.1,2A,08/08/1930,13/01/1936,"Livro de Emplacamento, n.20, p.297; n.17, p.64; n.2, p.8",Cintia,09/10/2018
-69,69-50,50,n,Rua Braulio Gomes,2,2,08/08/1930,07/08/1930,"Livro de Emplacamento, n.20, p.297; n.17, p.64; n.2, p.8",Cintia,09/10/2018
 69,69-96,96,s,Rua Braulio Gomes,96,96,14/01/1936,,"Livro de Emplacamento, n.20, p.297; n.17, p.64; n.2, p.8",Cintia,09/10/2018
 69,69-96,96,n,Rua Braulio Gomes,18,18,08/08/1930,13/01/1936,"Livro de Emplacamento, n.20, p.297; n.17, p.64; n.2, p.8",Cintia,09/10/2018
 69,69-186,186,s,Rua Braulio Gomes,186,186,14/01/1936,,"Livro de Emplacamento, n.20, p.297; n.17, p.64; n.2, p.8",Cintia,09/10/2018
@@ -309,16 +305,6 @@ id_da rua,Id_ponto,metragem,sistema metrico,logradouro,numero,numero original,da
 101,101-39,39,n,Rua Olinda,1,1,26/01/1911,09/01/1936,"Livro de Emplacamento, n.20, p.286; n.11, p.54",Cintia,10/10/2018
 101,101-59,59,s,Rua Olinda,59,59,10/01/1936,,"Livro de Emplacamento, n.20, p.286; n.11, p.54",Cintia,10/10/2018
 101,101-59,59,n,Rua Olinda,9,9,26/01/1911,09/01/1936,"Livro de Emplacamento, n.20, p.286; n.11, p.54",Cintia,10/10/2018
-113,113-45,45.4,s,Rua São Miguel,45,45,26/10/1937,,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
-113,113-85,85.8,s,Rua São Miguel,85,85,26/10/1937,,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
-113,113-85,85.8,n,Rua São Miguel,11,11,03/06/1922,25/10/1937,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
-113,113-121,120.2,s,Rua São Miguel,121,121,26/10/1937,,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
-113,113-121,120.2,n,Rua São Miguel,19,19,03/06/1922,25/10/1937,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
-113,113-36,35.7,s,Rua São Miguel,36,36,26/10/1937,,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
-113,113-36,35.7,n,Rua São Miguel,4,4,03/06/1922,25/10/1937,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
-113,113-110,110.7,s,Rua São Miguel,110,110,26/10/1937,,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
-113,113-110,110.7,n,Rua São Miguel,16,16,03/06/1922,25/10/1937,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
-113,113-110,110.7,n,Rua São Miguel,14,14,02/06/1922,02/06/1922,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
 117,117-19,19.2,s,Rua Aureliano Coutinho,19,19,30/06/1936,,"Livro de Emplacamento, n.21, p.177; n.13, n.13, p.29",Cintia,10/10/2018
 117,117-19,19.2,n,Rua Aureliano Coutinho,1,1,17/09/1928,29/06/1936,"Livro de Emplacamento, n.21, p.177; n.13, n.13, p.29",Cintia,10/10/2018
 117,117-109,108.3,s,Rua Aureliano Coutinho,109,109,30/06/1936,,"Livro de Emplacamento, n.21, p.177; n.13, n.13, p.29",Cintia,10/10/2018
@@ -529,3 +515,16 @@ id_da rua,Id_ponto,metragem,sistema metrico,logradouro,numero,numero original,da
 30,30-251,251.6,n,rua santo andre,57.1,57a,29/09/1936,29/09/1936,"livro de emplacamento 21, p.299",Luanna,09/10/2018
 31,31-24,23,s,rua lucrecia leme,24,24,23/03/1944,,"livro de emplacamento 31, p. 241",Luanna,09/10/2018
 31,31-24,23,n,rua lucrecia leme,56,56,22/03/1944,22/03/1944,"livro de emplacamento 31, p. 241",Luanna,09/10/2018
+65,65-146,146,s,Rua Alvaro de Carvalho,136,136,07/08/1940,,"Livro de Emplacamento n.27, p.182; n.13, p.33; n.1, p.43; n.1, p.11",Cintia,09/10/2018
+65,65-136,136,n,Rua Alvaro de Carvalho,34,34,12/07/1928,06/08/1940,"Livro de Emplacamento n.27, p.182; n.13, p.33; n.1, p.43; n.1, p.11",Cintia,09/10/2018
+65,65-136,136,n,Rua Alvaro de Carvalho,29,29,17/06/1928,11/07/1928,"Livro de Emplacamento n.27, p.182; n.13, p.33; n.1, p.43; n.1, p.11",Cintia,09/10/2018
+113,113-45,45.4,s,Rua São Miguel,45,45,26/10/1937,,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
+113,113-85,85.8,s,Rua São Miguel,85,85,26/10/1937,,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
+113,113-85,85.8,n,Rua São Miguel,11,11,03/06/1922,25/10/1937,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
+113,113-121,120.2,s,Rua São Miguel,121,121,26/10/1937,,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
+113,113-121,120.2,n,Rua São Miguel,19,19,03/06/1922,25/10/1937,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
+113,113-36,35.7,s,Rua São Miguel,36,36,26/10/1937,,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
+113,113-36,35.7,n,Rua São Miguel,4,4,03/06/1922,25/10/1937,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
+113,113-110,110.7,s,Rua São Miguel,110,110,26/10/1937,,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
+113,113-110,110.7,n,Rua São Miguel,16,16,03/06/1922,25/10/1937,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
+113,113-110,110.7,n,Rua São Miguel,14,14,02/06/1922,02/06/1922,"Livro de Emplacamento, n.24, p.49; n.9, p.38",Cintia,10/10/2018
