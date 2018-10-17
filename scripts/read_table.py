@@ -41,7 +41,7 @@ for i in range(0,len(df)):
         if (pd.notna(df['data_final'][i])):        
             df['last_day'][i] = df['data inicial'][j].split('/')[0]
             df['last_month'][i] = df['data inicial'][j].split('/')[1]
-            df['last_year'][i] = df['data inicial'][j].split('/')[2]
+            df['last_year'][i] = int(df['data inicial'][j].split('/')[2]) - 1
         df['fonte'][i] = df['fonte'][i]
     else:
         print(i)
