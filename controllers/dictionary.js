@@ -2,7 +2,15 @@
 exports.dictionary = function(streetName){
     let myDict = {
         "r": "rua",
-        "a":"avenida" 
+        "r.": "rua",
+        "a":"avenida",
+        "a.":"avenida",
+        "av":"avenida",
+        "av.":"avenida",
+        "avn":"avenida",
+        "avn.":"avenida",
+        "11":"onze",
+        "15":"quinze"
     }
     let words = streetName.toLowerCase().split(' ')
     for (let word in words) {

@@ -7,8 +7,8 @@
 /*--------------------------------------------------+
 | Var                                               |
 +--------------------------------------------------*/
-//var webServiceAddress = process.env.PORT ? "http://localhost:" + process.env.PORT : "http://localhost:3000";
-var webServiceAddress = "http://pauliceia.dpi.inpe.br";
+var webServiceAddress = process.env.PORT ? "http://localhost:" + process.env.PORT : "http://localhost:3000";
+//var webServiceAddress = "http://pauliceia.dpi.inpe.br";
 var express = require('express');
 var router = express.Router();
 var GeoJSON = require('geojson');
@@ -326,11 +326,9 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                 })
 
                 if (parseInt(places_filter[places_filter.length - 1].place_number) < number) {
-
+                    
                     places_filter = places.filter(el => el.street_name == textpoint);
                     places_filter = places_filter.filter(el => el.place_number == parseInt(places_filter[places_filter.length - 1].place_number));
-                    places_filter = places_filter.filter(el => el.place_lastyear >= year);
-                    places_filter = places_filter.filter(el => el.place_firstyear <= year);
 
                     //Check if only one result was found
                     if (places_filter.length == 1) {
@@ -353,7 +351,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
                         //Return the json with results
                         return res.json(head);
-                    }
+                    } 
                 }
 
                 //Geocode Saboya
