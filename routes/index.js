@@ -7,39 +7,39 @@
 /*--------------------------------------------------+
 | Var                                               |
 +--------------------------------------------------*/
-//var webServiceAddress = process.env.PORT ? "http://localhost:" + process.env.PORT : "http://localhost:3000";
-var webServiceAddress = "http://pauliceia.dpi.inpe.br";
-var express = require('express');
-var router = express.Router();
-var GeoJSON = require('geojson');
-var Search = require('../controllers/searchPoint');
-var Locate = require('../controllers/lineLocate');
-var Create = require('../controllers/lineSubstring');
-var Match = require('../controllers/dictionary');
-var Calculate = require('../controllers/confidenceRate');
-var request = require('request');
+ //var webServiceAddress = process.env.PORT ? "http://localhost:" + process.env.PORT : "http://localhost:3000";
+ var webServiceAddress = "http://pauliceia.dpi.inpe.br";
+ var express = require('express');
+ var router = express.Router();
+ var GeoJSON = require('geojson');
+ var Search = require('../controllers/searchPoint');
+ var Locate = require('../controllers/lineLocate');
+ var Create = require('../controllers/lineSubstring');
+ var Match = require('../controllers/dictionary');
+ var Calculate = require('../controllers/confidenceRate');
+ var request = require('request');
 
 /*--------------------------------------------------+
 | Connection                                        |
 +-------------------------------------------------*/
-const pg = require('pg');
+ const pg = require('pg');
 
-const db_user = process.env.DATABASE_USER || "postgres";
-const db_pass = process.env.DATABASE_PASS || "teste";
-const db_host = process.env.DATABASE_HOST || "localhost";
-const db_name = process.env.DATABASE_NAME || "db_pauliceia";
+ const db_user = process.env.DATABASE_USER || "postgres";
+ const db_pass = process.env.DATABASE_PASS || "teste";
+ const db_host = process.env.DATABASE_HOST || "localhost";
+ const db_name = process.env.DATABASE_NAME || "db_pauliceia";
 
-const connectionString = {
-    host: db_host,
-    port: 5432,
-    user: db_user,
-    database: db_name,
-    password: db_pass
-}
+ const connectionString = {
+     host: db_host,
+     port: 5432,
+     user: db_user,
+     database: db_name,
+     password: db_pass
+ }
 
-const client = new pg.Client(connectionString);
+ const client = new pg.Client(connectionString);
 
-client.connect();
+ client.connect();
 
 /*-------------------------------------------------+
 | function getDateTime()                           |
@@ -137,7 +137,7 @@ router.get('/places', (req, res, next) => {
         }
 
         //Build the SQL Query
-        const SQL_Query_Select_List = "select a.id as places_id, a.id_street, b.name as name_s, a.number::float, a.first_year::integer as firstyear, a.last_year::integer as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area2 as a on a.id_street::integer = b.id::integer order by number;";
+        const SQL_Query_Select_List = "select a.id as places_id, a.id_street, b.name as name_s, a.number::float, a.first_year::integer as firstyear, a.last_year::integer as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area2 as a on a.id_street::integer = b.id::integer union select a.id as places_id, a.id_street, b.name as name_s, a.number::float, a.first_year::integer as firstyear, a.last_year::integer as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area as a on a.id_street::integer = b.id::integer where a.number::float = 0.0 order by number;";
         //const SQL_Query_Select_List = "select b.id, b.name as name_s, a.name as name_p, a.number, a.first_year as firstyear, a.last_year as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area2 as a on a.id_street = b.id where a.first_year >= 1 and a.last_year >= 1 order by number;";
 
         //Execute SQL Query
@@ -264,7 +264,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
             var places_filter = places.filter(el => el.street_name == textpoint);
 
             //Check if the street is empty, year is less than 1869 ou higher than current year
-            if (places_filter.length == 1 && places_filter[0].place_number == 0) {
+            /*if (places_filter.length == 1 && places_filter[0].place_number == 0) {
                 //Result
                 results.push({
                     name: "Point not found",
@@ -282,9 +282,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
                 //Return the json with results
                 return res.status(404).json(head);
-            }
-
-            let id_street = places_filter[0].id_street;
+            }*/
 
             places_filter = places_filter.filter(el => el.place_number == number);
             places_filter = places_filter.filter(el => el.place_lastyear >= year);
