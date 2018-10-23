@@ -7,8 +7,8 @@
 /*--------------------------------------------------+
 | Var                                               |
 +--------------------------------------------------*/
- //var webServiceAddress = process.env.PORT ? "http://localhost:" + process.env.PORT : "http://localhost:3000";
- var webServiceAddress = "http://pauliceia.dpi.inpe.br";
+ var webServiceAddress = process.env.PORT ? "http://localhost:" + process.env.PORT : "http://localhost:3000";
+ //var webServiceAddress = "http://pauliceia.dpi.inpe.br";
  var express = require('express');
  var router = express.Router();
  var GeoJSON = require('geojson');
@@ -245,8 +245,14 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
     //Develop variables
     let url;
 
+    console.log()
+    console.log()
+    console.log(Match.dictionary(req.params.textpoint.toLowerCase()))
+    console.log()
+    console.log()
+    
     //Entering variables  
-    let textpoint = Match.dictionary(req.params.textpoint);
+    let textpoint = Match.dictionary(req.params.textpoint.toLowerCase());
     const year = req.params.year.replace(" ", "");
     const number = req.params.number.replace(" ", "");
 
@@ -262,7 +268,29 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
             //Filter json places using the entering variables
             var places_filter = places.filter(el => el.street_name == textpoint);
-            
+
+            //Results if there is no point in the searched street
+            if (places_filter.length == 0){
+
+                //Result
+                results.push({
+                    name: "Point not found",
+                    alertMsg: "Não encontramos pontos nesse logradouro referentes ao ano buscado (" + textpoint + ", " + number + ", " + year + ")"
+                });
+
+                    //Write header
+                head.push({
+                    createdAt: getDateTime(),
+                    type: 'GET'
+                });
+
+                //Push Head
+                head.push(results);
+
+                //Return the json with results
+                return res.json(head);
+            }
+
             let id_street = places_filter[0].id_street;
 
             places_filter = places_filter.filter(el => el.place_lastyear >= year);
@@ -304,17 +332,18 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                     return parseInt(a.place_number) - parseInt(b.place_number)
                 })
 
+                //If searched address is larger then the last address in the street
                 if (parseInt(places_filter[places_filter.length - 1].place_number) < number) {
                     
                     places_filter = places.filter(el => el.street_name == textpoint);
                     places_filter = places_filter.filter(el => el.place_number == parseInt(places_filter[places_filter.length - 1].place_number));
 
                     //Check if only one result was found
-                    if (places_filter.length == 1) {
+                    if (places_filter.length == 1 && places_filter[0].place_number > 0) {
 
                         //Organize the Json results
                         results.push({
-                            name: 'Point Extrapolated',
+                            name: 'Point Spatial Extrapolate',
                             geom: places_filter[0].place_geom,
                             confidence: 0
                         });
@@ -363,6 +392,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
                     });
 
+                // Else (Not Saboya)
                 } else {
 
                     //Set the url
@@ -378,7 +408,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                             //Filter json streets using the entering variables
                             var streets_filter = streets.filter(el => el.street_name == textpoint);
 
-                            //get the street and merge it into linestring
+                            //Get the street and merge it into linestring
                             var linemerge = (streets_filter[0].street_geom);
 
                             //Filter json places using the entering variables
@@ -390,9 +420,9 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
                                 //Organize the Json results
                                 results.push({
-                                    name: 'Point Extrapolated',
+                                    name: 'Point Temporal Extrapolate',
                                     geom: places_filter[0].place_geom,
-                                    confidence: 0
+                                    confidence: 0.1
                                 });
 
                                 //Write header
@@ -538,7 +568,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                                             j++;
                                         }
 
-                                        //Check if the number is odd if that so append it to the array numbers
+                                    //Check if the number is odd if that so append it to the array numbers    
                                     } else {
                                         if (p2[i].place_number % 2 != 0) {
                                             numbers_p2[j] = p2[i].place_number;
@@ -547,16 +577,42 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                                     }
                                 }
                                 
-                                //filter the p2
+                                //Filter the p2
                                 p2 = p2.filter(el => el.place_number == Math.min.apply(Math, numbers_p2));
-
-                                //filter p2 again if geom have problem
-                                if (p2[0].place_geom == p1[0].place_geom){
+                                
+                                //Results if there is no point in the searched street
+                                if (p2.length == 0 || p1.length == 0){
                                     
+                                    //Result
+                                    results.push({
+                                        name: "Point not found",
+                                        alertMsg: "Não encontramos pontos nesse logradouro referentes ao ano buscado (" + textpoint + ", " + number + ", " + year + ")"
+                                    });
+
+                                     //Write header
+                                    head.push({
+                                        createdAt: getDateTime(),
+                                        type: 'GET'
+                                    });
+
+                                    //Push Head
+                                    head.push(results);
+
+                                    //Return the json with results
+                                    return res.json(head);
+
+                                }
+
+                                //Filter p2 again if we've geom problem
+                                if (p2[0].place_geom == p1[0].place_geom){
+
+
+                                    //Filter the json places to get the p2
                                     let p2_num = p2[0].place_number;
                                     p2 = places_filter.filter(el => el.place_number > number);
                                     p2 = p2.filter(el => el.place_number > p2_num);
 
+                                    //Declare loop variables
                                     numbers_p2 = []
                                     let j = 0;
 
@@ -579,11 +635,12 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                                         }
                                     }
 
+                                    //Filter the places2 to get the min
                                     p2 = p2.filter(el => el.place_number == Math.min.apply(Math, numbers_p2));
 
                                 }
                                 
-                                //check if the point can be geolocated
+                                //Check if the point can be geolocated
                                 if (p2.length != 1 || p1.length != 1) {
 
                                     //Result
@@ -591,7 +648,8 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                                         name: "Point not found",
                                         alertMsg: "Não encontramos pontos nesse logradouro referentes ao ano buscado (" + textpoint + ", " + number + ", " + year + ")"
                                     });
-
+                                
+                                //Else point can be geolocated
                                 } else {
 
                                     //set the geometry of the P1 and P2
@@ -627,6 +685,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                                     p2_geom = p2_geom.substr(0, p2_geom.indexOf(")"));
                                     var p2_g = p2_geom;
 
+                                    //MULTILINESTRING Handler 
                                     if (sublinestring == ',') {
 
                                         //build the street geom
@@ -647,7 +706,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                                         }
                                     }
 
-                                    //get the four variable to geocode
+                                    //Get the four variable to geocode
                                     var nl = p2[0].place_number;
                                     var nf = p1[0].place_number;
                                     var num = parseInt(number);
@@ -673,6 +732,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                                 //Return the json with results
                                 return res.json(head);
 
+                            //else if the point can be geolocated
                             } else {
                                 
                                 //set the geometry of the P1 and P2
@@ -691,6 +751,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                                     //get the geom of lineSubString
                                     var sublinestring = Create.lineSubstring(linemerge, startfraction, endfraction);
 
+                                //Else if end is bigger then start
                                 } else {
 
                                     //get the geom of lineSubString
@@ -707,7 +768,8 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                                 p2_geom = p2_geom.substr(p2_geom.indexOf("(") + 1);
                                 p2_geom = p2_geom.substr(0, p2_geom.indexOf(")"));
                                 var p2_g = p2_geom;
-
+                                
+                                //MULTILINESTRING Handler 
                                 if (sublinestring == ',') {
 
                                     //build the street geom
@@ -727,7 +789,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                                     }
                                 }
 
-                                //get the four variable to geocode
+                                //Get the four variable to geocode
                                 var nl = p2[0].place_number;
                                 var nf = p1[0].place_number;
                                 var num = parseInt(number);
