@@ -262,31 +262,12 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
             //Filter json places using the entering variables
             var places_filter = places.filter(el => el.street_name == textpoint);
+            
+            let id_street = places_filter[0].id_street;
 
-            //Check if the street is empty, year is less than 1869 ou higher than current year
-            /*if (places_filter.length == 1 && places_filter[0].place_number == 0) {
-                //Result
-                results.push({
-                    name: "Point not found",
-                    alertMsg: "Não encontramos pontos nesse logradouro referentes ao ano buscado (" + textpoint + ", " + number + ", " + year + ")"
-                });
-
-                //Write header
-                head.push({
-                    createdAt: getDateTime(),
-                    type: 'GET'
-                });
-
-                //Push Head
-                head.push(results);
-
-                //Return the json with results
-                return res.status(404).json(head);
-            }*/
-
-            places_filter = places_filter.filter(el => el.place_number == number);
             places_filter = places_filter.filter(el => el.place_lastyear >= year);
             places_filter = places_filter.filter(el => el.place_firstyear <= year);
+            places_filter = places_filter.filter(el => el.place_number == number);
 
             //Check if only one result was found
             if (places_filter.length == 1) {
@@ -565,10 +546,43 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                                         }
                                     }
                                 }
-
+                                
                                 //filter the p2
                                 p2 = p2.filter(el => el.place_number == Math.min.apply(Math, numbers_p2));
 
+                                //filter p2 again if geom have problem
+                                if (p2[0].place_geom == p1[0].place_geom){
+                                    
+                                    let p2_num = p2[0].place_number;
+                                    p2 = places_filter.filter(el => el.place_number > number);
+                                    p2 = p2.filter(el => el.place_number > p2_num);
+
+                                    numbers_p2 = []
+                                    let j = 0;
+
+                                    //Loop to fill the array numbers
+                                    for (let i = 0; i < p2.length; i++) {
+
+                                        //Check if the number is even if that so append it to the array numbers
+                                        if (number % 2 == 0) {
+                                            if (p2[i].place_number % 2 == 0) {
+                                                numbers_p2[j] = p2[j].place_number;
+                                                j++
+                                            }
+
+                                            //Check if the number is odd if that so append it to the array numbers
+                                        } else {
+                                            if (p2[i].place_number % 2 != 0) {
+                                                numbers_p2[j] = p2[j].place_number;
+                                                j++;
+                                            }
+                                        }
+                                    }
+
+                                    p2 = p2.filter(el => el.place_number == Math.min.apply(Math, numbers_p2));
+
+                                }
+                                
                                 //check if the point can be geolocated
                                 if (p2.length != 1 || p1.length != 1) {
 
@@ -660,7 +674,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                                 return res.json(head);
 
                             } else {
-
+                                
                                 //set the geometry of the P1 and P2
                                 var p1_geom = p1[0].place_geom;
                                 var p2_geom = p2[0].place_geom;
