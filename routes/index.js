@@ -7,39 +7,39 @@
 /*--------------------------------------------------+
 | Var                                               |
 +--------------------------------------------------*/
- var webServiceAddress = process.env.PORT ? "http://localhost:" + process.env.PORT : "http://localhost:3000";
-  //var webServiceAddress = "http://pauliceia.dpi.inpe.br";
- var express = require('express');
- var router = express.Router();
- var GeoJSON = require('geojson');
- var Search = require('../controllers/searchPoint');
- var Locate = require('../controllers/lineLocate');
- var Create = require('../controllers/lineSubstring');
- var Match = require('../controllers/dictionary');
- var Calculate = require('../controllers/confidenceRate');
- var request = require('request');
+var webServiceAddress = process.env.PORT ? "http://localhost:" + process.env.PORT : "http://localhost:3000";
+//var webServiceAddress = "http://pauliceia.dpi.inpe.br";
+var express = require('express');
+var router = express.Router();
+var GeoJSON = require('geojson');
+var Search = require('../controllers/searchPoint');
+var Locate = require('../controllers/lineLocate');
+var Create = require('../controllers/lineSubstring');
+var Match = require('../controllers/dictionary');
+var Calculate = require('../controllers/confidenceRate');
+var request = require('request');
 
 /*--------------------------------------------------+
 | Connection                                        |
-+-------------------------------------------------*/
- const pg = require('pg');
++--------------------------------------------------*/
+const pg = require('pg');
 
- const db_user = process.env.DATABASE_USER || "postgres";
- const db_pass = process.env.DATABASE_PASS || "teste";
- const db_host = process.env.DATABASE_HOST || "localhost";
- const db_name = process.env.DATABASE_NAME || "db_pauliceia";
+const db_user = process.env.DATABASE_USER || "postgres";
+const db_pass = process.env.DATABASE_PASS || "teste";
+const db_host = process.env.DATABASE_HOST || "localhost";
+const db_name = process.env.DATABASE_NAME || "db_pauliceia";
 
- const connectionString = {
-     host: db_host,
-     port: 5432,
-     user: db_user,
-     database: db_name,
-     password: db_pass
- }
+const connectionString = {
+    host: db_host,
+    port: 5432,
+    user: db_user,
+    database: db_name,
+    password: db_pass
+}
 
- const client = new pg.Client(connectionString);
+const client = new pg.Client(connectionString);
 
- client.connect();
+client.connect();
 
 /*-------------------------------------------------+
 | function getDateTime()                           |
@@ -234,7 +234,7 @@ router.get('/streets', (req, res, next) => {
 });
 
 /*--------------------------------------------------+
-| Geolocation                                       |
+|  Geolocation                                      |
 +--------------------------------------------------*/
 router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res, next) {
 
@@ -244,7 +244,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
     //Develop variables
     let url;
-    
+
     //Entering variables  
     let textpoint = Match.dictionary(req.params.textpoint.toLowerCase());
     const year = req.params.year.replace(" ", "");
@@ -264,15 +264,16 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
             var places_filter = places.filter(el => el.street_name == textpoint);
 
             //Results if there is no point in the searched street
-            if (places_filter.length == 0){
+            if (places_filter.length == 0) {
 
                 //Result
                 results.push({
                     name: "Point not found",
-                    alertMsg: "Não encontramos pontos nesse logradouro referentes ao ano buscado (" + textpoint + ", " + number + ", " + year + ")"
+                    alertMsg: "Não encontramos pontos nesse logradouro referentes ao ano buscado (" + textpoint + ", " + number + ", " + year + ")",
+                    status: 0
                 });
 
-                    //Write header
+                //Write header
                 head.push({
                     createdAt: getDateTime(),
                     type: 'GET'
@@ -290,15 +291,18 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
             places_filter = places_filter.filter(el => el.place_lastyear >= year);
             places_filter = places_filter.filter(el => el.place_firstyear <= year);
             places_filter = places_filter.filter(el => el.place_number == number);
-
-            //Check if only one result was found
+            
+            /*--------------------+
+            | Geolocation         |
+            +--------------------*/
             if (places_filter.length == 1) {
 
                 //Organize the Json results
                 results.push({
                     name: places_filter[0].place_name,
                     geom: places_filter[0].place_geom,
-                    confidence: 1
+                    confidence: 1,
+                    status: 1
                 });
 
                 //Write header
@@ -315,20 +319,17 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
             } else {
 
-                /*--------------------+
-                | Geocode             |
-                +--------------------*/
-
-                //Extrapolate
                 places_filter = places.filter(el => el.street_name == textpoint);
 
                 places_filter.sort((a, b) => {
                     return parseInt(a.place_number) - parseInt(b.place_number)
                 })
 
-                //If searched address is larger then the last address in the street
+                /*-----------------------+
+                | Spatial Extrapolation  |
+                +-----------------------*/
                 if (parseInt(places_filter[places_filter.length - 1].place_number) < number) {
-                    
+
                     places_filter = places.filter(el => el.street_name == textpoint);
                     places_filter = places_filter.filter(el => el.place_number == parseInt(places_filter[places_filter.length - 1].place_number));
 
@@ -337,9 +338,10 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
                         //Organize the Json results
                         results.push({
-                            name: 'Point Spatial Extrapolate',
+                            name: 'Point Spatial Extrapolated',
                             geom: places_filter[0].place_geom,
-                            confidence: 0
+                            confidence: 0,
+                            status: 1
                         });
 
                         //Write header
@@ -353,10 +355,12 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
                         //Return the json with results
                         return res.json(head);
-                    } 
+                    }
                 }
 
-                //Geocode Saboya
+                /*-----------------------+
+                | Saboya Geolocation     |
+                +-----------------------*/
                 if (year > 1931) {
 
                     //Build the SQL Query ::float
@@ -369,7 +373,8 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                         results.push({
                             name: "Point Geolocated",
                             geom: row.saboya_geometry,
-                            confidence: 0.9
+                            confidence: 0.9,
+                            status: 1
                         });
 
                         //Write header
@@ -386,10 +391,12 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
                     });
 
-                // Else (Not Saboya)
+                    // Else (Not Saboya)
                 } else {
 
-                    //Set the url
+                    /*-----------------------+
+                    | Geocode              S  |
+                    +-----------------------*/
                     url = webServiceAddress + '/api/geocoding/streets';
 
                     //Request the json with all streets
@@ -407,31 +414,12 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
                             //Filter json places using the entering variables
                             places_filter = places.filter(el => el.street_name == textpoint);
-                            places_filter = places_filter.filter(el => el.place_number == number);
 
-                            //Check if only one result was found
-                            if (places_filter.length == 1) {
+                            //Filter json places using the entering variables
+                            places_filter = places_filter.filter(el => el.place_lastyear >= year);
 
-                                //Organize the Json results
-                                results.push({
-                                    name: 'Point Temporal Extrapolate',
-                                    geom: places_filter[0].place_geom,
-                                    confidence: 0.1
-                                });
-
-                                //Write header
-                                head.push({
-                                    createdAt: getDateTime(),
-                                    type: 'GET'
-                                });
-
-                                //Push Head
-                                head.push(results);
-
-                                //Return the json with results
-                                return res.json(head);
-
-                            }
+                            //Filter json places using the entering variables
+                            places_filter = places_filter.filter(el => el.place_firstyear <= year);
 
                             //Declare array with numbers
                             const numbers = [];
@@ -499,220 +487,17 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                             //filter the p2
                             p2 = p2.filter(el => el.place_number == Math.min.apply(Math, numbers_p2));
 
-                            //check if the point can be geolocated
-                            if (p2.length != 1 || p1.length != 1) {
+                            /*-----------------------+
+                            | Points not found       |
+                            +-----------------------*/
+                            if (p2.length == 0 || p1.length == 0) {
 
-                                //Set the bodyjson with the body of the request
-                                var streets = JSON.parse(body);
-
-                                //Filter json places using the entering variables
-                                places_filter = places.filter(el => el.street_name == textpoint);
-
-                                //Declare array with numbers
-                                const numbers = [];
-
-                                //Loop to fill the array numbers
-                                for (var i = 0; i < places_filter.length; i++) {
-                                    numbers[i] = places_filter[i].place_number;
-                                }
-
-                                //Filter the json places to get the p1
-                                var p1 = places_filter.filter(el => el.place_number < number);
-
-                                //define array numbers 1
-                                var numbers_p1 = [];
-                                var j = 0;
-
-                                //Loop to fill the array numbers
-                                for (var i = 0; i < p1.length; i++) {
-
-                                    //Check if the number is even if that so append it to the array numbers
-                                    if (number % 2 == 0) {
-                                        if (p1[i].place_number % 2 == 0) {
-                                            numbers_p1[j] = p1[i].place_number;
-                                            j++;
-                                        }
-
-                                        //Check if the number is odd if that so append it to the array numbers
-                                    } else {
-                                        if (p1[i].place_number % 2 != 0) {
-                                            numbers_p1[j] = p1[i].place_number;
-                                            j++;
-                                        }
-                                    }
-                                }
-
-                                //filter the p1
-                                p1 = p1.filter(el => el.place_number == Math.max.apply(Math, numbers_p1));
-
-                                //Filter the json places to get the p2
-                                var p2 = places_filter.filter(el => el.place_number > number);
-
-                                //define array numbers 1-
-                                var numbers_p2 = [];
-                                j = 0;
-
-                                //Loop to fill the array numbers
-                                for (var i = 0; i < p2.length; i++) {
-
-                                    //Check if the number is even if that so append it to the array numbers
-                                    if (number % 2 == 0) {
-                                        if (p2[i].place_number % 2 == 0) {
-                                            numbers_p2[j] = p2[i].place_number;
-                                            j++;
-                                        }
-
-                                    //Check if the number is odd if that so append it to the array numbers    
-                                    } else {
-                                        if (p2[i].place_number % 2 != 0) {
-                                            numbers_p2[j] = p2[i].place_number;
-                                            j++;
-                                        }
-                                    }
-                                }
-                                
-                                //Filter the p2
-                                p2 = p2.filter(el => el.place_number == Math.min.apply(Math, numbers_p2));
-                                
-                                //Results if there is no point in the searched street
-                                if (p2.length == 0 || p1.length == 0){
-                                    
-                                    //Result
-                                    results.push({
-                                        name: "Point not found",
-                                        alertMsg: "Não encontramos pontos nesse logradouro referentes ao ano buscado (" + textpoint + ", " + number + ", " + year + ")"
-                                    });
-
-                                     //Write header
-                                    head.push({
-                                        createdAt: getDateTime(),
-                                        type: 'GET'
-                                    });
-
-                                    //Push Head
-                                    head.push(results);
-
-                                    //Return the json with results
-                                    return res.json(head);
-
-                                }
-
-                                //Filter p2 again if we've geom problem
-                                if (p2[0].place_geom == p1[0].place_geom){
-
-
-                                    //Filter the json places to get the p2
-                                    let p2_num = p2[0].place_number;
-                                    p2 = places_filter.filter(el => el.place_number > number);
-                                    p2 = p2.filter(el => el.place_number > p2_num);
-
-                                    //Declare loop variables
-                                    numbers_p2 = []
-                                    let j = 0;
-
-                                    //Loop to fill the array numbers
-                                    for (let i = 0; i < p2.length; i++) {
-
-                                        //Check if the number is even if that so append it to the array numbers
-                                        if (number % 2 == 0) {
-                                            if (p2[i].place_number % 2 == 0) {
-                                                numbers_p2[j] = p2[j].place_number;
-                                                j++
-                                            }
-
-                                            //Check if the number is odd if that so append it to the array numbers
-                                        } else {
-                                            if (p2[i].place_number % 2 != 0) {
-                                                numbers_p2[j] = p2[j].place_number;
-                                                j++;
-                                            }
-                                        }
-                                    }
-
-                                    //Filter the places2 to get the min
-                                    p2 = p2.filter(el => el.place_number == Math.min.apply(Math, numbers_p2));
-
-                                }
-                                
-                                //Check if the point can be geolocated
-                                if (p2.length != 1 || p1.length != 1) {
-
-                                    //Result
-                                    results.push({
-                                        name: "Point not found",
-                                        alertMsg: "Não encontramos pontos nesse logradouro referentes ao ano buscado (" + textpoint + ", " + number + ", " + year + ")"
-                                    });
-                                
-                                //Else point can be geolocated
-                                } else {
-
-                                    //set the geometry of the P1 and P2
-                                    var p1_geom = p1[0].place_geom;
-                                    var p2_geom = p2[0].place_geom;
-
-                                    //get the startfraction
-                                    var startfraction = Locate.lineLocate(linemerge, p1_geom);
-
-                                    //get the endfraction
-                                    var endfraction = Locate.lineLocate(linemerge, p2_geom);
-
-                                    //check if end is bigger then start
-                                    if (endfraction > startfraction) {
-
-                                        //get the geom of lineSubString
-                                        var sublinestring = Create.lineSubstring(linemerge, startfraction, endfraction);
-
-                                    } else {
-
-                                        //get the geom of lineSubString
-                                        var sublinestring = Create.lineSubstring(linemerge, endfraction, startfraction);
-
-                                    }
-
-                                    //take the geom number of p1_geom
-                                    p1_geom = p1_geom.substr(p1_geom.indexOf("(") + 1);
-                                    p1_geom = p1_geom.substr(0, p1_geom.indexOf(")"));
-                                    var p1_g = p1_geom;
-
-                                    //take the geom number of p2_geom
-                                    p2_geom = p2_geom.substr(p2_geom.indexOf("(") + 1);
-                                    p2_geom = p2_geom.substr(0, p2_geom.indexOf(")"));
-                                    var p2_g = p2_geom;
-
-                                    //MULTILINESTRING Handler 
-                                    if (sublinestring == ',') {
-
-                                        //build the street geom
-                                        var geometry = ("MULTILINESTRING((" + p1_geom + "," + p2_geom + "))");
-
-                                    } else {
-
-                                        if (!sublinestring) {
-
-                                            //build the street geom
-                                            var geometry = ("MULTILINESTRING((" + p1_geom + "," + p2_geom + "))");
-
-                                        } else {
-
-                                            //build the street geom
-                                            var geometry = ("MULTILINESTRING((" + p1_geom + "," + sublinestring + p2_geom + "))");
-
-                                        }
-                                    }
-
-                                    //Get the four variable to geocode
-                                    var nl = p2[0].place_number;
-                                    var nf = p1[0].place_number;
-                                    var num = parseInt(number);
-
-                                    //Organize the Json results
-                                    results.push({
-                                        name: 'Point Extrapolated',
-                                        geom: ("POINT(" + Search.getPoint(geometry, parseInt(nf), parseInt(nl), parseInt(num)).point + ")"),
-                                        confidence: Calculate.confidenceRateCode(p1_g.split(" "), p2_g.split(" "), year)
-                                    });
-
-                                }
+                                //Result
+                                results.push({
+                                    name: "Point not found",
+                                    alertMsg: "Não encontramos pontos necessarios para a geolocalização nesse logradouro no ano buscado (" + textpoint + ", " + number + ", " + year + ")",
+                                    status: 0
+                                });
 
                                 //Write header
                                 head.push({
@@ -726,76 +511,114 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                                 //Return the json with results
                                 return res.json(head);
 
-                            //else if the point can be geolocated
-                            } else {
-                                
-                                //set the geometry of the P1 and P2
-                                var p1_geom = p1[0].place_geom;
-                                var p2_geom = p2[0].place_geom;
+                            }
 
-                                //get the startfraction
-                                var startfraction = Locate.lineLocate(linemerge, p1_geom);
+                            /*-----------------------+
+                            | Same geom problem      |
+                            +-----------------------*/
+                            if (p2[0].place_geom == p1[0].place_geom) {
 
-                                //get the endfraction
-                                var endfraction = Locate.lineLocate(linemerge, p2_geom);
+                                //Filter the json places to get the p2
+                                let new_p2 = places_filter.filter(el => el.place_number > number);
 
-                                //check if end is bigger then start
-                                if (endfraction > startfraction) {
+                                //Filter the json places to get the p2
+                                let p2_num = p2[0].place_number;
+                                new_p2 = new_p2.filter(el => el.place_number > p2_num);
 
-                                    //get the geom of lineSubString
-                                    var sublinestring = Create.lineSubstring(linemerge, startfraction, endfraction);
+                                //Declare loop variables
+                                numbers_p2 = []
+                                let j = 0;
 
-                                //Else if end is bigger then start
-                                } else {
+                                //Loop to fill the array numbers
+                                for (let i = 0; i < new_p2.length; i++) {
 
-                                    //get the geom of lineSubString
-                                    var sublinestring = Create.lineSubstring(linemerge, endfraction, startfraction);
+                                    //Check if the number is even if that so append it to the array numbers
+                                    if (number % 2 == 0) {
+                                        if (new_p2[i].place_number % 2 == 0) {
+                                            numbers_p2[j] = new_p2[i].place_number;
+                                            j++
+                                        }
 
+                                        //Check if the number is odd if that so append it to the array numbers
+                                    } else {
+                                        if (new_p2[i].place_number % 2 != 0) {
+                                            numbers_p2[j] = new_p2[i].place_number;
+                                            j++;
+                                        }
+                                    }
                                 }
 
-                                //take the geom number of p1_geom
-                                p1_geom = p1_geom.substr(p1_geom.indexOf("(") + 1);
-                                p1_geom = p1_geom.substr(0, p1_geom.indexOf(")"));
-                                var p1_g = p1_geom;
+                                //Filter the places2 to get the min
+                                p2 = new_p2.filter(el => el.place_number == Math.min.apply(Math, numbers_p2));
 
-                                //take the geom number of p2_geom
-                                p2_geom = p2_geom.substr(p2_geom.indexOf("(") + 1);
-                                p2_geom = p2_geom.substr(0, p2_geom.indexOf(")"));
-                                var p2_g = p2_geom;
-                                
-                                //MULTILINESTRING Handler 
-                                if (sublinestring == ',') {
+                            }
+
+                            //set the geometry of the P1 and P2
+                            var p1_geom = p1[0].place_geom;
+                            var p2_geom = p2[0].place_geom;
+
+                            //get the startfraction
+                            var startfraction = Locate.lineLocate(linemerge, p1_geom);
+
+                            //get the endfraction
+                            var endfraction = Locate.lineLocate(linemerge, p2_geom);
+
+                            //check if end is bigger then start
+                            if (endfraction > startfraction) {
+
+                                //get the geom of lineSubString
+                                var sublinestring = Create.lineSubstring(linemerge, startfraction, endfraction);
+
+                                //Else if end is bigger then start
+                            } else {
+
+                                //get the geom of lineSubString
+                                var sublinestring = Create.lineSubstring(linemerge, endfraction, startfraction);
+
+                            }
+
+                            //take the geom number of p1_geom
+                            p1_geom = p1_geom.substr(p1_geom.indexOf("(") + 1);
+                            p1_geom = p1_geom.substr(0, p1_geom.indexOf(")"));
+                            var p1_g = p1_geom;
+
+                            //take the geom number of p2_geom
+                            p2_geom = p2_geom.substr(p2_geom.indexOf("(") + 1);
+                            p2_geom = p2_geom.substr(0, p2_geom.indexOf(")"));
+                            var p2_g = p2_geom;
+
+                            //MULTILINESTRING Handler 
+                            if (sublinestring == ',') {
+
+                                //build the street geom
+                                var geometry = ("MULTILINESTRING((" + p1_geom + "," + p2_geom + "))");
+
+                            } else {
+                                if (!sublinestring) {
 
                                     //build the street geom
                                     var geometry = ("MULTILINESTRING((" + p1_geom + "," + p2_geom + "))");
 
                                 } else {
-                                    if (!sublinestring) {
 
-                                        //build the street geom
-                                        var geometry = ("MULTILINESTRING((" + p1_geom + "," + p2_geom + "))");
+                                    //build the street geom
+                                    var geometry = ("MULTILINESTRING((" + p1_geom + "," + sublinestring + p2_geom + "))");
 
-                                    } else {
-
-                                        //build the street geom
-                                        var geometry = ("MULTILINESTRING((" + p1_geom + "," + sublinestring + p2_geom + "))");
-
-                                    }
                                 }
-
-                                //Get the four variable to geocode
-                                var nl = p2[0].place_number;
-                                var nf = p1[0].place_number;
-                                var num = parseInt(number);
-
-                                //Organize the Json results
-                                results.push({
-                                    name: "Point Geolocated",
-                                    geom: ("POINT(" + Search.getPoint(geometry, parseInt(nf), parseInt(nl), parseInt(num)).point + ")"),
-                                    confidence: Calculate.confidenceRateCode(p1_g.split(" "), p2_g.split(" "), year)
-                                });
-
                             }
+
+                            //Get the four variable to geocode
+                            var nl = p2[0].place_number;
+                            var nf = p1[0].place_number;
+                            var num = parseInt(number);
+
+                            //Organize the Json results
+                            results.push({
+                                name: "Point Geolocated",
+                                geom: ("POINT(" + Search.getPoint(geometry, parseInt(nf), parseInt(nl), parseInt(num)).point + ")"),
+                                confidence: Calculate.confidenceRateCode(p1_g.split(" "), p2_g.split(" "), year),
+                                status: 1
+                            });
 
                             //Write header
                             head.push({
