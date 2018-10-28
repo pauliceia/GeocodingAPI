@@ -7,6 +7,7 @@
 /*--------------------------------------------------+
 | Var                                               |
 +--------------------------------------------------*/
+<<<<<<< HEAD
 var webServiceAddress = process.env.PORT ? "http://localhost:" + process.env.PORT : "http://localhost:3000";
 //var webServiceAddress = "http://pauliceia.dpi.inpe.br";
 var express = require('express');
@@ -18,6 +19,19 @@ var Create = require('../controllers/lineSubstring');
 var Match = require('../controllers/dictionary');
 var Calculate = require('../controllers/confidenceRate');
 var request = require('request');
+=======
+ //var webServiceAddress = process.env.PORT ? "http://localhost:" + process.env.PORT : "http://localhost:3000";
+ var webServiceAddress = "http://pauliceia.dpi.inpe.br";
+ var express = require('express');
+ var router = express.Router();
+ var GeoJSON = require('geojson');
+ var Search = require('../controllers/searchPoint');
+ var Locate = require('../controllers/lineLocate');
+ var Create = require('../controllers/lineSubstring');
+ var Match = require('../controllers/dictionary');
+ var Calculate = require('../controllers/confidenceRate');
+ var request = require('request');
+>>>>>>> master
 
 /*--------------------------------------------------+
 | Connection                                        |
