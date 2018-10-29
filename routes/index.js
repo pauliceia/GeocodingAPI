@@ -321,6 +321,9 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
                 places_filter = places.filter(el => el.street_name == textpoint);
 
+                places_filter = places_filter.filter(el => el.place_lastyear >= year);
+                places_filter = places_filter.filter(el => el.place_firstyear <= year);
+ 
                 places_filter.sort((a, b) => {
                     return parseInt(a.place_number) - parseInt(b.place_number)
                 })
@@ -328,7 +331,8 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                 /*-----------------------+
                 | Spatial Extrapolation  |
                 +-----------------------*/
-                if (parseInt(places_filter[places_filter.length - 1].place_number) < number) {
+                
+                if (parseFloat(places_filter[places_filter.length - 1].place_number) < number) {
 
                     places_filter = places.filter(el => el.street_name == textpoint);
                     places_filter = places_filter.filter(el => el.place_number == parseInt(places_filter[places_filter.length - 1].place_number));
@@ -441,14 +445,22 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
                                 //Check if the number is even if that so append it to the array numbers
                                 if (number % 2 == 0) {
-                                    if (p1[i].place_number % 2 == 0) {
+
+                                    let numero = ''+p1[i].place_number
+                                    numero = numero.replace(".", ",")
+
+                                    if (numero % 2 == 0) {
                                         numbers_p1[j] = p1[i].place_number;
                                         j++;
                                     }
 
                                     //Check if the number is odd if that so append it to the array numbers
                                 } else {
-                                    if (p1[i].place_number % 2 != 0) {
+
+                                    let numero = ''+p1[i].place_number
+                                    numero = numero.replace(".", ",")
+
+                                    if (numero % 2 != 0) {
                                         numbers_p1[j] = p1[i].place_number;
                                         j++;
                                     }
@@ -468,16 +480,27 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                             //Loop to fill the array numbers
                             for (var i = 0; i < p2.length; i++) {
 
+                                let numero = ''+number
+                                numero = numero.replace(".", ",")
+
                                 //Check if the number is even if that so append it to the array numbers
-                                if (number % 2 == 0) {
-                                    if (p2[i].place_number % 2 == 0) {
+                                if (numero % 2 == 0) {
+
+                                    let numero = ''+p2[i].place_number
+                                    numero = numero.replace(".", ",")
+
+                                    if (parseFloat(numero) % 2 == 0) {
                                         numbers_p2[j] = p2[i].place_number;
                                         j++;
                                     }
 
                                     //Check if the number is odd if that so append it to the array numbers
                                 } else {
-                                    if (p2[i].place_number % 2 != 0) {
+
+                                    let numero = ''+p2[i].place_number
+                                    numero = numero.replace(".", ",")
+
+                                    if (parseFloat(numero) % 2 != 0) {
                                         numbers_p2[j] = p2[i].place_number;
                                         j++;
                                     }
@@ -486,6 +509,14 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
                             //filter the p2
                             p2 = p2.filter(el => el.place_number == Math.min.apply(Math, numbers_p2));
+
+                            console.log('--- P1 ---')
+                            console.log(p1)
+                            console.log()
+
+                            console.log('--- P2 ---')
+                            console.log(p2)
+                            console.log()
 
                             /*-----------------------+
                             | Points not found       |
@@ -532,16 +563,27 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                                 //Loop to fill the array numbers
                                 for (let i = 0; i < new_p2.length; i++) {
 
+                                    let numero = ''+number
+                                    numero = numero.replace(".", ",")
+    
                                     //Check if the number is even if that so append it to the array numbers
-                                    if (number % 2 == 0) {
-                                        if (new_p2[i].place_number % 2 == 0) {
+                                    if (numero % 2 == 0) {
+
+                                        let numero = ''+new_p2[i].place_number
+                                        numero = numero.replace(".", ",")
+                                        
+                                        if (parseFloat(numero) % 2 == 0) {
                                             numbers_p2[j] = new_p2[i].place_number;
                                             j++
                                         }
 
                                         //Check if the number is odd if that so append it to the array numbers
                                     } else {
-                                        if (new_p2[i].place_number % 2 != 0) {
+
+                                        let numero = ''+new_p2[i].place_number
+                                        numero = numero.replace(".", ",")
+
+                                        if (parseFloat(numero)% 2 != 0) {
                                             numbers_p2[j] = new_p2[i].place_number;
                                             j++;
                                         }
