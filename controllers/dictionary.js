@@ -10,7 +10,8 @@ exports.dictionary = function(streetName){
         "avn":"avenida",
         "avn.":"avenida",
         "11":"onze",
-        "15":"quinze"
+        "15":"quinze",
+        "cap.":"capitao"
     }
     let words = streetName.split(' ')
     for (let word in words) {
