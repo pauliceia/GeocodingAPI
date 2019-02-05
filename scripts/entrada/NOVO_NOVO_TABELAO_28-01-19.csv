@@ -3061,7 +3061,7 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 140,140-71,70.3,Rua Pires Ramos,71,71,08/07/1937,,"Livro de Emplacamento, n.22, p.352, n.7,p.179",Cintia,26/11/2018
 140,140-71,70.3,Rua Pires Ramos,15,15,08/06/1937,08/06/1937,"Livro de Emplacamento, n.22, p.352, n.7,p.179",Cintia,26/11/2018
 140,140-119,120,Rua Pires Ramos,119,119,08/07/1937,,"Livro de Emplacamento, n.22, p.352, n.7,p.179",Cintia,26/11/2018
-140,140-119,120,Rua Pires Ramos,27B,"27,2",08/06/1937,08/06/1937,"Livro de Emplacamento, n.22, p.352, n.7,p.179",Cintia,26/11/2018
+140,140-119,120,Rua Pires Ramos,27,"27,2",08/06/1937,08/06/1937,"Livro de Emplacamento, n.22, p.352, n.7,p.179",Cintia,26/11/2018
 140,140-40,40.4,Rua Pires Ramos,40,40,08/07/1937,,"Livro de Emplacamento, n.22, p.352, n.7,p.179",Cintia,26/11/2018
 140,140-40,40.4,Rua Pires Ramos,2,2,18/03/1919,08/06/1937,"Livro de Emplacamento, n.22, p.352, n.7,p.179",Cintia,26/11/2018
 140,140-94,94,Rua Pires Ramos,94,94,08/07/1937,,"Livro de Emplacamento, n.22, p.352, n.7,p.179",Cintia,26/11/2018
@@ -3869,7 +3869,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 8,8-192,191.70,Rua Quintino Bocayuva,30,30,23/3/1909,23/3/1909,Livro de Emplacamento L8 P.23 e L27 P.125-126,Eduardo,25/01/2019
 170,135-19,19.40,rua albuquerque lins,20,20,16/10/1935,,"Livro de emplacamento 20, p. 104",Vitoria Martins,13/12/2018
 170,170-19,19.40,rua albuquerque lins,2,2,03/01/1929,15/10/1935,"Livro de emplacamento 20, p. 104; 15, p. 4",Vitoria Martins,13/12/2018
-170,170-19,19.40,rua albuquerque lins,t,t,02/01/1929,02/01/1929,"Livro de emplacamento 15, p. 4",Vitoria Martins,13/12/2018
 170,170-242,241.50,rua albuquerque lins,242,242,16/10/1935,,"Livro de emplacamento 20, p. 104",Vitoria Martins,13/12/2018
 170,170-242,241.50,rua albuquerque lins,48,48,03/01/1929,15/10/1935,"Livro de emplacamento 20, p. 104",Vitoria Martins,13/12/2018
 170,170-242,241.50,rua albuquerque lins,44,44,02/01/1929,02/01/1929,"Livro de emplacamento 15, p. 4",Vitoria Martins,13/12/2018
@@ -3958,7 +3957,7 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 189,189-375,374.40,rua barao de campinas,374,374,25/09/1935,,"Livro de emplacamento 20, p. 25",Vitoria Martins,22/01/2019
 189,189-375,374.40,rua barao de campinas,55,55,04/09/1928,24/09/1935,"Livro de emplacamento 20, p. 25; 13, p. 57",Vitoria Martins,22/01/2019
 189,189-375,374.40,rua barao de campinas,27,27,27/07/1908,03/09/1928,"Livro de emplacamento 13, p. 57; 2, p. 3",Vitoria Martins,22/01/2019
-403,403-39,38.00,rua de santo antonio,1A,1,29/11/1940,29/11/1940,"Livro de emplacamento 27, p. 347",Vitoria Martins,22/01/2019
+403,403-39,38.00,rua de santo antonio,1.1,1,29/11/1940,29/11/1940,"Livro de emplacamento 27, p. 347",Vitoria Martins,22/01/2019
 403,403-241,240.40,rua de santo antonio,241,241,30/11/1940,,"Livro de emplacamento 27, p. 347",Vitoria Martins,22/01/2019
 403,403-241,240.40,rua de santo antonio,51,51,02/08/1928,29/11/1940,"Livro de emplacamento 27, p. 347; 14, p. 91",Vitoria Martins,22/01/2019
 403,403-241,240.40,rua de santo antonio,53,53,01/08/1928,01/08/1928,"Livro de emplacamento 14, p. 91",Vitoria Martins,22/01/2019
@@ -3981,19 +3980,19 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 403,403-244,243.30,rua de santo antonio,244,244,30/11/1940,,"Livro de emplacamento 27, p. 350",Vitoria Martins,22/01/2019
 403,403-244,243.30,rua de santo antonio,58,58,02/08/1928,29/11/1940,"Livro de emplacamento 27, p. 350; 14, p. 90",Vitoria Martins,22/01/2019
 403,403-244,243.30,rua de santo antonio,52,52,04/06/1908,01/08/1928,"Livro de emplacamento 14, p. 90; 8, p. 113",Vitoria Martins,22/01/2019
-403,403-244,243.30,rua de santo antonio,40 tinta,40,03/06/1908,03/06/1908,"Livro de emplacamento 8, p. 113",Vitoria Martins,22/01/2019
+403,403-244,243.30,rua de santo antonio,40,40,03/06/1908,03/06/1908,"Livro de emplacamento 8, p. 113",Vitoria Martins,22/01/2019
 403,403-676,675.90,rua de santo antonio,676,676,30/11/1940,,"Livro de emplacamento 27, p. 351",Vitoria Martins,22/01/2019
 403,403-676,675.90,rua de santo antonio,146,146,02/08/1928,29/11/1940,"Livro de emplacamento 27, p. 351",Vitoria Martins,22/01/2019
 403,403-676,675.90,rua de santo antonio,142,142,04/06/1908,01/08/1928,"Livro de emplacamento 14, p. 90; 8, p. 113",Vitoria Martins,22/01/2019
 403,403-900,900.70,rua de santo antonio,900,900,30/11/1940,,"Livro de emplacamento 27, p. 351",Vitoria Martins,22/01/2019
 403,403-900,900.70,rua de santo antonio,210,210,02/08/1928,29/11/1940,"Livro de emplacamento 27, p. 351",Vitoria Martins,22/01/2019
-403,403-900,900.70,rua de santo antonio,202a,202,01/08/1928,01/08/1928,"Livro de emplacamento 14, p. 90",Vitoria Martins,22/01/2019
+403,403-900,900.70,rua de santo antonio,202.1,202,01/08/1928,01/08/1928,"Livro de emplacamento 14, p. 90",Vitoria Martins,22/01/2019
 403,403-1326,1325.80,rua de santo antonio,1326,1326,30/11/1940,,"Livro de emplacamento 27, p. 352",Vitoria Martins,22/01/2019
 403,403-1326,1325.80,rua de santo antonio,330,330,02/08/1928,29/11/1940,"Livro de emplacamento 27, p. 352; 14, p. 91",Vitoria Martins,22/01/2019
 403,403-1326,1325.80,rua de santo antonio,332,332,01/08/1928,01/08/1928,"Livro de emplacamento 14, p. 91",Vitoria Martins,22/01/2019
 45,45-15,14.40,avenida sao joao,15,15,05/05/1933,,"Livro de emplacamento 19, p. 40",Vitoria Martins,28/01/2019
 45,45-15,14.40,avenida sao joao,3,3,14/05/1908,04/05/1933,"Livro de emplacamento 19, p. 40; 8, p. 105",Vitoria Martins,28/01/2019
-45,45-15,14.40,avenida sao joao,1tinta,1,13/05/1908,13/05/1908,"Livro de emplacamento 8, p. 105",Vitoria Martins,28/01/2019
+45,45-15,14.40,avenida sao joao,1,1,13/05/1908,13/05/1908,"Livro de emplacamento 8, p. 105",Vitoria Martins,28/01/2019
 45,45-209,209.60,avenida sao joao,209,209,05/05/1933,,"Livro de emplacamento 19, p. 40",Vitoria Martins,28/01/2019
 45,45-209,209.60,avenida sao joao,77,77,14/05/1908,04/05/1933,"Livro de emplacamento 19, p. 40; 8, p. 105",Vitoria Martins,28/01/2019
 45,45-209,209.60,avenida sao joao,49,49,13/05/1908,13/05/1908,"Livro de emplacamento 8, p. 105",Vitoria Martins,28/01/2019
@@ -4004,7 +4003,7 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 45,45-519,519.50,avenida sao joao,167,167,14/05/1908,04/05/1933,"Livro de emplacamento 19, p. 41; 8, p. 105",Vitoria Martins,28/01/2019
 45,45-519,519.50,avenida sao joao,125,125,13/05/1908,13/05/1908,"Livro de emplacamento 8, p. 105",Vitoria Martins,28/01/2019
 45,45-881,880.40,avenida sao joao,881,881,05/05/1933,,"Livro de emplacamento 19, p. 42",Vitoria Martins,28/01/2019
-45,45-881,880.40,avenida sao joao,249A,249,01/10/1911,04/05/1933,"Livro de emplacamento 19, p. 42",Vitoria Martins,28/01/2019
+45,45-881,880.40,avenida sao joao,249.1,249,01/10/1911,04/05/1933,"Livro de emplacamento 19, p. 42",Vitoria Martins,28/01/2019
 45,45-881,880.40,avenida sao joao,233,233,14/05/1908,30/10/1911,"Livro de emplacamento 8, p 164; 8, p. 105",Vitoria Martins,28/01/2019
 45,45-881,880.40,avenida sao joao,187,187,13/05/1908,13/05/1908,"Livro de emplacamento 8, p. 105",Vitoria Martins,28/01/2019
 45,45-1183,1183.80,avenida sao joao,1183,1183,05/05/1933,,"Livro de emplacamento 19, p. 42",Vitoria Martins,28/01/2019
@@ -4019,10 +4018,10 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 45,45-16,16.30,avenida sao joao,2,2,14/05/1908,04/05/1933,"Livro de emplacamento 19, p. 44; 8, p. 99",Vitoria Martins,28/01/2019
 45,45-284,283.30,avenida sao joao,248,248,05/05/1933,,"Livro de emplacamento 19, p. 44",Vitoria Martins,28/01/2019
 45,45-284,283.30,avenida sao joao,24,24,14/05/1908,04/05/1933,"Livro de emplacamento 19, p. 44; 8, p. 99",Vitoria Martins,28/01/2019
-45,45-284,283.30,avenida sao joao,16A,16,13/05/1908,13/05/1908,"Livro de emplacamento 8, p. 99",Vitoria Martins,28/01/2019
+45,45-284,283.30,avenida sao joao,16.1,16,13/05/1908,13/05/1908,"Livro de emplacamento 8, p. 99",Vitoria Martins,28/01/2019
 45,45-508,508.00,avenida sao joao,508,508,05/05/1933,,"Livro de emplacamento 19, p. 44",Vitoria Martins,28/01/2019
 45,45-508,508.00,avenida sao joao,50,50,14/05/1908,04/05/1933,"Livro de emplacamento 19, p. 44; 8, p. 99",Vitoria Martins,28/01/2019
-45,45-508,508.00,avenida sao joao,28tinta,28,13/05/1908,13/05/1908,"Livro de emplacamento 8, p. 99",Vitoria Martins,28/01/2019
+45,45-508,508.00,avenida sao joao,28,28,13/05/1908,13/05/1908,"Livro de emplacamento 8, p. 99",Vitoria Martins,28/01/2019
 45,45-864,863.60,avenida sao joao,864,864,05/05/1933,,"Livro de emplacamento 19, p. 44",Vitoria Martins,28/01/2019
 45,45-864,863.60,avenida sao joao,134,134,01/10/1911,04/05/1933,"Livro de emplacamento 19, p. 44; 8, p. 166",Vitoria Martins,28/01/2019
 45,45-864,863.60,avenida sao joao,132,132,14/05/1908,30/09/1911,"Livro de emplacamento 8, p. 166; 8, p. 99",Vitoria Martins,28/01/2019
@@ -4042,7 +4041,7 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 395,395-179,179.00,rua saracura pequena,179,179,21/04/1944,,"Livro de emplacamento 30, p. 329",Vitoria Martins,28/01/2019
 395,395-179,179.00,rua saracura pequena,55,55,20/04/1944,20/04/1944,"Livro de emplacamento 30, p. 329",Vitoria Martins,28/01/2019
 169,169-29,28.90,rua adolpho gordo,29,29,26/10/1935,,"Livro de emplacamento 20, p. 50",Vitoria Martins,28/01/2019
-169,169-29,28.90,rua adolpho gordo,1 sob,1,19/01/1909,25/10/1935,"Livro de emplacamento 29, p. 50; 17, p. 71",Vitoria Martins,28/01/2019
+169,169-29,28.90,rua adolpho gordo,1.5,1,19/01/1909,25/10/1935,"Livro de emplacamento 29, p. 50; 17, p. 71",Vitoria Martins,28/01/2019
 169,169-139,139.90,rua adolpho gordo,139,139,26/10/1935,,"Livro de emplacamento 20, p. 50",Vitoria Martins,28/01/2019
 169,169-139,139.90,rua adolpho gordo,21,21,19/01/1909,25/10/1935,"Livro de emplacamento 20, p. 50; 1, p. 20",Vitoria Martins,28/01/2019
 169,169-139,139.90,rua adolpho gordo,41,41,18/01/1909,18/01/1909,"Livro de emplacamento 1, p. 20",Vitoria Martins,28/01/2019
