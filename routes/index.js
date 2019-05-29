@@ -7,8 +7,11 @@
 /*--------------------------------------------------+
 | Var                                               |
 +--------------------------------------------------*/
-//var webServiceAddress = process.env.PORT ? "http://localhost:" + process.env.PORT : "http://localhost:3000";
+// local
+// var webServiceAddress = process.env.PORT ? "http://localhost:" + process.env.PORT : "http://localhost:3000";
+// production
 var webServiceAddress = "http://pauliceia.dpi.inpe.br";
+
 var express = require('express');
 var router = express.Router();
 var GeoJSON = require('geojson');
