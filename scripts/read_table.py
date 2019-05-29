@@ -15,7 +15,7 @@ cur = con.cursor()
 #Dataframe Open
 df = pd.read_csv('entrada/TABELAO_28-01-19.csv')
 
-#Create new collumns
+#Create new columns
 df.loc[:,'cord'] = 'null'
 df.loc[:,'first_day'] = np.NaN
 df.loc[:,'first_month'] = np.NaN
@@ -26,11 +26,12 @@ df.loc[:,'last_year'] = np.NaN
 
 #id_dict
 id_dict = []
+
 #For loop
 for i in range(0,len(df)):
     if(df['Id_ponto'][i] in id_dict):
         sql = 'SELECT saboya_geometry('+str(int(df['id_da rua'][i]))+', '+str(df['metragem'][i])+') AS saboya_geometry;'
-        print(sql)
+        print(str(i) + ": " + sql)
         cur.execute(sql)
         recset = cur.fetchall()
         geom = str(recset).replace("[('","").replace("',)]","")
@@ -48,7 +49,7 @@ for i in range(0,len(df)):
         id_dict.append(df['Id_ponto'][i])
         j = i
         sql = 'SELECT saboya_geometry('+str(int(df['id_da rua'][i]))+', '+str(df['metragem'][i])+') AS saboya_geometry;'
-        print(sql)
+        print(str(i) + ": " + sql)
         cur.execute(sql)
         recset = cur.fetchall()
         geom = str(recset).replace("[('","").replace("',)]","")
@@ -70,7 +71,7 @@ df = df.drop(['logradouro', 'metragem','Data_final', 'Data inicial', 'Id_ponto']
 df = df.rename(columns={'id_da rua': 'id_street', 'numero': 'number', 'numero original':'original_n', 'fonte':'source', 'autor_da_alimentação':'author', 'Data':'date'})
 
 #Print
-print(df.tail())
+print("\n", df.tail())
 
 #Save df
 df.to_csv('saida/new.csv')
