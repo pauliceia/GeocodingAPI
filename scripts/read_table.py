@@ -1,3 +1,7 @@
+"""
+     1) FIRST OF ALL: REMOVE TABLE places_pilot_area2 MANUALLY FROM DATABASE
+"""
+
 #Imports
 import pandas as pd
 import numpy as np
