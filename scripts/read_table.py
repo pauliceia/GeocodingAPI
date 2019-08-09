@@ -1,5 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """
      1) FIRST OF ALL: REMOVE TABLE places_pilot_area2 MANUALLY FROM DATABASE
+     2) cd scripts
+     3) python3 read_table.py
 """
 
 #Imports
@@ -31,13 +36,20 @@ id_dict = []
 #For loop
 for i in range(0,len(df)):
     o = o + 1
+
+    # fix attributes
+    metragem = float(df['metragem'][i].replace(",", "."))
+    df['numero'][i] = str(float(str(df['numero'][i]).replace(",", ".")))
+
     if(df['Id_ponto'][i] in id_dict):
-        sql = 'SELECT saboya_geometry('+str(int(df['id_da rua'][i]))+', '+str(df['metragem'][i])+') AS saboya_geometry;'
+        sql = 'SELECT saboya_geometry('+str(int(df['id_da rua'][i]))+', '+str(metragem)+') AS saboya_geometry;'
         print(str(o) + ": " + sql)
+
         cur.execute(sql)
         recset = cur.fetchall()
         geom = str(recset).replace("[('","").replace("',)]","")
-        #print(geom)
+        # print(geom)
+
         df['cord'][i] = geom.replace("POINT","")
         if (pd.notna(df['Data inicial'][i])):
             df['first_day'][i] = df['Data inicial'][i].split('/')[0]
@@ -51,12 +63,15 @@ for i in range(0,len(df)):
     else:
         id_dict.append(df['Id_ponto'][i])
         j = i
-        sql = 'SELECT saboya_geometry('+str(int(df['id_da rua'][i]))+', '+str(df['metragem'][i])+') AS saboya_geometry;'
+
+        sql = 'SELECT saboya_geometry('+str(int(df['id_da rua'][i]))+', '+str(metragem)+') AS saboya_geometry;'
         print(str(o) + ": " + sql)
+
         cur.execute(sql)
         recset = cur.fetchall()
         geom = str(recset).replace("[('","").replace("',)]","")
-        #print(geom)
+        # print(geom)
+
         df['cord'][i] = geom.replace("POINT","")
         if (pd.notna(df['Data inicial'][i])):
             df['first_day'][i] = df['Data inicial'][i].split('/')[0]

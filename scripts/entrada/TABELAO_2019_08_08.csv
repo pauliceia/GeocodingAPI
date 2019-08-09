@@ -1800,8 +1800,8 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 167,167-43,"43,5",alameda eduardo prado,43,43,26/09/1935,,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
 167,167-43,"43,5",alameda eduardo prado,112,112,19/02/1914,25/09/1935,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
 167,167-43,"43,5",alameda eduardo prado,110,110,24/11/1911,18/02/1914,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
-167,167-165,167-165,alameda eduardo prado,165,165,26/09/1935,,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
-167,167-165,167-165,alameda eduardo prado,92,92,18/01/1909,25/09/1935,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
+167,167-165,165,alameda eduardo prado,165,165,26/09/1935,,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
+167,167-165,165,alameda eduardo prado,92,92,18/01/1909,25/09/1935,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
 167,167-461,"461,1",alameda eduardo prado,461,461,26/09/1935,,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
 167,167-461,"461,1",alameda eduardo prado,62,62,18/01/1909,25/09/1935,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
 167,167-461,"461,1",alameda eduardo prado,48,48,17/01/1909,17/01/1909,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
@@ -2824,8 +2824,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 505,505-85,"85,3",Rua Conselheiro Carrão,1,1,06/04/1908,17/02/1936,"Livro de Emplacamento, n.20, p.361; n.3, p.75; n.2, p.77",Cintia,21/11/2018
 505,505-387,"387,2",Rua Conselheiro Carrão,387,387,18/02/1936,,"Livro de Emplacamento, n.20, p.361; n.3, p.75; n.2, p.77",Cintia,21/11/2018
 505,505-387,"387,2",Rua Conselheiro Carrão,69,69,06/04/1908,17/02/1936,"Livro de Emplacamento, n.20, p.361; n.3, p.75; n.2, p.77",Cintia,21/11/2018
-505,505-613,"612,2",Rua Conselheiro Carrão,613,613,18/02/1936,,"Livro de Emplacamento, n.20, p.362; n.3, p.75; n.2, p.77",Cintia,21/11/2018
-505,505-613,"612,2",Rua Conselheiro Carrão,127,127,19/10/1922,17/02/1936,"Livro de Emplacamento, n.20, p.362; n.3, p.75; n.2, p.77",Cintia,21/11/2018
 505,505-425,"424,1",Rua Conselheiro Carrão,425,425,18/02/1936,,"Livro de Emplacamento, n.20, p.361; n.3, p.75; n.2, p.77",Cintia,21/11/2018
 505,505-425,"424,1",Rua Conselheiro Carrão,79,79,28/08/1911,17/02/1936,"Livro de Emplacamento, n.20, p.362; n.3, p.75; n.2, p.77",Cintia,21/11/2018
 505,505-425,"424,1",Rua Conselheiro Carrão,77,77,27/08/1911,27/08/1911,"Livro de Emplacamento, n.20, p.362; n.3, p.75; n.2, p.77",Cintia,21/11/2018
@@ -2843,10 +2841,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 211,211-228,"227,1",Rua Bandeirantes,50,50,06/02/1928,17/03/1937,"Livro de Emplacamento, n.22, p.57; n.13, p.57; n.2, p.55; n.2, p.13; n.1, p.98",Cintia,21/11/2018
 211,211-228,"227,1",Rua Bandeirantes,46,46,03/08/1920,06/01/1928,"Livro de Emplacamento, n.22, p.57; n.13, p.57; n.2, p.55; n.2, p.13; n.1, p.98",Cintia,21/11/2018
 211,211-228,"227,1",Rua Bandeirantes,27,27,16/10/1908,03/07/1920,"Livro de Emplacamento, n.22, p.57; n.13, p.57; n.2, p.55; n.2, p.13; n.1, p.98",Cintia,21/11/2018
-211,211-492,"492,1",Rua Bandeirantes,492,492,18/03/1937,,"Livro de Emplacamento, n.22, p.57; n.13, p.57; n.2, p.55; n.2, p.13; n.1, p.98",Cintia,21/11/2018
-211,211-492,"492,1",Rua Bandeirantes,98,98,06/02/1928,17/03/1937,"Livro de Emplacamento, n.22, p.57; n.13, p.57; n.2, p.55; n.2, p.13; n.1, p.98",Cintia,21/11/2018
-211,211-492,"492,1",Rua Bandeirantes,66,66,03/08/1920,06/01/1928,"Livro de Emplacamento, n.22, p.57; n.13, p.57; n.2, p.55; n.2, p.13; n.1, p.98",Cintia,21/11/2018
-211,211-492,"492,1",Rua Bandeirantes,5,5,16/10/1908,03/07/1920,"Livro de Emplacamento, n.22, p.57; n.13, p.57; n.2, p.55; n.2, p.13; n.1, p.98",Cintia,21/11/2018
 211,211-25,"24,1",Rua Bandeirantes,25,25,18/03/1937,,"Livro de Emplacamento, n.22, p.57; n.13, p.57; n.2, p.55; n.2, p.13; n.1, p.98",Cintia,21/11/2018
 211,211-25,"24,1",Rua Bandeirantes,1,1,03/08/1920,17/03/1937,"Livro de Emplacamento, n.22, p.57; n.13, p.57; n.2, p.55; n.2, p.13; n.1, p.98",Cintia,21/11/2018
 211,211-25,"24,1",Rua Bandeirantes,82,82,25/11/1911,03/07/1920,"Livro de Emplacamento, n.22, p.57; n.13, p.57; n.2, p.55; n.2, p.13; n.1, p.98",Cintia,21/11/2018
@@ -2994,8 +2988,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 219,219-908,"908,9",Rua Jose Paulino,908,908,13/09/1938,,"Livro de Emplamento, n.25, p.131; n.16, p.2; n.5, p.78; n.5, p.58; n.5, p.47",,
 219,219-908,"908,9",Rua Jose Paulino,246,246,21/09/1929,12/09/1938,"Livro de Emplamento, n.25, p.131; n.16, p.2; n.5, p.78; n.5, p.58; n.5, p.47",,
 219,219-908,"908,9",Rua Jose Paulino,264,264,20/09/1929,20/09/1929,"Livro de Emplamento, n.25, p.131; n.16, p.2; n.5, p.78; n.5, p.58; n.5, p.47",,
-274,274-202,"201,7",Rua das Olarias,202,202,08/01/1938,,"Livro de Emplacamento, n.25, p.77; n.7, p.78",Cintia,12/05/2018
-274,274-202,"201,7",Rua das Olarias,17,17,31/07/1938,31/07/1938,"Livro de Emplacamento, n.25, p.77; n.7, p.78",Cintia,12/05/2018
 114,114-79,"79,9",Rua Barata Ribeiro,79,79,05/11/1940,,"Livro de Emplacamento, n.27, p.92; n.11, p.41; n.2, p.36",Cintia,12/05/2018
 114,114-79,"79,9",Rua Barata Ribeiro,9,9,29/11/1927,05/10/1940,"Livro de Emplacamento, n.27, p.92; n.11, p.41; n.2, p.36",Cintia,12/05/2018
 114,114-105,105,Rua Barata Ribeiro,105,105,05/11/1940,,"Livro de Emplacamento, n.27, p.92; n.11, p.41; n.2, p.36",Cintia,12/05/2018
@@ -3142,9 +3134,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 72,72-149,"148,6",Rua Quirino de Andrade,149,149,09/06/1936,,"Livro de Emplacamento, n.21, p.225; n.17, p.99",Cintia,21/01/2018
 72,72-149,"148,6",Rua Quirino de Andrade,25,25,27/09/1930,09/05/1936,"Livro de Emplacamento, n.21, p.225; n.17, p.99",Cintia,21/01/2018
 72,72-149,"148,6",Rua Quirino de Andrade,"45,1",45A,26/09/1930,26/09/1930,"Livro de Emplacamento, n.21, p.225; n.17, p.99",Cintia,21/01/2018
-72,72-243,"242,5",Rua Quirino de Andrade,243,243,09/06/1936,,"Livro de Emplacamento, n.21, p.225; n.17, p.99",Cintia,21/01/2018
-72,72-243,"242,5",Rua Quirino de Andrade,57,57,27/09/1930,09/05/1936,"Livro de Emplacamento, n.21, p.225; n.17, p.99",Cintia,21/01/2018
-72,72-243,"242,5",Rua Quirino de Andrade,75,75,26/09/1930,26/09/1930,"Livro de Emplacamento, n.21, p.225; n.17, p.99",Cintia,21/01/2018
 71,71-47,"46,1",Rua Coronel Xavier de Toledo,47,47,28/12/1938,,"Livro de Emplacamento, n.26, p.31; n.10, p.70; n.10, p.66",Cintia,21/01/2018
 71,71-47,"46,1",Rua Coronel Xavier de Toledo,3,3,19/02/1909,27/12/1938,"Livro de Emplacamento, n.26, p.31; n.10, p.70; n.10, p.66",Cintia,21/01/2018
 71,71-101,"101,8",Rua Coronel Xavier de Toledo,101,101,28/12/1938,,"Livro de Emplacamento, n.26, p.31; n.10, p.70; n.10, p.66",Cintia,21/01/2018
@@ -3493,8 +3482,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 21,21-556,"556,9",rua de sao bento,88,88 e/t,12/01/1910,12/03/1928,"Livros de emplacamento 12-1-1910 - L8, p.151; 27-6-1924 - L9, p.54; 13-3-1928 - L14, p.88 e 89; 02/10/1936 - L. 21, p. 301-304",Luanna,15/12/2018
 194,194-10,"10,1",rua dos italianos,10,10,20/05/1937,,"Livros de emplacamento 24-5-1908 - L5, p.19; 4-2-1915 - L5, p.27; 20-5-1937 - L22, p.217 a 222",Luanna,15/12/2018
 194,194-10,"10,1",rua dos italianos,2,2,24/05/1908,19/05/1937,"Livros de emplacamento 24-5-1908 - L5, p.19; 4-2-1915 - L5, p.27; 20-5-1937 - L22, p.217 a 222",Luanna,15/12/2018
-194,194-220,"219,1",rua dos italianos,234,234,24/05/1908,19/05/1937,"Livros de emplacamento 24-5-1908 - L5, p.19; 4-2-1915 - L5, p.27; 20-5-1937 - L22, p.217 a 222",Luanna,15/12/2018
-194,194-220,"219,1",rua dos italianos,1304,1304,20/05/1937,,"Livros de emplacamento 24-5-1908 - L5, p.19; 4-2-1915 - L5, p.27; 20-5-1937 - L22, p.217 a 222",Luanna,15/12/2018
 194,194-25,"25,1",rua dos italianos,25,25,20/05/1937,,"Livros de emplacamento 24-5-1908 - L5, p.19; 4-2-1915 - L5, p.27; 20-5-1937 - L22, p.217 a 222",Luanna,15/12/2018
 194,194-25,"25,1",rua dos italianos,1,1,24/05/1908,19/05/1937,"Livros de emplacamento 24-5-1908 - L5, p.19; 4-2-1915 - L5, p.27; 20-5-1937 - L22, p.217 a 222",Luanna,15/12/2018
 194,194-123,"123,1",rua dos italianos,801,801,20/05/1937,,"Livros de emplacamento 24-5-1908 - L5, p.19; 4-2-1915 - L5, p.27; 20-5-1937 - L22, p.217 a 222",Luanna,15/12/2018
@@ -3645,16 +3632,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 8,8-192,"191,7",Rua Quintino Bocayuva,192,192,5/1/1940,,Livro de Emplacamento L8 P.23 e L27 P.125-126,Eduardo,25/01/2019
 8,8-192,"191,7",Rua Quintino Bocayuva,60,60,24/3/1909,4/6/1940,Livro de Emplacamento L8 P.23 e L27 P.125-126,Eduardo,25/01/2019
 8,8-192,"191,7",Rua Quintino Bocayuva,30,30,23/3/1909,23/3/1909,Livro de Emplacamento L8 P.23 e L27 P.125-126,Eduardo,25/01/2019
-424,424-45,"45,7",Rua jaceguay,45,45,18/7/1935,,"Livro de Emplacamento L5 P.46, L5 P.59, L19 P.327-329",Eduardo,25/01/2019
-424,424-45,"45,7",Rua jaceguay,1,1,20/11/1908,17/7/1935,"Livro de Emplacamento L5 P.46, L5 P.59, L19 P.327-329",Eduardo,25/01/2019
-424,424-45,"45,7",Rua jaceguay,1,1,19/11/1908,19/11/1908,"Livro de Emplacamento L5 P.46, L5 P.59, L19 P.327-329",Eduardo,25/01/2019
-424,424-75,"75,5",Rua jaceguay,75,75,18/7/1935,,"Livro de Emplacamento L5 P.46, L5 P.59, L19 P.327-329",Eduardo,25/01/2019
-424,424-75,"75,5",Rua jaceguay,9,9,2/6/1921,17/7/1935,"Livro de Emplacamento L5 P.46, L5 P.59, L19 P.327-329",Eduardo,25/01/2019
-424,424-75,"75,5",Rua jaceguay,3,3,20/11/1908,1/6/1921,"Livro de Emplacamento L5 P.46, L5 P.59, L19 P.327-329",Eduardo,25/01/2019
-424,424-75,"75,5",Rua jaceguay,3,3,19/11/1908,19/11/1908,"Livro de Emplacamento L5 P.46, L5 P.59, L19 P.327-329",Eduardo,25/01/2019
-424,424-243,243,Rua jaceguay,243,243,18/7/1935,,"Livro de Emplacamento L5 P.46, L5 P.59, L19 P.327-329",Eduardo,25/01/2019
-424,424-243,243,Rua jaceguay,66,66,28/3/1911,17/7/1935,"Livro de Emplacamento L5 P.46, L5 P.59, L19 P.327-329",Eduardo,25/01/2019
-424,424-243,243,Rua jaceguay,60,60,20/11/1908,27/3/1911,"Livro de Emplacamento L5 P.46, L5 P.59, L19 P.327-329",Eduardo,25/01/2019
 107,107-45,45,rua itambe,45,45,14/11/1935,,"Livro de emplacamento 20, p. 186",Vitoria Martins,27/10/2018
 107,107-45,45,rua itambe,1,1,13/11/1935,13/11/1935,"Livro de emplacamento 20, p. 186",Vitoria Martins,27/10/2018
 107,107-321,"320,8",rua itambe,321,321,14/11/1935,,"Livro de emplacamento 20, p. 186",Vitoria Martins,27/10/2018
@@ -3975,18 +3952,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 215,215-214,213,Avenida Tiradentes,20,20,05/02/1908,10/10/1940,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,143",Vitoria Martins,16/07/2019
 215,215-440,"439,5",Avenida Tiradentes,440,440,11/10/1940,,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,144",Vitoria Martins,16/07/2019
 215,215-440,"439,5",Avenida Tiradentes,60,60,05/02/1908,10/10/1940,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,145",Vitoria Martins,16/07/2019
-215,215-890,"890,6",Avenida Tiradentes,890,890,11/10/1940,,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,146",Vitoria Martins,16/07/2019
-215,215-890,"890,6",Avenida Tiradentes,98,98,06/05/1917,10/10/1940,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,147",Vitoria Martins,16/07/2019
-215,215-890,"890,6",Avenida Tiradentes,100,100,05/02/1908,05/05/1917,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,148",Vitoria Martins,16/07/2019
-215,215-890,"890,6",Avenida Tiradentes,94,94,04/02/1908,04/02/1908,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,149",Vitoria Martins,16/07/2019
-215,215-1338,"1337,1",Avenida Tiradentes,1338,1338,11/10/1940,,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,150",Vitoria Martins,16/07/2019
-215,215-1338,"1337,1",Avenida Tiradentes,182,182,06/05/1917,10/10/1940,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,151",Vitoria Martins,16/07/2019
-215,215-1338,"1337,1",Avenida Tiradentes,190,190,05/02/1908,05/05/1917,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,152",Vitoria Martins,16/07/2019
-215,215-1338,"1337,1",Avenida Tiradentes,182,182,05/02/1908,04/05/1908,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,153",Vitoria Martins,16/07/2019
-215,215-1566,"1567,3",Avenida Tiradentes,1566,1566,11/10/1940,,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,154",Vitoria Martins,16/07/2019
-215,215-1566,"1567,3",Avenida Tiradentes,256,256,06/05/1917,10/10/1940,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,155",Vitoria Martins,16/07/2019
-215,215-1566,"1567,3",Avenida Tiradentes,264,264,05/02/1908,05/05/1917,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,156",Vitoria Martins,16/07/2019
-215,215-1566,"1567,3",Avenida Tiradentes,250,250,04/05/1908,04/05/1908,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,157",Vitoria Martins,16/07/2019
 215,215-141,141,Avenida Tiradentes,141,141,11/10/1940,,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,158",Vitoria Martins,16/07/2019
 215,215-141,141,Avenida Tiradentes,1,1,10/10/1940,10/10/1940,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,159",Vitoria Martins,16/07/2019
 215,215-273,273,Avenida Tiradentes,273,273,11/10/1940,,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,160",Vitoria Martins,16/07/2019
@@ -3994,11 +3959,3 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 215,215-679,"679,4",Avenida Tiradentes,679,679,11/10/1940,,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,162",Vitoria Martins,16/07/2019
 215,215-679,"679,4",Avenida Tiradentes,9,9,05/02/1908,10/10/1940,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,163",Vitoria Martins,16/07/2019
 215,215-679,"679,4",Avenida Tiradentes,3,3,,04/05/1908,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,164",Vitoria Martins,16/07/2019
-215,215-939,"939,4",Avenida Tiradentes,939,939,11/10/1940,,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,165",Vitoria Martins,16/07/2019
-215,215-939,"939,4",Avenida Tiradentes,33,33,,10/10/1940,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,166",Vitoria Martins,16/07/2019
-215,215-1375,1375,Avenida Tiradentes,1375,1375,11/10/1940,,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,167",Vitoria Martins,16/07/2019
-215,215-1375,1375,Avenida Tiradentes,91,91,05/02/1908,10/10/1940,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,168",Vitoria Martins,16/07/2019
-215,215-1375,1375,Avenida Tiradentes,75,75,,04/05/1908,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,169",Vitoria Martins,16/07/2019
-215,215-1555,"1555,1",Avenida Tiradentes,1555,1555,11/10/1940,,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,170",Vitoria Martins,16/07/2019
-215,215-1555,"1555,1",Avenida Tiradentes,"157,1",157D,05/02/1908,10/10/1940,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,171",Vitoria Martins,16/07/2019
-215,215-1555,"1555,1",Avenida Tiradentes,137,137,,04/05/1908,"Livro de Emplacamento, n.27, p.305, 306, 307,308,309,310; n.12, p.142; n.9, p.84,85,86,172",Vitoria Martins,16/07/2019
