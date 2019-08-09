@@ -9,11 +9,11 @@ import psycopg2
 from sqlalchemy import create_engine
 
 #Postgres connection
-con = psycopg2.connect(host="localhost",database="db_pauliceia", user="postgres", password="teste")
+con = psycopg2.connect(host="localhost",database="pauliceia", user="postgres", password="postgres")
 cur = con.cursor()
 
 #Dataframe Open
-df = pd.read_csv('entrada/TABELAO_2019_05_10.csv')
+df = pd.read_csv('entrada/TABELAO_2019_08_08.csv')
 o = 0
 
 #Create new columns
@@ -83,7 +83,7 @@ df.to_csv('saida/new.csv')
 
 #Create con
 engine = create_engine(
-    'postgresql+psycopg2://postgres:teste@localhost:5432/db_pauliceia'
+    'postgresql+psycopg2://postgres:postgres@localhost:5432/pauliceia'
 )
 
 #Run SQL
