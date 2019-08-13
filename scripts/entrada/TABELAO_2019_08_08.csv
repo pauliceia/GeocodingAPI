@@ -2377,7 +2377,7 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 174,174-290,"289,1",rua apa,290,290,15/01/1936,,"Livro de emplacamento 20, p. 305",Vitoria Martins,13/10/2018
 174,174-290,"289,1",rua apa,1,1,11/05/1909,14/01/1936,"Livro de emplacamento 20, p. 305; Livro de emplacamento 1, p. 17",Vitoria Martins,13/10/2018
 174,174-5,5,rua apa,5,5,15/01/1936,,"Livro de emplacamento 20, p. 304",Vitoria Martins,13/10/2018
-174,174-5,5,rua apa,,,14/01/1936,14/01/1936,"Livro de emplacamento 20, p. 304",Vitoria Martins,13/10/2018
+174,174-5,5,rua apa,5,,14/01/1936,14/01/1936,"Livro de emplacamento 20, p. 304",Vitoria Martins,13/10/2018
 174,174-31,"30,9",rua apa,31,31,15/01/1936,,"Livro de emplacamento 20, p. 304",Vitoria Martins,13/10/2018
 174,174-31,"30,9",rua apa,34,34,30/12/1927,14/01/1936,"Livro de emplacamento 20, p. 304",Vitoria Martins,13/10/2018
 174,174-31,"30,9",rua apa,40,40,29/12/1927,29/12/1927,"Livro de emplacamento 11, p. 20",Vitoria Martins,13/10/2018
@@ -3884,7 +3884,7 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 257,257-58,"427,5",rua carnot,116,116,23/04/1929,16/05/1937,"Livro de emplacamento 22, p. 176; 22, p. 174",Vitoria Martins,02/03/2019
 257,257-58,"427,5",rua carnot,108,108,22/04/1929,22/04/1929,"Livro de emplacamento 22, p. 176; 22, p. 174",Vitoria Martins,02/03/2019
 305,305-16,"16,8",rua washington luis,16,16,03/02/1938,,"Livro de emplacamento 20, p. 207",Vitoria Martins,02/03/2019
-305,305-16,"16,8",rua washington luis,,2,13/08/1927,02/02/1938,"Livro de emplacamento 20, p. 207; 11, p. 193",Vitoria Martins,02/03/2019
+305,305-16,"16,8",rua washington luis,16,2,13/08/1927,02/02/1938,"Livro de emplacamento 20, p. 207; 11, p. 193",Vitoria Martins,02/03/2019
 305,305-242,"241,5",rua washington luis,242,242,03/02/1938,,"Livro de emplacamento 24, p. 207",Vitoria Martins,02/03/2019
 305,305-242,"241,5",rua washington luis,24,24,13/08/1927,02/02/1938,"Livro de emplacamento 20, p. 207; 11, p. 193",Vitoria Martins,02/03/2019
 305,305-242,"241,5",rua washington luis,32,32,23/10/1922,12/08/1927,"Livro de emplacamento 11, p. 193; 10, p.64",Vitoria Martins,02/03/2019
