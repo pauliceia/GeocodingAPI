@@ -2,9 +2,11 @@
 # -*- coding: utf-8 -*-
 
 """
-     1) FIRST OF ALL: REMOVE TABLE places_pilot_area2 MANUALLY FROM DATABASE
-     2) cd scripts
-     3) python3 read_table.py
+     1) FIRST OF ALL: REMOVE the table 'places_pilot_area2' MANUALLY in the database.
+     2) Update the PL/SQL contained inside plpgsql.sql file.
+     3) Run the script:
+        cd scripts
+        python3 read_table.py
 """
 
 #Imports
