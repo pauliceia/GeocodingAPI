@@ -291,10 +291,10 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
             let id_street = places_filter[0].id_street;
 
-            places_filter = places_filter.filter(el => el.place_lastyear >= year);
             places_filter = places_filter.filter(el => el.place_firstyear <= year);
+            places_filter = places_filter.filter(el => el.place_lastyear >= year);
             places_filter = places_filter.filter(el => el.place_number == number);
-            
+
             /*--------------------+
             | Geolocation         |
             +--------------------*/
@@ -326,45 +326,42 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
                 places_filter = places_filter.filter(el => el.place_lastyear >= year);
                 places_filter = places_filter.filter(el => el.place_firstyear <= year);
-
+ 
                 places_filter.sort((a, b) => {
                     return parseInt(a.place_number) - parseInt(b.place_number)
                 })
 
-                if (places_filter.length > 1){
+                /*-----------------------+
+                | Spatial Extrapolation  |
+                +-----------------------*/
+                
+                if (parseFloat(places_filter[places_filter.length - 1].place_number) < number) {
 
-                    /*-----------------------+
-                    | Spatial Extrapolation  |
-                    +-----------------------*/
-                    
-                    if (parseFloat(places_filter[places_filter.length - 1].place_number) < number) {
+                    places_filter = places.filter(el => el.street_name == textpoint);
+                    places_filter = places_filter.filter(el => el.place_number == parseInt(places_filter[places_filter.length - 1].place_number));
 
-                        places_filter = places.filter(el => el.street_name == textpoint);
-                        places_filter = places_filter.filter(el => el.place_number == parseInt(places_filter[places_filter.length - 1].place_number));
+                    //Check if only one result was found
+                    if (places_filter.length == 1 && places_filter[0].place_number > 0) {
 
-                        //Check if only one result was found
-                        if (places_filter.length == 1 && places_filter[0].place_number > 0) {
+                        //Organize the Json results
+                        results.push({
+                            name: 'Point Spatial Extrapolated',
+                            geom: places_filter[0].place_geom,
+                            confidence: 0,
+                            status: 1
+                        });
 
-                            //Organize the Json results
-                            results.push({
-                                name: 'Point Spatial Extrapolated',
-                                geom: places_filter[0].place_geom,
-                                confidence: 0,
-                                status: 1
-                            });
+                        //Write header
+                        head.push({
+                            createdAt: getDateTime(),
+                            type: 'GET'
+                        });
 
-                            //Write header
-                            head.push({
-                                createdAt: getDateTime(),
-                                type: 'GET'
-                            });
+                        //Push Head
+                        head.push(results);
 
-                            //Push Head
-                            head.push(results);
-
-                            //Return the json with results
-                            return res.json(head);
-                        }
+                        //Return the json with results
+                        return res.json(head);
                     }
                 }
 
@@ -381,7 +378,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
                         //Organize the Json results
                         results.push({
-                            name: "Point Geolocated",
+                            name: "Point Geolocated S",
                             geom: row.saboya_geometry,
                             confidence: 0.9,
                             status: 1
@@ -515,6 +512,14 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
                             //filter the p2
                             p2 = p2.filter(el => el.place_number == Math.min.apply(Math, numbers_p2));
+
+                            console.log('--- P1 ---')
+                            console.log(p1)
+                            console.log()
+
+                            console.log('--- P2 ---')
+                            console.log(p2)
+                            console.log()
 
                             /*-----------------------+
                             | Points not found       |
