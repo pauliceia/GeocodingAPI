@@ -140,7 +140,7 @@ router.get('/places', (req, res, next) => {
         }
 
         //Build the SQL Query
-        const SQL_Query_Select_List = "select a.id as places_id, a.id_street, unaccent(b.name) as name_s, a.number::float, a.first_year::integer as firstyear, a.last_year::integer as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area2 as a on a.id_street::integer = b.id::integer union select a.id as places_id, a.id_street, b.name as name_s, a.number::float, a.first_year::integer as firstyear, a.last_year::integer as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area as a on a.id_street::integer = b.id::integer where a.number::float = 0.0 order by number;";
+        const SQL_Query_Select_List = "select a.id as places_id, a.id_street, b.name as name_s, a.number::float, a.first_year::integer as firstyear, a.last_year::integer as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area2 as a on a.id_street::integer = b.id::integer union select a.id as places_id, a.id_street, b.name as name_s, a.number::float, a.first_year::integer as firstyear, a.last_year::integer as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area as a on a.id_street::integer = b.id::integer where a.number::float = 0.0 order by number;";
         //const SQL_Query_Select_List = "select b.id, b.name as name_s, a.name as name_p, a.number, a.first_year as firstyear, a.last_year as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area2 as a on a.id_street = b.id where a.first_year >= 1 and a.last_year >= 1 order by number;";
 
         //Execute SQL Query
@@ -148,7 +148,19 @@ router.get('/places', (req, res, next) => {
 
         //Push Results
         query.on('row', (row) => {
-            if (!row.firstyear) {
+            if (!row.firstyear && !row.lastyear) {
+             results.push({
+                    places_id: row.places_id,
+                    id_street: row.id_street,
+                    street_name: row.name_s,
+                    place_name: '',
+                    place_number: row.number,
+                    place_firstyear: row.firstyear,
+                    place_lastyear: row.lastyear,
+                    place_geom: row.geom
+                });
+            }
+            else if (!row.firstyear){
                 results.push({
                     places_id: row.places_id,
                     id_street: row.id_street,
@@ -159,7 +171,8 @@ router.get('/places', (req, res, next) => {
                     place_lastyear: row.lastyear,
                     place_geom: row.geom
                 });
-            } else {
+            } 
+            else {
                 results.push({
                     places_id: row.places_id,
                     id_street: row.id_street,
