@@ -2,11 +2,13 @@
 # -*- coding: utf-8 -*-
 
 """
-     1) FIRST OF ALL: REMOVE the table 'places_pilot_area2' MANUALLY in the database.
-     2) Update the PL/SQL contained inside plpgsql.sql file.
-     3) Run the script:
+    1) FIRST OF ALL: REMOVE the table 'places_pilot_area2' MANUALLY in the database.
+    2) Update the PL/SQL contained inside plpgsql.sql file.
+    3) Run the script:
         cd scripts
         python3 read_table.py
+    4) Backup the generated 'places_pilot_area2' table from 'pauliceia' database on localhost and
+    restore it in the 'pauliceia' database on the server.
 """
 
 #Imports
@@ -57,7 +59,7 @@ for i in range(0,len(df)):
             df['first_day'][i] = df['Data inicial'][i].split('/')[0]
             df['first_month'][i] = df['Data inicial'][i].split('/')[1]
             df['first_year'][i] = df['Data inicial'][i].split('/')[2]
-        if (pd.notna(df['Data_final'][i])):        
+        if (pd.notna(df['Data_final'][i])):
             df['last_day'][i] = df['Data inicial'][j].split('/')[0]
             df['last_month'][i] = df['Data inicial'][j].split('/')[1]
             df['last_year'][i] = int(df['Data inicial'][j].split('/')[2]) - 1
@@ -79,7 +81,7 @@ for i in range(0,len(df)):
             df['first_day'][i] = df['Data inicial'][i].split('/')[0]
             df['first_month'][i] = df['Data inicial'][i].split('/')[1]
             df['first_year'][i] = df['Data inicial'][i].split('/')[2]
-        if (pd.notna(df['Data_final'][i])):        
+        if (pd.notna(df['Data_final'][i])):
             df['last_day'][i] = df['Data_final'][i].split('/')[0]
             df['last_month'][i] = df['Data_final'][i].split('/')[1]
             df['last_year'][i] = df['Data_final'][i].split('/')[2]
@@ -115,7 +117,7 @@ statement = "ALTER TABLE public.places_pilot_area2 DROP COLUMN cord;"
 engine.execute(statement)
 statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN index TYPE integer;"
 engine.execute(statement)
-statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN id_street TYPE integer;" 
+statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN id_street TYPE integer;"
 engine.execute(statement)
 statement = "ALTER TABLE public.places_pilot_area2 ALTER COLUMN number TYPE float USING number::double precision;"
 engine.execute(statement)
