@@ -2,13 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-    1) FIRST OF ALL: REMOVE the table 'places_pilot_area2' MANUALLY in the database.
-    2) Update the PL/SQL contained inside plpgsql.sql file.
-    3) Run the script:
+    1) Update the PL/SQL contained inside plpgsql.sql file.
+    2) Run the script:
         cd scripts
         python3 read_table.py
-    4) Backup the generated 'places_pilot_area2' table from 'pauliceia' database on localhost and
-    restore it in the 'pauliceia' database on the server.
+    3) Backup the generated 'places_pilot_area2' table from 'pauliceia' database on localhost and
+        restore it in the 'pauliceia' database on the server.
 """
 
 #Imports
@@ -18,11 +17,21 @@ import psycopg2
 from sqlalchemy import create_engine
 
 #Postgres connection
-con = psycopg2.connect(host="localhost",database="pauliceia", user="postgres", password="postgres")
+con = psycopg2.connect(host="localhost",database="pauliceia", user="postgres", password="postgres", port=15432)
 cur = con.cursor()
 
+#Create engine
+engine = create_engine(
+    'postgresql+psycopg2://postgres:postgres@localhost:15432/pauliceia'
+)
+
+# drop the table public.places_pilot_area2, if it exists, in order to create it again
+engine.execute('DROP TABLE IF EXISTS public.places_pilot_area2;')
+
+print('Table public.places_pilot_area2 was removed.\n')
+
 #Dataframe Open
-df = pd.read_csv('entrada/TABELAO_2019_08_08.csv')
+df = pd.read_csv('entrada/TABELAO_2019_12_11.csv')
 o = 0
 
 #Create new columns
@@ -38,7 +47,7 @@ df.loc[:,'last_year'] = np.NaN
 id_dict = []
 
 #For loop
-for i in range(0,len(df)):
+for i in range(0, len(df)):
     o = o + 1
 
     # fix attributes
@@ -97,15 +106,10 @@ df = df[df.cord != '[(None,)]']
 #Print
 print("\n", df.tail())
 
-#Save df
+#Save df in the CSV file
 df.to_csv('saida/new.csv')
 
-#Create con
-engine = create_engine(
-    'postgresql+psycopg2://postgres:postgres@localhost:5432/pauliceia'
-)
-
-#Run SQL
+#Run SQL commands in order to fix the table
 df.to_sql('places_pilot_area2', con=engine, schema='public')
 
 #Fix database

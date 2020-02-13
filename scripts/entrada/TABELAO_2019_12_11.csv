@@ -1804,8 +1804,8 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 167,167-43,"43,5",alameda eduardo prado,43,43,26/09/1935,,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
 167,167-43,"43,5",alameda eduardo prado,112,112,19/02/1914,25/09/1935,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
 167,167-43,"43,5",alameda eduardo prado,110,110,24/11/1911,18/02/1914,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
-167,167-165,167-165,alameda eduardo prado,165,165,26/09/1935,,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
-167,167-165,167-165,alameda eduardo prado,92,92,18/01/1909,25/09/1935,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
+167,167-165,165,alameda eduardo prado,165,165,26/09/1935,,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
+167,167-165,165,alameda eduardo prado,92,92,18/01/1909,25/09/1935,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
 167,167-461,"461,1",alameda eduardo prado,461,461,26/09/1935,,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
 167,167-461,"461,1",alameda eduardo prado,62,62,18/01/1909,25/09/1935,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
 167,167-461,"461,1",alameda eduardo prado,48,48,17/01/1909,17/01/1909,"Livro de emplacamento 4, p.20; p.24, p.25; L20, p.52",Luanna,15/10/2018
@@ -2382,7 +2382,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 174,174-290,"289,1",rua apa,290,290,15/01/1936,,"Livro de emplacamento 20, p. 305",Vitoria Martins,13/10/2018
 174,174-290,"289,1",rua apa,1,1,05/11/1909,14/01/1936,"Livro de emplacamento 20, p. 305; Livro de emplacamento 1, p. 17",Vitoria Martins,13/10/2018
 174,174-5,5,rua apa,5,5,15/01/1936,,"Livro de emplacamento 20, p. 304",Vitoria Martins,13/10/2018
-174,174-5,5,rua apa,,,14/01/1936,14/01/1936,"Livro de emplacamento 20, p. 304",Vitoria Martins,13/10/2018
 174,174-31,"30,9",rua apa,31,31,15/01/1936,,"Livro de emplacamento 20, p. 304",Vitoria Martins,13/10/2018
 174,174-31,"30,9",rua apa,34,34,30/12/1927,14/01/1936,"Livro de emplacamento 20, p. 304",Vitoria Martins,13/10/2018
 174,174-31,"30,9",rua apa,40,40,29/12/1927,29/12/1927,"Livro de emplacamento 11, p. 20",Vitoria Martins,13/10/2018
@@ -2829,8 +2828,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 505,505-85,"85,3",Rua Conselheiro Carrão,1,1,04/06/1908,17/02/1936,"Livro de Emplacamento, n.20, p.361; n.3, p.75; n.2, p.77",Cintia,21/11/2018
 505,505-387,"387,2",Rua Conselheiro Carrão,387,387,18/02/1936,,"Livro de Emplacamento, n.20, p.361; n.3, p.75; n.2, p.77",Cintia,21/11/2018
 505,505-387,"387,2",Rua Conselheiro Carrão,69,69,04/06/1908,17/02/1936,"Livro de Emplacamento, n.20, p.361; n.3, p.75; n.2, p.77",Cintia,21/11/2018
-505,505-613,"612,2",Rua Conselheiro Carrão,613,613,18/02/1936,,"Livro de Emplacamento, n.20, p.362; n.3, p.75; n.2, p.77",Cintia,21/11/2018
-505,505-613,"612,2",Rua Conselheiro Carrão,127,127,19/10/1922,17/02/1936,"Livro de Emplacamento, n.20, p.362; n.3, p.75; n.2, p.77",Cintia,21/11/2018
 505,505-425,"424,1",Rua Conselheiro Carrão,425,425,18/02/1936,,"Livro de Emplacamento, n.20, p.361; n.3, p.75; n.2, p.77",Cintia,21/11/2018
 505,505-425,"424,1",Rua Conselheiro Carrão,79,79,28/08/1911,17/02/1936,"Livro de Emplacamento, n.20, p.362; n.3, p.75; n.2, p.77",Cintia,21/11/2018
 505,505-425,"424,1",Rua Conselheiro Carrão,77,77,27/08/1911,27/08/1911,"Livro de Emplacamento, n.20, p.362; n.3, p.75; n.2, p.77",Cintia,21/11/2018
@@ -3147,9 +3144,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 72,72-149,"148,6",Rua Quirino de Andrade,149,149,06/09/1936,,"Livro de Emplacamento, n.21, p.225; n.17, p.99",Cintia,21/01/2018
 72,72-149,"148,6",Rua Quirino de Andrade,25,25,27/09/1930,05/09/1936,"Livro de Emplacamento, n.21, p.225; n.17, p.99",Cintia,21/01/2018
 72,72-149,"148,6",Rua Quirino de Andrade,"45,1",45A,26/09/1930,26/09/1930,"Livro de Emplacamento, n.21, p.225; n.17, p.99",Cintia,21/01/2018
-72,72-243,"242,5",Rua Quirino de Andrade,243,243,06/09/1936,,"Livro de Emplacamento, n.21, p.225; n.17, p.99",Cintia,21/01/2018
-72,72-243,"242,5",Rua Quirino de Andrade,57,57,27/09/1930,05/09/1936,"Livro de Emplacamento, n.21, p.225; n.17, p.99",Cintia,21/01/2018
-72,72-243,"242,5",Rua Quirino de Andrade,75,75,26/09/1930,26/09/1930,"Livro de Emplacamento, n.21, p.225; n.17, p.99",Cintia,21/01/2018
 71,71-47,"46,1",Rua Coronel Xavier de Toledo,47,47,28/12/1938,,"Livro de Emplacamento, n.26, p.31; n.10, p.70; n.10, p.66",Cintia,21/01/2018
 71,71-47,"46,1",Rua Coronel Xavier de Toledo,3,3,19/02/1909,27/12/1938,"Livro de Emplacamento, n.26, p.31; n.10, p.70; n.10, p.66",Cintia,21/01/2018
 71,71-101,"101,8",Rua Coronel Xavier de Toledo,101,101,28/12/1938,,"Livro de Emplacamento, n.26, p.31; n.10, p.70; n.10, p.66",Cintia,21/01/2018
@@ -3760,7 +3754,7 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 297,297-165,"165,1",rua canuto do val,25,25,19/12/1929,23/12/1935,"Livro de emplacamento 20, p. 252; 16, p. 57",Vitoria Martins,19/12/2018
 297,297-165,"165,1",rua canuto do val,15,15,01/03/1928,18/12/1929,"Livro de emplacamento 16, p.57",Vitoria Martins,19/12/2018
 297,297-165,"165,1",rua canuto do val,39,39,01/02/1928,01/02/1928,"Livro de emplacamento 13, p. 72",Vitoria Martins,19/12/2018
-297,297-245,244,rua canuto do val,245,245,24/12/1935, ,"Livro de emplacamento 20, p. 252",Vitoria Martins,19/12/2018
+297,297-245,244,rua canuto do val,245,245,24/12/1935,,"Livro de emplacamento 20, p. 252",Vitoria Martins,19/12/2018
 297,297-245,244,rua canuto do val,35,35,19/12/1929,23/12/1935,"Livro de emplacamento 20, p. 252; 16, p. 57",Vitoria Martins,19/12/2018
 297,297-245,244,rua canuto do val,25,25,01/03/1928,18/12/1929,"Livro de emplacamento 16, p.57",Vitoria Martins,19/12/2018
 297,297-245,244,rua canuto do val,49,49,08/11/1911,01/02/1928,"Livro de emplacamento 13, p. 72; 3, p. 3",Vitoria Martins,19/12/2018
@@ -3784,8 +3778,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 297,49-52,"52,6",rua canuto do val,3,3,29/12/1937,29/12/1937,"Livro de emplacamento 24, p. 151",Vitoria Martins,19/12/2018
 297,49-90,"89,1",rua canuto do val,90,90,30/12/1937,,"Livro de emplacamento 24, p. 152",Vitoria Martins,19/12/2018
 297,49-90,"89,1",rua canuto do val,1,1,29/12/1937,29/12/1937,"Livro de emplacamento 24, p. 153",Vitoria Martins,19/12/2018
-294,294-33,"32,5",rua fortunato,33,33,26/10/1935, ,"Livro de emplacamento 20, p. 133",Vitoria Martins,19/12/2018
-294,294-33,"32,5",rua fortunato,1,1,15/08/1918,25/10/1935,"Livro de emplacamento 20, p. 133; 4, p. 59",Vitoria Martins,19/12/2018
 294,294-145,"145,3",rua fortunato,145,145,26/10/1935,,"Livro de emplacamento 20, p. 133",Vitoria Martins,19/12/2018
 294,294-145,"145,3",rua fortunato,25,25,22/09/1928,25/10/1935,"Livro de emplacamento 20, p. 133; 13, p. 125",Vitoria Martins,19/12/2018
 294,294-145,"145,3",rua fortunato,17,17,15/08/1918,21/09/1928,"LIvro de emplacamento 13, p. 125; 4, P. 59",Vitoria Martins,19/12/2018
@@ -3915,7 +3907,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 257,257-58,"427,5",rua carnot,116,116,23/04/1929,16/05/1937,"Livro de emplacamento 22, p. 176; 22, p. 174",Vitoria Martins,03/02/2019
 257,257-58,"427,5",rua carnot,108,108,22/04/1929,22/04/1929,"Livro de emplacamento 22, p. 176; 22, p. 174",Vitoria Martins,03/02/2019
 305,305-16,"16,8",rua washington luis,16,16,02/03/1938,,"Livro de emplacamento 20, p. 207",Vitoria Martins,03/02/2019
-305,305-16,"16,8",rua washington luis,,2,13/08/1927,02/02/1938,"Livro de emplacamento 20, p. 207; 11, p. 193",Vitoria Martins,03/02/2019
 305,305-242,"241,5",rua washington luis,242,242,02/03/1938,,"Livro de emplacamento 24, p. 207",Vitoria Martins,03/02/2019
 305,305-242,"241,5",rua washington luis,24,24,13/08/1927,02/02/1938,"Livro de emplacamento 20, p. 207; 11, p. 193",Vitoria Martins,03/02/2019
 305,305-242,"241,5",rua washington luis,32,32,23/10/1922,08/12/1927,"Livro de emplacamento 11, p. 193; 10, p.64",Vitoria Martins,03/02/2019
@@ -4024,8 +4015,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 190,190-1014,"1013,9",Rua Anhaia,242,242,22/09/1930,23/05/1937,"Livros de Emplacamento L1, p.37; L1, p.57; L17, p.130 a 133; L22, p.190 a 195",Cintia,25/06/2019
 190,190-1014,"1013,9",Rua Anhaia,218,218,24/04/1909,21/09/1930,"Livros de Emplacamento L1, p.37; L1, p.57; L17, p.130 a 133; L22, p.190 a 195",Cintia,25/06/2019
 190,190-1014,"1013,9",Rua Anhaia,176,176,24/04/1909,24/04/1909,"Livros de Emplacamento L1, p.37; L1, p.57; L17, p.130 a 133; L22, p.190 a 195",Cintia,25/06/2019
-190,190-1246,"1245,9",Rua Anhaia,1246,1246,24/05/1937,,"Livros de Emplacamento L1, p.37; L1, p.57; L17, p.130 a 133; L22, p.190 a 195",Cintia,25/06/2019
-190,190-1246,"1245,9",Rua Anhaia,300,300,23/05/1937,23/05/1937,"Livros de Emplacamento L1, p.37; L1, p.57; L17, p.130 a 133; L22, p.190 a 195",Cintia,25/06/2019
 190,190-273,273,Rua Anhaia,273,273,24/05/1937,,"Livros de Emplacamento L1, p.37; L1, p.57; L17, p.130 a 133; L22, p.190 a 195",Cintia,25/06/2019
 190,190-273,273,Rua Anhaia,57,57,22/09/1930,23/05/1937,"Livros de Emplacamento L1, p.37; L1, p.57; L17, p.130 a 133; L22, p.190 a 195",Cintia,25/06/2019
 190,190-273,273,Rua Anhaia,61,61,24/04/1909,21/09/1930,"Livros de Emplacamento L1, p.37; L1, p.57; L17, p.130 a 133; L22, p.190 a 195",Cintia,25/06/2019
@@ -4114,7 +4103,7 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 703,703-64,"63,3",Rua Baroneza de Porto Carreiro,2,2,21/11/1935,21/11/1935,"Livros de Emplacamento L2, p.67; L20, p.200",Cintia,29/06/2019
 703,703-270,"270,8",Rua Baroneza de Porto Carreiro,270,270,22/11/1935,,"Livros de Emplacamento L2, p.67; L20, p.200",Cintia,29/06/2019
 703,703-270,"270,8",Rua Baroneza de Porto Carreiro,28,28,26/12/1925,21/11/1935,"Livros de Emplacamento L2, p.67; L20, p.200",Cintia,29/06/2019
-703,703-270,"270,8",Rua Baroneza de Porto Carreiro,10,10,25/1281925,25/1281925,"Livros de Emplacamento L2, p.67; L20, p.200",Cintia,29/06/2019
+703,703-270,"270,8",Rua Baroneza de Porto Carreiro,10,10,25/12/1925,25/12/1925,"Livros de Emplacamento L2, p.67; L20, p.200",Cintia,29/06/2019
 703,703-336,"335,3",Rua Baroneza de Porto Carreiro,336,336,22/11/1935,,"Livros de Emplacamento L2, p.67; L20, p.200",Cintia,29/06/2019
 703,703-336,"335,3",Rua Baroneza de Porto Carreiro,40,40,21/11/1935,21/11/1935,"Livros de Emplacamento L2, p.67; L20, p.200",Cintia,29/06/2019
 703,703-105,"104,5",Rua Baroneza de Porto Carreiro,105,105,22/11/1935,,"Livros de Emplacamento L2, p.67; L20, p.200",Cintia,29/06/2019
@@ -4141,10 +4130,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 695,695-200,"199,7",Rua Christina Thomaz,17,17,24/04/1909,29/09/1916,"Livros de Emplacamento L24, p.278; L3, P.52; L2, p.92",Cintia,29/06/2019
 695,695-190,"189,2",Rua Christina Thomaz,190,190,04/11/1938,,"Livros de Emplacamento L24, p.278; L3, P.52; L2, p.92",Cintia,29/06/2019
 695,695-190,"189,2",Rua Christina Thomaz,7,7,04/10/1938,04/10/1938,"Livros de Emplacamento L24, p.278; L3, P.52; L2, p.92",Cintia,29/06/2019
-695,695-217,"217,6",Rua Christina Thomaz,217,217,04/11/1938,,"Livros de Emplacamento L24, p.278; L3, P.52; L2, p.92",Cintia,29/06/2019
-695,695-217,"217,6",Rua Christina Thomaz,4,4,30/09/1916,04/10/1938,"Livros de Emplacamento L24, p.278; L3, P.52; L2, p.92",Cintia,29/06/2019
-695,695-217,"217,6",Rua Christina Thomaz,10,10,24/04/1909,29/09/1916,"Livros de Emplacamento L24, p.278; L3, P.52; L2, p.92",Cintia,29/06/2019
-695,695-217,"217,6",Rua Christina Thomaz,2,2,23/04/1909,23/04/1909,"Livros de Emplacamento L24, p.278; L3, P.52; L2, p.92",Cintia,29/06/2019
 695,695-185,"185,6",Rua Christina Thomaz,185,185,04/11/1938,,"Livros de Emplacamento L24, p.278; L3, P.52; L2, p.92",Cintia,29/06/2019
 695,695-185,"185,6",Rua Christina Thomaz,10,10,30/09/1916,04/10/1938,"Livros de Emplacamento L24, p.278; L3, P.52; L2, p.92",Cintia,29/06/2019
 695,695-185,"185,6",Rua Christina Thomaz,20,20,24/04/1909,29/09/1916,"Livros de Emplacamento L24, p.278; L3, P.52; L2, p.92",Cintia,29/06/2019
@@ -4180,21 +4165,12 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 697,697-128,"128,8",Rua Areal,128,128,05/12/1937,,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
 697,697-128,"128,8",Rua Areal,32,32,09/04/1930,05/11/1937,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
 697,697-128,"128,8",Rua Areal,30,30,24/04/1909,09/03/1930,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
-697,697-226,"225,8",Rua Areal,226,226,05/12/1937,,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
-697,697-226,"225,8",Rua Areal,60,60,09/04/1930,05/11/1937,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
-697,697-226,"225,8",Rua Areal,58,58,24/04/1909,09/03/1930,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
 697,697-79,"79,2",Rua Areal,79,79,05/12/1937,,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
 697,697-79,"79,2",Rua Areal,3,3,09/04/1930,05/11/1937,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
 697,697-79,"79,2",Rua Areal,7,7,24/04/1909,09/03/1930,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
 697,697-137,"137,3",Rua Areal,137,137,05/12/1937,,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
 697,697-137,"137,3",Rua Areal,27,27,09/04/1930,05/11/1937,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
 697,697-137,"137,3",Rua Areal,31,31,24/04/1909,09/03/1930,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
-697,697-225,224,Rua Areal,225,225,05/12/1937,,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
-697,697-225,224,Rua Areal,57,57,09/04/1930,05/11/1937,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
-697,697-225,224,Rua Areal,61,61,24/04/1909,09/03/1930,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
-697,697-249,"248,1",Rua Areal,249,249,05/12/1937,,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
-697,697-249,"248,1",Rua Areal,"61,1",61A,09/04/1930,05/11/1937,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
-697,697-249,"248,1",Rua Areal,"67,1",67B,09/03/1930,09/03/1930,"Livros de Emplacamento L1, p.16; L17, p.90; L22,p.243",Cintia,29/06/2019
 213,213-40,"40,7",Rua Rodrigo de Barros,40,40,04/02/1937,,"Livro de Emplacamentos L8, p.26; L8, p.53; L22, p.82, 83 e 172",Cintia,29/06/2019
 213,213-40,"40,7",Rua Rodrigo de Barros,2,2,26/07/1907,04/01/1937,"Livro de Emplacamentos L8, p.26; L8, p.53; L22, p.82, 83 e 172",Cintia,29/06/2019
 213,213-322,"321,4",Rua Rodrigo de Barros,322,322,04/02/1937,,"Livro de Emplacamentos L8, p.26; L8, p.53; L22, p.82, 83 e 172",Cintia,29/06/2019
@@ -4290,16 +4266,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 733,733-122,"122,6",Rua Jorge Velho,10,10,19/07/1938,19/07/1938,"Livro de Emplacamento L25, p.37",Cintia,30/06/2019
 708,708-15,"15,3",Rua Lusitania,15,15,19/05/1938,,"Livro de Emplacamento L24, p.328",Cintia,30/06/2019
 708,708-15,"15,3",Rua Lusitania,1,1,18/05/1938,18/05/1938,"Livro de Emplacamento L24, p.328",Cintia,30/06/2019
-708,708-397,"397,6",Rua Lusitania,397,397,19/05/1938,,"Livro de Emplacamento L24, p.328",Cintia,30/06/2019
-708,708-397,"397,6",Rua Lusitania,21,21,18/05/1938,18/05/1938,"Livro de Emplacamento L24, p.328",Cintia,
-708,708-445,"446,3",Rua Lusitania,445,445,19/05/1938,,"Livro de Emplacamento L24, p.328",Cintia,30/06/2019
-708,708-445,"446,3",Rua Lusitania,43,43 tra,18/05/1938,18/05/1938,"Livro de Emplacamento L24, p.328",Cintia,30/06/2019
-708,708-66,"66,2",Rua Lusitania,66,66,19/05/1938,,"Livro de Emplacamento L24, p.328",Cintia,30/06/2019
-708,708-66,"66,2",Rua Lusitania,2,2,18/05/1938,18/05/1938,"Livro de Emplacamento L24, p.328",Cintia,30/06/2019
-708,708-294,"294,5",Rua Lusitania,294,294,19/05/1938,,"Livro de Emplacamento L24, p.328",Cintia,30/06/2019
-708,708-294,"294,5",Rua Lusitania,50,50,18/05/1938,18/05/1938,"Livro de Emplacamento L24, p.328",Cintia,30/06/2019
-708,708-466,"466,6",Rua Lusitania,466,466,19/05/1938,,"Livro de Emplacamento L24, p.328",Cintia,30/06/2019
-708,708-466,"466,6",Rua Lusitania,90,90,18/05/1938,18/05/1938,"Livro de Emplacamento L24, p.328",Cintia,30/06/2019
 731,731-20,20,Rua Pedro Thomaz,20,20,22/06/1936,,"Livros de Emplacamento L7, p.111; L22, p.75",Cintia,30/06/2019
 731,731-20,20,Rua Pedro Thomaz,2,2,19/04/1909,21/06/1936,"Livros de Emplacamento L7, p.111; L22, p.75",Cintia,30/06/2019
 731,731-28,28,Rua Pedro Thomaz,28,28,22/06/1936,,"Livros de Emplacamento L7, p.111; L22, p.75",Cintia,30/06/2019
@@ -4307,7 +4273,7 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 731,731-44,"43,7",Rua Pedro Thomaz,44,44,22/06/1936,,"Livros de Emplacamento L7, p.111; L22, p.75",Cintia,30/06/2019
 731,731-44,"43,7",Rua Pedro Thomaz,8,8,21/06/1936,21/06/1936,"Livros de Emplacamento L7, p.111; L22, p.75",Cintia,30/06/2019
 731,731-15,"14,1",Rua Pedro Thomaz,15,15,22/06/1936,,"Livros de Emplacamento L7, p.111; L22, p.75",Cintia,30/06/2019
-731,731-15,anhang,Rua Pedro Thomaz,1,1,19/04/1909,21/06/1936,"Livros de Emplacamento L7, p.111; L22, p.75",Cintia,30/06/2019
+731,731-15,"14,1",Rua Pedro Thomaz,1,1,19/04/1909,21/06/1936,"Livros de Emplacamento L7, p.111; L22, p.75",Cintia,30/06/2019
 731,731-37,37,Rua Pedro Thomaz,37,37,22/06/1936,,"Livros de Emplacamento L7, p.111; L22, p.75",Cintia,30/06/2019
 731,731-37,37,Rua Pedro Thomaz,11,11,19/04/1909,21/06/1936,"Livros de Emplacamento L7, p.111; L22, p.75",Cintia,30/06/2019
 731,731-55,"56,7",Rua Pedro Thomaz,55,55,22/06/1936,,"Livros de Emplacamento L7, p.111; L22, p.75",Cintia,30/06/2019
@@ -4332,16 +4298,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 726,726-320,"320,7",Rua Rodolpho Miranda,64,64,19/08/1928,19/08/1928,"Livros de Emplacamento L14, p.60; L22,p.180",Cintia,30/06/2019
 725,725-61,"61,6",Rua Salvador Leme,61,61,09/05/1938,,"Livro de Emplacamento L25, p.125",Cintia,30/06/2019
 725,725-61,"61,6",Rua Salvador Leme,1,1,09/04/1938,09/04/1938,"Livro de Emplacamento L25, p.125",Cintia,30/06/2019
-725,725-161,"161,4",Rua Salvador Leme,161,161,09/05/1938,,"Livro de Emplacamento L25, p.125",Cintia,30/06/2019
-725,725-161,"161,4",Rua Salvador Leme,11,11,09/04/1938,09/04/1938,"Livro de Emplacamento L25, p.125",Cintia,30/06/2019
-725,725-417,"417,1",Rua Salvador Leme,417,417,09/05/1938,,"Livro de Emplacamento L25, p.125",Cintia,30/06/2019
-725,725-417,"417,1",Rua Salvador Leme,99,99,09/04/1938,09/04/1938,"Livro de Emplacamento L25, p.125",Cintia,30/06/2019
-725,725-52,52,Rua Salvador Leme,52,52,09/05/1938,,"Livro de Emplacamento L25, p.125",Cintia,30/06/2019
-725,725-52,52,Rua Salvador Leme,2,2,09/04/1938,09/04/1938,"Livro de Emplacamento L25, p.125",Cintia,30/06/2019
-725,725-122,"122,1",Rua Salvador Leme,122,122,09/05/1938,,"Livro de Emplacamento L25, p.125",Cintia,30/06/2019
-725,725-122,"122,1",Rua Salvador Leme,22,22,09/04/1938,09/04/1938,"Livro de Emplacamento L25, p.125",Cintia,30/06/2019
-725,725-334,"333,9",Rua Salvador Leme,334,334,09/05/1938,,"Livro de Emplacamento L25, p.125",Cintia,30/06/2019
-725,725-334,"333,9",Rua Salvador Leme,50,50,09/04/1938,09/04/1938,"Livro de Emplacamento L25, p.125",Cintia,30/06/2019
 729,729-10,"10,9",Rua Salta salta,10,10,25/07/1941,,"Livros de Emplacamento L8, p.142; L8, p.190; L28, p.286",Cintia,30/06/2019
 729,729-10,"10,9",Rua Salta salta,2,2,23/04/1909,24/07/1941,"Livros de Emplacamento L8, p.142; L8, p.190; L28, p.286",Cintia,30/06/2019
 729,729-50,"49,9",Rua Salta salta,50,50,25/07/1941,,"Livros de Emplacamento L8, p.142; L8, p.190; L28, p.286",Cintia,30/06/2019
@@ -4359,9 +4315,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 707,707-226,"226,8",Rua Solimoes,6,6,06/04/1926,06/04/1926,"Livros de Emplacamento L9, p.63; L24, p.326",Cintia,30/06/2019
 707,707-149,149,Rua Solimoes,149,149,20/05/1938,,"Livros de Emplacamento L9, p.63; L24, p.326",Cintia,30/06/2019
 707,707-149,149,Rua Solimoes,1,1,06/05/1926,19/05/1938,"Livros de Emplacamento L9, p.63; L24, p.326",Cintia,30/06/2019
-707,707-221,"221,6",Rua Solimoes,221,221,20/05/1938,,"Livros de Emplacamento L9, p.63; L24, p.326",Cintia,30/06/2019
-707,707-221,"221,6",Rua Solimoes,15,15,06/05/1926,19/05/1938,"Livros de Emplacamento L9, p.63; L24, p.326",Cintia,30/06/2019
-707,707-221,anhang,Rua Solimoes,9,9,06/04/1926,06/04/1926,"Livros de Emplacamento L9, p.63; L24, p.326",Cintia,30/06/2019
 707,707-325,"325,7",Rua Solimoes,325,325,20/05/1938,,"Livros de Emplacamento L9, p.63; L24, p.326",Cintia,30/06/2019
 707,707-325,"325,7",Rua Solimoes,27,27,06/05/1926,19/05/1938,"Livros de Emplacamento L9, p.63; L24, p.326",Cintia,30/06/2019
 707,707-325,"325,7",Rua Solimoes,19,19,06/04/1926,06/04/1926,"Livros de Emplacamento L9, p.63; L24, p.326",Cintia,30/06/2019
@@ -4372,10 +4325,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 177,177-811,811,Rua Barra Funda,173,173,08/06/1929,20/01/1936,"Livros de Emplacamento L2, p.1; 26-7-1911 - L2, p.18; L2, p.43; L15, p.189/190; L17, p.176; L20, p.316 a 320",Cintia,25/06/2019
 177,177-811,811,Rua Barra Funda,179,179,04/03/1908,08/05/1929,"Livros de Emplacamento L2, p.1; 26-7-1911 - L2, p.18; L2, p.43; L15, p.189/190; L17, p.176; L20, p.316 a 320",Cintia,25/06/2019
 177,177-811,811,Rua Barra Funda,149,149,04/02/1908,04/02/1908,"Livros de Emplacamento L2, p.1; 26-7-1911 - L2, p.18; L2, p.43; L15, p.189/190; L17, p.176; L20, p.316 a 320",Cintia,25/06/2019
-177,177-1153,"1152,6",Rua Barra Funda,1153,1153,21/01/1936,,"Livros de Emplacamento L2, p.1; 26-7-1911 - L2, p.18; L2, p.43; L15, p.189/190; L17, p.176; L20, p.316 a 320",Cintia,25/06/2019
-177,177-1153,"1152,6",Rua Barra Funda,265,265,08/06/1929,20/01/1936,"Livros de Emplacamento L2, p.1; 26-7-1911 - L2, p.18; L2, p.43; L15, p.189/190; L17, p.176; L20, p.316 a 320",Cintia,25/06/2019
-177,177-1153,"1152,6",Rua Barra Funda,253,253,04/03/1908,08/05/1929,"Livros de Emplacamento L2, p.1; 26-7-1911 - L2, p.18; L2, p.43; L15, p.189/190; L17, p.176; L20, p.316 a 320",Cintia,25/06/2019
-177,177-1153,"1152,6",Rua Barra Funda,215,215,04/02/1908,04/02/1908,"Livros de Emplacamento L2, p.1; 26-7-1911 - L2, p.18; L2, p.43; L15, p.189/190; L17, p.176; L20, p.316 a 320",Cintia,25/06/2019
 172,171-701,700,Rua Brigadeiro Galvão,701,701,03/01/1936,,"Livros de Emplacamento L2, p.2 a 6; L2, p.22; L2, p.42; L2, p.52; L15, p.160; L20, p.394 a398",Cintia,25/06/2019
 172,171-701,700,Rua Brigadeiro Galvão,155,155,14/08/1929,29/02/1936,"Livros de Emplacamento L2, p.2 a 6; L2, p.22; L2, p.42; L2, p.52; L15, p.160; L20, p.394 a398",Cintia,25/06/2019
 172,171-701,700,Rua Brigadeiro Galvão,163,163,22/12/1916,13/08/1929,"Livros de Emplacamento L2, p.2 a 6; L2, p.22; L2, p.42; L2, p.52; L15, p.160; L20, p.394 a398",Cintia,25/06/2019
@@ -4398,8 +4347,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 172,171-1046,"1046,6",Rua Brigadeiro Galvão,234,234,14/08/1929,29/02/1936,"Livros de Emplacamento L2, p.2 a 6; L2, p.22; L2, p.42; L2, p.52; L15, p.160; L20, p.394 a398",Cintia,25/06/2019
 172,171-1046,"1046,6",Rua Brigadeiro Galvão,220,220,20/04/1908,13/08/1929,"Livros de Emplacamento L2, p.2 a 6; L2, p.22; L2, p.42; L2, p.52; L15, p.160; L20, p.394 a398",Cintia,25/06/2019
 172,171-1046,"1046,6",Rua Brigadeiro Galvão,192,192,19/04/1908,19/04/1908,"Livros de Emplacamento L2, p.2 a 6; L2, p.22; L2, p.42; L2, p.52; L15, p.160; L20, p.394 a398",Cintia,25/06/2019
-172,171-1208,"1208,3",Rua Brigadeiro Galvão,1208,1208,03/01/1936,,"Livros de Emplacamento L2, p.2 a 6; L2, p.22; L2, p.42; L2, p.52; L15, p.160; L20, p.394 a398",Cintia,25/06/2019
-172,171-1208,"1208,3",Rua Brigadeiro Galvão,268,268,29/02/1936,29/02/1936,"Livros de Emplacamento L2, p.2 a 6; L2, p.22; L2, p.42; L2, p.52; L15, p.160; L20, p.394 a398",Cintia,25/06/2019
 197,197-279,"278,4",Rua Correa dos Santos,279,279,23/03/1937,,"Livros de Emplacamento L2, p.74; L3, p.14; L17, p.80; L21, p.383",Cintia,25/06/2019
 197,197-279,"278,4",Rua Correa dos Santos,63,63,25/09/1930,22/03/1937,"Livros de Emplacamento L2, p.74; L3, p.14; L17, p.80; L21, p.383",Cintia,25/06/2019
 197,197-279,"278,4",Rua Correa dos Santos,69,69,02/08/1911,24/09/1930,"Livros de Emplacamento L2, p.74; L3, p.14; L17, p.80; L21, p.383",Cintia,25/06/2019
@@ -4427,31 +4374,12 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 205,205-711,"712,2",Rua Prates,145,145,02/09/1911,05/10/1937,"Livros de emplacamento 16-10-1908 - L7, p.96; 9-2-1911 - L7, p.127; 27-1-1915 - L7, p.154; 11-5-1937 - L22, p.158 a 161",Cintia,25/06/2019
 205,205-711,"712,2",Rua Prates,51,51,16/10/1908,02/08/1911,"Livros de emplacamento 16-10-1908 - L7, p.96; 9-2-1911 - L7, p.127; 27-1-1915 - L7, p.154; 11-5-1937 - L22, p.158 a 161",Cintia,25/06/2019
 205,205-711,"712,2",Rua Prates,47,47,15/10/1908,15/10/1908,"Livros de emplacamento 16-10-1908 - L7, p.96; 9-2-1911 - L7, p.127; 27-1-1915 - L7, p.154; 11-5-1937 - L22, p.158 a 161",Cintia,25/06/2019
-205,205-845,"844,7",Rua Prates,845,845,05/11/1937,,"Livros de emplacamento 16-10-1908 - L7, p.96; 9-2-1911 - L7, p.127; 27-1-1915 - L7, p.154; 11-5-1937 - L22, p.158 a 161",Cintia,25/06/2019
-205,205-845,"844,7",Rua Prates,161,161,15/10/1908,15/10/1908,"Livros de emplacamento 16-10-1908 - L7, p.96; 9-2-1911 - L7, p.127; 27-1-1915 - L7, p.154; 11-5-1937 - L22, p.158 a 161",Cintia,25/06/2019
 205,205-712,"712,9",Rua Prates,712,712,05/11/1937,,"Livros de emplacamento 16-10-1908 - L7, p.96; 9-2-1911 - L7, p.127; 27-1-1915 - L7, p.154; 11-5-1937 - L22, p.158 a 161",Cintia,25/06/2019
 205,205-712,"712,9",Rua Prates,70,70,02/09/1911,05/10/1937,"Livros de emplacamento 16-10-1908 - L7, p.96; 9-2-1911 - L7, p.127; 27-1-1915 - L7, p.154; 11-5-1937 - L22, p.158 a 161",Cintia,25/06/2019
 205,205-712,"712,9",Rua Prates,36,36,16/10/1908,02/08/1911,"Livros de emplacamento 16-10-1908 - L7, p.96; 9-2-1911 - L7, p.127; 27-1-1915 - L7, p.154; 11-5-1937 - L22, p.158 a 161",Cintia,25/06/2019
-205,205-874,"874,2",Rua Prates,874,874,05/11/1937,,"Livros de emplacamento 16-10-1908 - L7, p.96; 9-2-1911 - L7, p.127; 27-1-1915 - L7, p.154; 11-5-1937 - L22, p.158 a 161",Cintia,25/06/2019
-205,205-874,"874,2",Rua Prates,72,72,05/10/1937,05/10/1937,"Livros de emplacamento 16-10-1908 - L7, p.96; 9-2-1911 - L7, p.127; 27-1-1915 - L7, p.154; 11-5-1937 - L22, p.158 a 161",Cintia,25/06/2019
 522,522-195,"195,7",Rua Silva Pinto,195,195,08/08/1934,,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
 522,522-195,"195,7",Rua Silva Pinto,43,43,05/12/1909,08/07/1934,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
 522,522-195,"195,7",Rua Silva Pinto,35,35,05/11/1909,05/11/1909,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
-522,522-429,"427,8",Rua Silva Pinto,429,429,08/08/1934,,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
-522,522-429,"427,8",Rua Silva Pinto,95,95,02/06/1911,08/07/1934,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
-522,522-429,"427,8",Rua Silva Pinto,97,97,05/12/1909,02/05/1911,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
-522,522-429,"427,8",Rua Silva Pinto,81,81,05/11/1909,05/11/1909,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
-522,522-467,466,Rua Silva Pinto,467,467,08/08/1934,,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
-522,522-467,466,Rua Silva Pinto,111,111,27/01/1915,08/07/1934,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
-522,522-262,"261,5",Rua Silva Pinto,262,262,08/08/1934,,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
-522,522-262,"261,5",Rua Silva Pinto,44,44,05/12/1909,08/07/1934,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
-522,522-438,"438,2",Rua Silva Pinto,438,438,08/08/1934,,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
-522,522-438,"438,2",Rua Silva Pinto,96,96,02/06/1911,08/07/1934,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
-522,522-438,"438,2",Rua Silva Pinto,88,88,05/12/1909,02/05/1911,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
-522,522-438,"438,2",Rua Silva Pinto,80,80 tinta,05/11/1909,05/11/1909,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
-522,522-466,"466,2",Rua Silva Pinto,466,466,08/08/1934,,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
-522,522-466,"466,2",Rua Silva Pinto,108,108,02/06/1911,08/07/1934,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
-522,522-466,"466,2",Rua Silva Pinto,100,100,02/05/1911,02/05/1911,"Livro de Emplacamento, n.19, p.158; n.9, p.10; n.8, p.152",Cintia,25/06/2019
 690,690-61,"61,2",Rua Barra do Tibagy,61,61,16/03/1937,,"Livro de Emplacamento  L1; 99; L2;p.39 L2; p.44; L2; p.55; L13; p.55,56;  L18; p.7,8; L21; p.386 a 389",Cintia,07/01/2019
 690,690-61,"61,2",Rua Barra do Tibagy,7,7,03/09/1928,15/03/1937,"Livro de Emplacamento  L1; 99; L2;p.39 L2; p.44; L2; p.55; L13; p.55,56;  L18; p.7,8; L21; p.386 a 389",Cintia,07/01/2019
 690,690-61,"61,2",Rua Barra do Tibagy,76,76,29/09/1916,03/08/1928,"Livro de Emplacamento  L1; 99; L2;p.39 L2; p.44; L2; p.55; L13; p.55,56;  L18; p.7,8; L21; p.386 a 389",Cintia,07/01/2019
@@ -4497,8 +4425,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 696,696-331,"331,9",Rua Tenente Penna,18,18,28/01/1915,15/03/1937,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
 696,696-331,"331,9",Rua Tenente Penna,12,12,22/07/1908,27/01/1915,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
 696,696-331,"331,9",Rua Tenente Penna,4,4,21/07/1908,21/07/1908,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
-696,696-411,"410,5",Rua Tenente Penna,411,411,16/03/1937,,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
-696,696-411,"410,5",Rua Tenente Penna,2,2,15/03/1937,15/03/1937,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
 696,696-100,"99,5",Rua Tenente Penna,100,100,16/03/1937,,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
 696,696-100,"99,5",Rua Tenente Penna,73,73,18/01/1917,15/03/1937,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
 696,696-100,"99,5",Rua Tenente Penna,63,63,22/07/1908,17/01/1917,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
@@ -4508,8 +4434,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 696,696-372,"371,1",Rua Tenente Penna,372,372,16/03/1937,,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
 696,696-372,"371,1",Rua Tenente Penna,7,7,22/07/1908,15/03/1937,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
 696,696-372,"371,1",Rua Tenente Penna,"1,1",1A,21/07/1908,21/07/1908,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
-696,696-426,"425,5",Rua Tenente Penna,426,426,16/03/1937,,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
-696,696-426,"425,5",Rua Tenente Penna,1,1,28/01/1915,15/03/1937,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
 689,689-29,"29,3",Rua Solon,29,29,17/03/1937,,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
 689,689-29,"29,3",Rua Solon,134,134,23/07/1908,16/03/1937,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
 689,689-357,"357,1",Rua Solon,357,357,17/03/1937,,"Livros de Emplacamento L8, p. 98; L9, p. 1; L22,, p.51 a 54",Cintia,07/01/2019
@@ -4541,37 +4465,16 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 694,694-80,"79,7",Rua Tucuman,80,80,29/03/1937,,"Livro de Emplacamento L22, p.76",Cintia,07/01/2019
 694,694-80,"79,7",Rua Tucuman,1,1,28/03/1937,28/03/1937,"Livro de Emplacamento L22, p.76",Cintia,07/01/2019
 702,702-39,38.60,rua visconde de taway,39,39,20/05/1937,,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
-702,702-161,160.90,rua visconde de taway,161,161,20/05/1937,,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
-702,702-161,160.90,rua visconde de taway,19,19,28/09/1928,19/05/1937,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
-702,702-161,160.90,rua visconde de taway,17,17,27/09/1928,27/09/1928,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
-702,702-245,245.40,rua visconde de taway,245,245,20/05/1937,,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
-702,702-245,245.40,rua visconde de taway,39,39,28/09/1928,19/05/1937,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
-702,702-245,245.40,rua visconde de taway,21,21,27/09/1928,27/09/1928,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
-702,702-397,396.50,rua visconde de taway,397,397,20/05/1937,,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
-702,702-12,12.0,rua visconde de taway,12,12,20/05/1937,,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
-702,702-12,12.0,rua visconde de taway,2,2,28/09/1928,19/05/1937,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
-702,702-176,176.80,rua visconde de taway,176,176,20/05/1937,,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
-702,702-176,176.80,rua visconde de taway,22,22,28/09/1928,19/05/1937,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
-702,702-176,176.80,rua visconde de taway,20,20,27/09/1928,27/09/1928,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
-702,702-340,339.10,rua visconde de taway,340,340,20/05/1937,,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
-702,702-340,339.10,rua visconde de taway,52,52,28/09/1928,19/05/1937,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
-702,702-340,339.10,rua visconde de taway,24,24,27/09/1928,27/09/1928,"Livros de Emplacamento 28/09/1928 L14; 115; 20/05/1937 L22; 156, 157",Luanna,01/07/2019
 515,515-47,46.3,Alameda Glette,47,47,25/09/1935,,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
 515,515-47,46.3,Alameda Glette,1,1,02/05/1908,24/09/1935,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
 515,515-639,639.4,Alameda Glette,639,639,25/09/1935,,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
 515,515-639,639.4,Alameda Glette,43,43,02/05/1908,24/09/1935,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
 515,515-639,639.4,Alameda Glette,49,49,01/05/1908,01/05/1908,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
-515,515-1071,1070.3,Alameda Glette,1071,1071,25/09/1935,,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
-515,515-1071,1070.3,Alameda Glette,97,97,02/05/1908,24/09/1935,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
-515,515-1071,1070.3,Alameda Glette,105,105,01/05/1908,01/05/1908,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
 515,515-222,222.4,Alameda Glette,222,222,25/09/1935,,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
 515,515-222,222.4,Alameda Glette,8,8,02/05/1908,24/09/1935,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
 515,515-222,222.4,Alameda Glette,10,10,01/05/1908,01/05/1908,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
 515,515-710,710,Alameda Glette,710,710,25/09/1935,,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
 515,515-710,710,Alameda Glette,34,34,02/05/1908,24/09/1935,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
-515,515-1084,1084.7,Alameda Glette,1084,1084,25/09/1935,,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
-515,515-1084,1084.7,Alameda Glette,118,118,12/04/1911,24/09/1935,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
-515,515-1084,1084.7,Alameda Glette,90,90,02/05/1908,11/04/1911,"Livro de Emplacamento, n.20, p.46; n.4, p.83; n.4, p.74",Cintia,17/10/2018
 715,715-101,"101,7",Rua do Bosque,101,101,18/09/1941,,"Livros de Emplacamento L2, p.30; L13, p.59 e 60; L15, p.67 e 68; L28, p.298 a 302",Cintia,29/06/2019
 715,715-101,"101,7",Rua do Bosque,15,15,23/03/1928,17/09/1941,"Livros de Emplacamento L2, p.30; L13, p.59 e 60; L15, p.67 e 68; L28, p.298 a 302",Cintia,29/06/2019
 715,715-199,"199,2",Rua do Bosque,199,199,18/09/1941,,"Livros de Emplacamento L2, p.30; L13, p.59 e 60; L15, p.67 e 68; L28, p.298 a 302",Cintia,29/06/2019
@@ -4595,21 +4498,6 @@ id_da rua,Id_ponto,metragem,logradouro,numero,numero original,Data inicial,Data_
 715,715-804,"803,9",Rua do Bosque,804,804,18/09/1941,,"Livros de Emplacamento L2, p.30; L13, p.59 e 60; L15, p.67 e 68; L28, p.298 a 302",Cintia,07/01/2019
 715,715-804,"803,9",Rua do Bosque,154,154,23/03/1928,17/09/1941,"Livros de Emplacamento L2, p.30; L13, p.59 e 60; L15, p.67 e 68; L28, p.298 a 302",Cintia,07/01/2019
 715,715-804,"803,9",Rua do Bosque,142,142,22/03/1928,22/03/1928,"Livros de Emplacamento L2, p.30; L13, p.59 e 60; L15, p.67 e 68; L28, p.298 a 302",Cintia,07/01/2019
-715,715-1300,"1299,2",Rua do Bosque,1300,1300,18/09/1941,,"Livros de Emplacamento L2, p.30; L13, p.59 e 60; L15, p.67 e 68; L28, p.298 a 302",Cintia,07/01/2019
-715,715-1300,"1299,2",Rua do Bosque,262,262,01/07/1929,17/09/1941,"Livros de Emplacamento L2, p.30; L13, p.59 e 60; L15, p.67 e 68; L28, p.298 a 302",Cintia,07/01/2019
-715,715-1300,"1299,2",Rua do Bosque,232,232,23/03/1928,01/06/1929,"Livros de Emplacamento L2, p.30; L13, p.59 e 60; L15, p.67 e 68; L28, p.298 a 302",Cintia,07/01/2019
-98,98_1562,"1562,6",rua augusta,1562,1562,21/02/1936,,"Livro de emplacamento 20, p. 385",Camila,30/08/2019
-98,98_1562,"1562,6",rua augusta,292,292,27/06/1927,20/02/1936,"Livro de emplacamento 24, p. 82",Camila,30/08/2019
-98,98_2950,"295,04",rua augusta,2950,2950,21/02/1936,,"Livro de emplacamento 20, p. 387",Camila,30/08/2019
-98,98_2950,"295,04",rua augusta,528,528,27/06/1927,20/02/1936,"Livro de emplacamento 20, p. 24",Camila,30/08/2019
-98,98_65,"65,2",rua augusta,66,66,21/02/1936,,"Livro de emplacamento 17, p. 199; Livro de emplacamento 12, p. 2",Camila,30/08/2019
-98,98_65,"65,2",rua augusta,8,8,27/06/1927,20/02/1936,"Livro de emplacamento 24, p. 85",Camila,30/08/2019
-98,98_159,"159,4",rua augusta,159,159,21/02/1936,,"Livro de emplacamento 20, p. 378",Camila,30/08/2019
-98,98_159,"159,4",rua augusta,25,25,27/06/1927,20/02/1936,"Livro de emplacamento 17, p. 199; Livro de emplacamento 12, p. 1",Camila,30/08/2019
-98,98_855,"854,2",rua augusta,855,855,21/02/1936,,"Livro de emplacamento 17, p. 197; Livro de emplacamento 12, p. 3",Camila,30/08/2019
-98,98_855,"854,2",rua augusta,191,191,27/06/1927,20/02/1936,"Livro de emplacamento 24, p. 88",Camila,30/08/2019
-98,98_2291,2291,rua augusta,2291,2291,21/02/1936,,"Livro de emplacamento 17, p. 198; Livro de emplacamento 12, p. 3",Camila,30/08/2019
-98,98_2291,2291,rua augusta,595,595,27/06/1927,20/02/1936,"Livro de emplacamento 17, p. 198; Livro de emplacamento 12, p. 4",Camila,30/08/2019
 730,730-340,"340,5",rua teodoro sampaio,340,340,3/10/1937,,"Livro de emplacamento 24, p. 80",Sarah,25/8/2019
 730,730-340,"340,5",rua teodoro sampaio,60,60,20/9/1927,10/02/1937,"Livro de emplacamento 17, p. 199; Livro de emplacamento 12, p. 1",Sarah,25/8/2019
 730,730-340,"340,5",rua teodoro sampaio,22,22,1/9/1911,19/9/1927,"Livro de emplacamento 09, p. 97",Sarah,25/8/2019
