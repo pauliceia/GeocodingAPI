@@ -4,11 +4,11 @@
 
 --------------------------------------------------
 
-CREATE OR REPLACE FUNCTION saboya_geometry(streetId integer, numberPlace Float) 
+CREATE OR REPLACE FUNCTION saboya_geometry(streetId integer, numberPlace Float)
 	RETURNS text
 AS
 $BODY$
-DECLARE 
+DECLARE
 	zeroGeom text;
 	streetGeom text;
 	oldGeomPlace text;
@@ -16,7 +16,7 @@ DECLARE
 	startPoint text;
 	newGeom text;
 	newStreetGeom text;
-	equals boolean; 
+	equals boolean;
 BEGIN
 	zeroGeom := (SELECT places.geom FROM places_pilot_area AS places INNER JOIN streets_pilot_area AS street ON places.id_street = street.id WHERE places.number = 0 AND street.id = streetId ORDER BY date DESC LIMIT 1);
 	streetGeom := (SELECT  ST_LineMerge(geom) FROM streets_pilot_area WHERE id = streetId);
@@ -40,6 +40,6 @@ LANGUAGE plpgsql;
 
 --------------------------------------------------
 
-select id, street.name, saboya_geometry(street.id,0) from  streets_pilot_area AS street;
+-- select id, street.name, saboya_geometry(street.id,0) from  streets_pilot_area AS street;
 
 --------------------------------------------------

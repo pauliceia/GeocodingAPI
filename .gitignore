@@ -1,4 +1,6 @@
-/node_modules
-/public/apidoc
+node_modules
+public/apidoc
 
 scripts/entrada/\.~lock\.PARCIAL2410_TABELAO\.csv#
+__pycache__
+.vscode
