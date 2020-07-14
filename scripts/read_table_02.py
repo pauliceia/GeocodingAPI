@@ -3,13 +3,14 @@
 
 from numpy import NaN
 from pandas import DataFrame, notna, read_csv, to_numeric
-from model import engine, execute_query
+from model import engine, execute_file, execute_query
 
 
 # table name to store the dataframe
 TABLE_TO_STORE_DF = 'places_pilot_area_test'
 CSV_TO_READ_DF = 'TABELAO_2019_12_11__50_rows.csv'
 
+execute_file('sql/01_saboya_geometry_plsql.sql')
 
 # drop the table if it exists in order to create it again based on the dataframe
 execute_query('DROP TABLE IF EXISTS public.{};'.format(TABLE_TO_STORE_DF))
@@ -24,7 +25,7 @@ df_bt.rename(columns={
     'fonte': 'source', 'autor_da_alimentação': 'author', 'Data': 'date'
 }, inplace=True)
 
-# add attributes
+# add some columns
 df_bt['cord'] = ''
 df_bt['first_day'] = NaN
 df_bt['first_month'] = NaN
@@ -33,7 +34,7 @@ df_bt['last_day'] = NaN
 df_bt['last_month'] = NaN
 df_bt['last_year'] = NaN
 
-# fix some attributes
+# fix some columns
 df_bt['metre'] = df_bt['metre'].str.replace(',', '.').astype(float)
 df_bt['number'] = df_bt['number'].str.replace(',', '.').astype(float)
 
@@ -74,12 +75,12 @@ for row in df_bt_copy.itertuples():
     # else:
     #     print('error 2: ', row, '\n')
 
-    if df_bt.at[row.Index, 'first_year'] < df_bt.at[row.Index, 'last_year']:
+    if df_bt.at[row.Index, 'first_year'] > df_bt.at[row.Index, 'last_year']:
         df_error = df_error.append(df_bt.loc[[row.Index]])
         df_error.at[row.Index, 'reason'] = 'Initial year is greater than final year.'
         df_bt.drop(row.Index, inplace=True)
 
-# Drop some columns
+# drop some columns
 df_bt.drop(['address', 'metre', 'initial_date', 'final_date', 'id_point'], axis=1, inplace=True)
 
 print('\ndf_bt.tail(): \n', df_bt.tail())
