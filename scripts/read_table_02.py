@@ -2,15 +2,18 @@
 # -*- coding: utf-8 -*-
 
 from numpy import NaN
-from pandas import DataFrame, notna, read_csv, to_numeric
+from pandas import DataFrame, read_csv, to_numeric
 from model import engine, execute_file, execute_query
 
 
 # table name to store the dataframe
 TABLE_TO_STORE_DF = 'places_pilot_area_test'
-CSV_TO_READ_DF = 'TABELAO_2019_12_11__50_rows.csv'
+CSV_TO_READ_DF = 'TABELAO_2019_12_11__500_rows.csv'
 
+
+# create the function in the database
 execute_file('sql/01_saboya_geometry_plsql.sql')
+print('\nFile `01_saboya_geometry_plsql.sql` has been executed successfully!')
 
 # drop the table if it exists in order to create it again based on the dataframe
 execute_query('DROP TABLE IF EXISTS public.{};'.format(TABLE_TO_STORE_DF))
@@ -40,12 +43,15 @@ df_bt['number'] = df_bt['number'].str.replace(',', '.').astype(float)
 
 # create a dataframe to store the rows with some error with the same columns from the original dataframe
 df_error = DataFrame(columns=df_bt.columns)
+# create a column in order to store the error reason
 df_error['reason'] = ''
 
 # create a copied dataframe to iterate over it while I remove the records from the original one
 df_bt_copy = df_bt.copy()
 
-# print('len(df_bt) before removing rows: ', len(df_bt))
+# print('\nbefore removing rows...')
+# print('\ndf_bt.head(): \n', df_bt.head()[['initial_date', 'final_date']])
+# print('len(df_bt): ', len(df_bt))
 
 for row in df_bt_copy.itertuples():
     # create the SQL query
@@ -55,9 +61,17 @@ for row in df_bt_copy.itertuples():
 
     result = execute_query(query)
     result = result.fetchone()
+
     df_bt.at[row.Index, 'cordinate'] = result['saboya_geometry']
 
-    if (notna(row.initial_date)):
+    # one date must have a value, if both are NaN, then add it to the error dataframe
+    if row.initial_date is NaN and row.final_date is NaN:
+        df_error = df_error.append(df_bt.loc[[row.Index]])
+        df_error.at[row.Index, 'reason'] = 'Initial and final dates are empty.'
+        df_bt.drop(row.Index, inplace=True)
+        continue
+
+    if row.initial_date is not NaN:
         initial_date = row.initial_date.split('/')
 
         df_bt.at[row.Index, 'first_day'] = initial_date[0]
@@ -66,7 +80,7 @@ for row in df_bt_copy.itertuples():
     # else:
     #     print('error 1: ', row, '\n')
 
-    if (notna(row.final_date)):
+    if row.final_date is not NaN:
         final_date = row.final_date.split('/')
 
         df_bt.at[row.Index, 'last_day'] = final_date[0]
@@ -94,7 +108,11 @@ print('len(df_error): ', len(df_error))
 # save the dataframe in a CSV file
 df_error.to_csv('saida/error_{}'.format(CSV_TO_READ_DF))
 
-# save the dataframe in the table `places_pilot_area_test` in the database
+# save the dataframe in the table `TABLE_TO_STORE_DF` in the database
 df_bt.to_sql(TABLE_TO_STORE_DF, con=engine, schema='public')
+
+# execute post processing file
+execute_file('sql/02_post_processing.sql')
+print('\nFile `02_post_processing.sql` has been executed successfully!')
 
 print('\nOK!')

@@ -14,9 +14,10 @@ SYSession = sessionmaker(bind=engine)
 
 
 # create a psycopg2 connection in order to execute SQL file
-pg_connection = pg_connect(
-    host="localhost",database="pauliceia", user="postgres", password="postgres", port=15432
-)
+def create_pg_connect():
+    return pg_connect(
+        host="localhost",database="pauliceia", user="postgres", password="postgres", port=15432
+    )
 
 
 def execute_query(query):
@@ -38,6 +39,7 @@ def execute_query(query):
 def execute_file(file_name):
     file = open(file_name, "r")
 
+    pg_connection = create_pg_connect()
     cursor = pg_connection.cursor()
 
     try:

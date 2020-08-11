@@ -30,8 +30,8 @@ ALTER TABLE public.places_pilot_area_test ALTER COLUMN last_month TYPE integer U
 
 ALTER TABLE public.places_pilot_area_test ALTER COLUMN last_year TYPE integer USING last_year::integer;
 
-ALTER TABLE public.places_pilot_area_test ADD CONSTRAINT constraint_fk_id_street FOREIGN KEY (id_street) REFERENCES public.streets_pilot_area (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE public.places_pilot_area_test ADD CONSTRAINT places_pilot_area_test_constraint_fk_id_street FOREIGN KEY (id_street) REFERENCES public.streets_pilot_area (id) MATCH SIMPLE ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE public.places_pilot_area_test RENAME index TO id;
 
-ALTER TABLE public.places_pilot_area_test ADD CONSTRAINT places_pkey PRIMARY KEY (id);
+ALTER TABLE public.places_pilot_area_test ADD CONSTRAINT places_pilot_area_test_pk_id PRIMARY KEY (id);
