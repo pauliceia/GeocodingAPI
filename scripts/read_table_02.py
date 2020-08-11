@@ -8,7 +8,8 @@ from model import engine, execute_file, execute_query
 
 # table name to store the dataframe
 TABLE_TO_STORE_DF = 'places_pilot_area_test'
-CSV_TO_READ_DF = 'TABELAO_2019_12_11__500_rows.csv'
+# CSV_TO_READ_DF = 'TABELAO_2019_12_11.csv'  # original file
+CSV_TO_READ_DF = 'TABELAO_2019_12_11_sample_last_656_rows.csv'  # this is a sample file
 
 
 # create the function in the database
@@ -19,7 +20,8 @@ print('\nFile `01_saboya_geometry_plsql.sql` has been executed successfully!')
 execute_query('DROP TABLE IF EXISTS public.{};'.format(TABLE_TO_STORE_DF))
 
 # dataframe `Big Table`
-df_bt = read_csv('entrada/test/{}'.format(CSV_TO_READ_DF))
+df_bt = read_csv('entrada/{}'.format(CSV_TO_READ_DF))
+print('\nThe file `{}` has been read successfully!'.format(CSV_TO_READ_DF))
 
 # rename the columns
 df_bt.rename(columns={
@@ -49,7 +51,8 @@ df_error['reason'] = ''
 # create a copied dataframe to iterate over it while I remove the records from the original one
 df_bt_copy = df_bt.copy()
 
-# print('\nbefore removing rows...')
+# print('\noriginal dataframe...')
+# print('\ndf_bt.head(): \n', df_bt.head())
 # print('\ndf_bt.head(): \n', df_bt.head()[['initial_date', 'final_date']])
 # print('len(df_bt): ', len(df_bt))
 
@@ -74,6 +77,12 @@ for row in df_bt_copy.itertuples():
     if row.initial_date is not NaN:
         initial_date = row.initial_date.split('/')
 
+        if len(initial_date) != 3:
+            df_error = df_error.append(df_bt.loc[[row.Index]])
+            df_error.at[row.Index, 'reason'] = 'Invalid initial_date.'
+            df_bt.drop(row.Index, inplace=True)
+            continue
+
         df_bt.at[row.Index, 'first_day'] = initial_date[0]
         df_bt.at[row.Index, 'first_month'] = initial_date[1]
         df_bt.at[row.Index, 'first_year'] = initial_date[2]
@@ -82,6 +91,12 @@ for row in df_bt_copy.itertuples():
 
     if row.final_date is not NaN:
         final_date = row.final_date.split('/')
+
+        if len(final_date) != 3:
+            df_error = df_error.append(df_bt.loc[[row.Index]])
+            df_error.at[row.Index, 'reason'] = 'Invalid final_date.'
+            df_bt.drop(row.Index, inplace=True)
+            continue
 
         df_bt.at[row.Index, 'last_day'] = final_date[0]
         df_bt.at[row.Index, 'last_month'] = final_date[1]
@@ -100,13 +115,12 @@ df_bt.drop(['address', 'metre', 'initial_date', 'final_date', 'id_point'], axis=
 print('\ndf_bt.tail(): \n', df_bt.tail())
 print('len(df_bt): ', len(df_bt))
 
-# print('\ndf_bt[cordinate].tail(): \n', df_bt['cordinate'].tail())
-
 print('\ndf_error.tail(): \n', df_error.tail())
 print('len(df_error): ', len(df_error))
 
-# save the dataframe in a CSV file
-df_error.to_csv('saida/error_{}'.format(CSV_TO_READ_DF))
+# save the dataframes in CSV files
+df_bt.to_csv('saida/clean_{}'.format(CSV_TO_READ_DF), index=False)  # original CSV without bad rows
+df_error.to_csv('saida/error_{}'.format(CSV_TO_READ_DF), index=False)  # just the bad rows
 
 # save the dataframe in the table `TABLE_TO_STORE_DF` in the database
 df_bt.to_sql(TABLE_TO_STORE_DF, con=engine, schema='public')
