@@ -7,7 +7,8 @@ from model import engine, execute_file, execute_query
 
 
 # table name to store the dataframe
-TABLE_NAME_TO_STORE_DF = 'places_pilot_area_test'
+TABLE_NAME_TO_STORE_DF = 'places_pilot_area2'  # correct table
+# TABLE_NAME_TO_STORE_DF = 'places_pilot_area_test'  # fake table to test
 PATH_CSV_TO_READ_DF = 'TABELAO_2019_12_11.csv'  # original file
 # PATH_CSV_TO_READ_DF = 'TABELAO_2019_12_11_sample_last_656_rows.csv'  # this is a sample file
 
@@ -67,11 +68,80 @@ class BigTable():
         execute_query('DROP TABLE IF EXISTS public.{};'.format(self.table_name_to_store_df))
         print('\nTable `{}` has been dropped successfully!'.format(self.table_name_to_store_df))
 
+    def __check_dates(self, row):
+        """
+        Processes initial and final dates.
+
+        Return:
+            status (boolean):
+                True: if processing is OK;
+                False: if an error has been found during processing.
+        """
+
+        if row.initial_date is not NaN:
+            initial_date = row.initial_date.split('/')
+
+            if len(initial_date) != 3:
+                self.df_error = self.df_error.append(self.df_bt.loc[[row.Index]])
+                self.df_error.at[row.Index, 'reason'] = 'Invalid initial_date.'
+                self.df_bt.drop(row.Index, inplace=True)
+                return False
+
+            self.df_bt.at[row.Index, 'first_day'] = initial_date[0]
+            self.df_bt.at[row.Index, 'first_month'] = initial_date[1]
+            self.df_bt.at[row.Index, 'first_year'] = initial_date[2]
+        # else:
+        #     print('error 1: ', row, '\n')
+
+        if row.final_date is not NaN:
+            final_date = row.final_date.split('/')
+
+            if len(final_date) != 3:
+                self.df_error = self.df_error.append(self.df_bt.loc[[row.Index]])
+                self.df_error.at[row.Index, 'reason'] = 'Invalid final_date.'
+                self.df_bt.drop(row.Index, inplace=True)
+                return False
+
+            self.df_bt.at[row.Index, 'last_day'] = final_date[0]
+            self.df_bt.at[row.Index, 'last_month'] = final_date[1]
+            self.df_bt.at[row.Index, 'last_year'] = final_date[2]
+        # else:
+        #     print('error 2: ', row, '\n')
+
+        return True
+
     def __process_df_bt(self):
         # create a copied dataframe to iterate over it while I remove the records from the original one
         df_bt_copy = self.df_bt.copy()
 
         for row in df_bt_copy.itertuples():
+
+            ##################################################
+            # validate the dates
+            ##################################################
+
+            # one date must have a value, if both are NaN, then add it to the error dataframe
+            if row.initial_date is NaN and row.final_date is NaN:
+                self.df_error = self.df_error.append(self.df_bt.loc[[row.Index]])
+                self.df_error.at[row.Index, 'reason'] = 'Initial and final dates are empty.'
+                self.df_bt.drop(row.Index, inplace=True)
+                continue
+
+            # if an error has been found during processing, then go to the next row
+            if not self.__check_dates(row):
+                continue
+
+            # if first_year is greater than last_year, then add it to the error dataframe
+            if self.df_bt.at[row.Index, 'first_year'] > self.df_bt.at[row.Index, 'last_year']:
+                self.df_error = self.df_error.append(self.df_bt.loc[[row.Index]])
+                self.df_error.at[row.Index, 'reason'] = 'Initial year is greater than final year.'
+                self.df_bt.drop(row.Index, inplace=True)
+                continue
+
+            ##################################################
+            # calculate the coordinate
+            ##################################################
+
             # create the SQL query
             query = 'SELECT saboya_geometry({}, {}) AS saboya_geometry;'.format(row.id_street, row.metre)
 
@@ -81,48 +151,6 @@ class BigTable():
             result = result.fetchone()
 
             self.df_bt.at[row.Index, 'cordinate'] = result['saboya_geometry']
-
-            # one date must have a value, if both are NaN, then add it to the error dataframe
-            if row.initial_date is NaN and row.final_date is NaN:
-                self.df_error = self.df_error.append(self.df_bt.loc[[row.Index]])
-                self.df_error.at[row.Index, 'reason'] = 'Initial and final dates are empty.'
-                self.df_bt.drop(row.Index, inplace=True)
-                continue
-
-            if row.initial_date is not NaN:
-                initial_date = row.initial_date.split('/')
-
-                if len(initial_date) != 3:
-                    self.df_error = self.df_error.append(self.df_bt.loc[[row.Index]])
-                    self.df_error.at[row.Index, 'reason'] = 'Invalid initial_date.'
-                    self.df_bt.drop(row.Index, inplace=True)
-                    continue
-
-                self.df_bt.at[row.Index, 'first_day'] = initial_date[0]
-                self.df_bt.at[row.Index, 'first_month'] = initial_date[1]
-                self.df_bt.at[row.Index, 'first_year'] = initial_date[2]
-            # else:
-            #     print('error 1: ', row, '\n')
-
-            if row.final_date is not NaN:
-                final_date = row.final_date.split('/')
-
-                if len(final_date) != 3:
-                    self.df_error = self.df_error.append(self.df_bt.loc[[row.Index]])
-                    self.df_error.at[row.Index, 'reason'] = 'Invalid final_date.'
-                    self.df_bt.drop(row.Index, inplace=True)
-                    continue
-
-                self.df_bt.at[row.Index, 'last_day'] = final_date[0]
-                self.df_bt.at[row.Index, 'last_month'] = final_date[1]
-                self.df_bt.at[row.Index, 'last_year'] = final_date[2]
-            # else:
-            #     print('error 2: ', row, '\n')
-
-            if self.df_bt.at[row.Index, 'first_year'] > self.df_bt.at[row.Index, 'last_year']:
-                self.df_error = self.df_error.append(self.df_bt.loc[[row.Index]])
-                self.df_error.at[row.Index, 'reason'] = 'Initial year is greater than final year.'
-                self.df_bt.drop(row.Index, inplace=True)
 
         print('Big table has been processed successfully!')
 
@@ -151,7 +179,7 @@ class BigTable():
 
     def __database_post_processing(self):
         # execute post processing file
-        execute_file('sql/02_post_processing.sql')
+        execute_file('sql/02_post_processing.sql', mapping_template={'table_name': self.table_name_to_store_df})
         print('`02_post_processing.sql` file has been executed successfully!')
 
     def __print_asterisks(self):

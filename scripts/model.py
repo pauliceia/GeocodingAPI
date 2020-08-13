@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from string import Template
+
 from psycopg2 import connect as pg_connect
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker
@@ -36,14 +38,18 @@ def execute_query(query):
         session.close()
 
 
-def execute_file(file_name):
-    file = open(file_name, "r")
+def execute_file(file_name, mapping_template=None):
+    file = open(file_name, "r").read()
+
+    if mapping_template is not None:
+        # performs the template substitution and it returns a new string
+        file = Template(file).substitute(mapping_template)
 
     pg_connection = create_pg_connect()
     cursor = pg_connection.cursor()
 
     try:
-        result = cursor.execute(file.read())
+        result = cursor.execute(file)
 
         pg_connection.commit()
 
