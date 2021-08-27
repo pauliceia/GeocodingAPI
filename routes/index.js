@@ -10,11 +10,20 @@
 // local
 // var webServiceAddress = process.env.PORT ? "http://localhost:" + process.env.PORT : "http://localhost:3000";
 // production
-var webServiceAddress = "http://pauliceia.dpi.inpe.br";
+// var webServiceAddress = "http://www.pauliceia.dpi.inpe.br";
+
+// default address
+let webServiceAddress = "http://www.pauliceia.dpi.inpe.br"
+
+// if there are environment variables, then get them
+if (process.env.HOST && process.env.PORT) {
+    webServiceAddress = `http://${process.env.HOST}:${process.env.PORT}`
+}
+
+console.log('webServiceAddress: ', webServiceAddress)
 
 var express = require('express');
 var router = express.Router();
-var GeoJSON = require('geojson');
 var Search = require('../controllers/searchPoint');
 var Locate = require('../controllers/lineLocate');
 var Create = require('../controllers/lineSubstring');
