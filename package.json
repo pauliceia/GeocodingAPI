@@ -23,7 +23,7 @@
     "js2xmlparser": "^3.0.0",
     "jsonfile": "^4.0.0",
     "limdu": "^0.9.4",
-    "mocha": "^3.5.3",
+    "mocha": "^10.2.0",
     "morgan": "^1.9.0",
     "pg": "^6.4.2",
     "postgeo": "^0.1.2",
@@ -37,6 +37,6 @@
   },
   "devDependencies": {
     "apidoc": "^0.17.6",
-    "mocha": "^3.5.3"
+    "mocha": "^10.2.0"
   }
 }
