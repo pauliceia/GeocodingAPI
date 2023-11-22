@@ -7,3 +7,6 @@ __pycache__
 
 scripts/saida/clean*sample*
 scripts/saida/error*sample*
+
+.env
+.idea/
