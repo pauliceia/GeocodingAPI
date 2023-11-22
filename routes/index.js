@@ -11,6 +11,9 @@
 // var webServiceAddress = process.env.PORT ? "http://localhost:" + process.env.PORT : "http://localhost:3000";
 // production
 // var webServiceAddress = "http://www.pauliceia.dpi.inpe.br";
+// read dotenv
+require('dotenv').config();
+
 
 // default address
 let webServiceAddress = "http://www.pauliceia.dpi.inpe.br"
@@ -46,12 +49,21 @@ const connectionString = {
     port: 5432,
     user: db_user,
     database: db_name,
-    password: db_pass
+    password: db_pass,
+    connectionTimeoutMillis: 5000 // timeout after 5 seconds
 }
+
+console.log('starting server')
 
 const client = new pg.Client(connectionString);
 
-client.connect();
+client.connect((err) => {
+    if(err) {
+        console.error('Failed to connect to the database:', err);
+        return;
+    }
+    console.log('Successfully connected to the database');
+});
 
 /*-------------------------------------------------+
 | function getDateTime()                           |
@@ -81,49 +93,29 @@ function getDateTime() {
 /*-----------------------------------------------+
 | Places List                                    |
 +-----------------------------------------------*/
-router.get('/placeslist', (req, res, next) => {
+router.get('/placeslist', (req, response, next) => {
 
     //Results Variable
     const results = [];
 
-    //Get a Postgres client from the connection pool
-    pg.connect(connectionString, (err, client, done) => {
+    //Build the SQL Query
+    const SQL_Query_Select_List = "select a.id as places_id, b.name as name_s, a.number::float, a.first_year::integer as firstyear, a.last_year::integer as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area2 as a on a.id_street::integer = b.id::integer where a.number::float > 1 and b.name IS NOT NULL order by name_s, a.first_year, a.last_year, a.number;";
 
-        //Handle connection errors
-        if (err) {
-            done();
-            console.log(err);
-            return res.status(500).json({
-                success: false,
-                data: err
-            });
-        }
-
-        //Build the SQL Query
-        const SQL_Query_Select_List = "select a.id as places_id, b.name as name_s, a.number::float, a.first_year::integer as firstyear, a.last_year::integer as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area2 as a on a.id_street::integer = b.id::integer where a.number::float > 1 and b.name IS NOT NULL order by name_s, a.first_year, a.last_year, a.number;";
-        //const SQL_Query_Select_List = "select b.name, a.number::float, a.first_year::integer as year from streets_pilot_area as b join places_pilot_area2 as a on a.id_street::integer = b.id::integer where a.number::float >= 1 and  a.first_year::integer is not null and  b.name is not null order by b.name;";
-
-        //Execute SQL Query
-        const query = client.query(SQL_Query_Select_List);
-
-        //Push Results
-        query.on('row', (row) => {
-
+    //Execute SQL Query
+   client.query(SQL_Query_Select_List)
+    .then(res => {
+        const results = res.rows.map(row => {
             if (!row.firstyear) {
-                results.push(row.name_s + ', ' + row.number + ', ' + row.lastyear);
+                return row.name_s + ', ' + row.number + ', ' + row.lastyear;
             } else {
-                results.push(row.name_s + ', ' + row.number + ', ' + row.firstyear);
+                return row.name_s + ', ' + row.number + ', ' + row.firstyear;
             }
         });
-
-        //After all data is returned, close connection and return results
-        query.on('end', () => {
-            done();
-
-            //Resuts
-            return res.json(results);
-
-        });
+        return response.json(results);
+    })
+    .catch(err => {
+        console.error('Error executing query', err.stack);
+        return response.json(err.stack)
     });
 });
 
