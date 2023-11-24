@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "supervisor ./bin/www",
-    "test": "mocha test",
+    "test": "cucumber-js",
     "apidoc": "apidoc -i routes/doc -o public/apidoc",
     "docker": "npm install && npm start"
   },
@@ -14,6 +14,7 @@
     "chai": "^4.1.2",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
+    "cucumber": "^6.0.7",
     "debug": "^2.6.9",
     "dotenv": "^16.3.1",
     "express": "^4.16.2",
@@ -33,7 +34,7 @@
     "serialization": "^0.2.0",
     "serve-favicon": "^2.4.5",
     "shp-write": "^0.3.2",
-    "supertest": "^3.0.0",
+    "supertest": "^3.4.2",
     "supervisor": "^0.12.0"
   },
   "devDependencies": {
