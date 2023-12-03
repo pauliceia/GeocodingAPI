@@ -16,7 +16,7 @@ require('dotenv').config();
 
 
 // default address
-let webServiceAddress = "http://www.pauliceia.dpi.inpe.br"
+let webServiceAddress = process.env.WEB_SERVICE_HOST ? process.env.WEB_SERVICE_HOST : "http://www.pauliceia.dpi.inpe.br"
 
 // if there are environment variables, then get them
 if (process.env.HOST && process.env.PORT) {
