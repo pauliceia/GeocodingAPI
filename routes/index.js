@@ -168,52 +168,34 @@ router.get('/places', (req, response, next) => {
 /*-----------------------------------------------+
 | Street Dataset                                 |
 +-----------------------------------------------*/
-router.get('/streets', (req, res, next) => {
-
+router.get('/streets', (req, response, next) => {
     //Results Variable
     const results = [];
 
-    //Get a Postgres client from the connection pool
-    pg.connect(connectionString, (err, client, done) => {
+    //Build the SQL Query
+    const SQL_Query_Select_List = "select id, name, first_year::integer as firstyear, last_year::integer as lastyear, ST_astext(geom) as geom from streets_pilot_area;";
 
-        //Handle connection errors
-        if (err) {
-            done();
-            console.log(err);
-            return res.status(500).json({
+    //Execute SQL Query
+    client.query(SQL_Query_Select_List)
+        .then(res => {
+            const results = res.rows.map(row => {
+                return {
+                    id: row.id,
+                    street_name: row.name,
+                    street_geom: row.geom,
+                    street_firstyear: row.firstyear,
+                    street_lastyear: row.lastyear
+                };
+            });
+            return response.json(results);
+        })
+        .catch(err => {
+            console.error('Error executing query', err.stack);
+            return response.status(500).json({
                 success: false,
-                data: err
-            });
-        }
-
-        //Build the SQL Query ::float
-        const SQL_Query_Select_List = "select id, name, first_year::integer as firstyear, last_year::integer as lastyear, ST_astext(geom) as geom from streets_pilot_area;";
-        //const SQL_Query_Select_List = "select b.name, b.first_year as firstyear, b.last_year as lastyear, ST_astext(b.geom) as geom from streets_pilot_area as b join places_pilot_area2 as a on a.id_street = b.id where a.first_year >= 1 and a.last_year >= 1 order by number;";
-
-        //Execute SQL Query
-        const query = client.query(SQL_Query_Select_List);
-
-        //Push Results
-        query.on('row', (row) => {
-            //results.push(row.name +', '+ row.number+', '+ row.year);
-            results.push({
-                id: row.id,
-                street_name: row.name,
-                street_geom: row.geom,
-                street_firstyear: row.firstyear,
-                street_lastyear: row.lastyear
+                data: err.stack
             });
         });
-
-        //After all data is returned, close connection and return results
-        query.on('end', () => {
-            done();
-
-            //Resuts
-            return res.json(results);
-
-        });
-    });
 });
 
 /*--------------------------------------------------+
