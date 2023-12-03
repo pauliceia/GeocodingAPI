@@ -4,14 +4,16 @@
   "private": true,
   "scripts": {
     "start": "supervisor ./bin/www",
-    "test": "cucumber-js",
+    "test": "nyc --reporter=lcov mocha",
+    "cucumber": "cucumber-js",
     "apidoc": "apidoc -i routes/doc -o public/apidoc",
     "docker": "npm install && npm start"
   },
   "dependencies": {
     "async": "^2.5.0",
     "body-parser": "^1.18.2",
-    "chai": "^4.1.2",
+    "chai": "^4.3.10",
+    "chai-http": "^4.4.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "cucumber": "^6.0.7",
@@ -39,6 +41,8 @@
   },
   "devDependencies": {
     "apidoc": "^0.17.6",
-    "mocha": "^3.5.3"
+    "mocha": "^3.5.3",
+    "mocha-sonarqube-reporter": "^1.0.2",
+    "nyc": "^15.1.0"
   }
 }

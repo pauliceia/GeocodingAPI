@@ -10,3 +10,6 @@ scripts/saida/error*sample*
 
 .env
 .idea/
+
+.nyc_output/
+coverage/
