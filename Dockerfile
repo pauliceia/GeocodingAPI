@@ -1,4 +1,4 @@
-FROM postgis/postgis:latest as dumper
+FROM postgis/postgis:latest AS dumper
 
 COPY ./sql/pauliceia.sql /docker-entrypoint-initdb.d/
 
