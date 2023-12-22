@@ -10,6 +10,7 @@
     "docker": "npm install && npm start"
   },
   "dependencies": {
+    "assert": "^2.1.0",
     "async": "^2.5.0",
     "body-parser": "^1.18.2",
     "chai": "^4.3.10",
