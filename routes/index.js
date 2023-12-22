@@ -16,11 +16,11 @@ require('dotenv').config();
 
 
 // default address
-let webServiceAddress = process.env.WEB_SERVICE_HOST ? process.env.WEB_SERVICE_HOST : "http://www.pauliceia.dpi.inpe.br"
+let webServiceAddress = process.env.WEB_SERVICE_HOST ? process.env.WEB_SERVICE_HOST : "https://pauliceia.unifesp.br"
 
 // if there are environment variables, then get them
 if (process.env.HOST && process.env.PORT) {
-    webServiceAddress = `http://${process.env.HOST}:${process.env.PORT}`
+    webServiceAddress = `https://${process.env.HOST}:${process.env.PORT}`
 }
 
 console.log('webServiceAddress: ', webServiceAddress)

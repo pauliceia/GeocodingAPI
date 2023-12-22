@@ -13,3 +13,4 @@ scripts/saida/error*sample*
 
 .nyc_output/
 coverage/
+/sql/
