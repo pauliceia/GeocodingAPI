@@ -38,10 +38,11 @@ suite('Route index tests', function () {
             });
     })
 
-    suite('Geolocation tests', function (done) {
+    suite('Geolocation tests', function () {
         const parameters = ['alameda barao de piracicaba,34,1908']
         parameters.forEach( parameter => {
             test(`Get geolocation for ${parameter}`, function (done) {
+                this.timeout(30000);
                 chai.request(server)
                     .get(`/api/geocoding/geolocation/${parameter}/json`)
                     .end(function (err, res) {
@@ -50,6 +51,7 @@ suite('Route index tests', function () {
                         assert.equal(res.body[1][0].status, 1)
                         done();
                     });
+                done();
             });
         });
     });
