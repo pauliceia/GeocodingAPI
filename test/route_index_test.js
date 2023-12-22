@@ -1,42 +1,39 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../app');
-const should = chai.should();
+const mocha = require('mocha');
+const suite = mocha.suite;
+const test = mocha.test;
+const assert = chai.assert;
 
 chai.use(chaiHttp);
 
-describe('/GET placeslist', () => {
-    it('it should GET all the places', (done) => {
+suite('Route index tests', function () {
+    test('Get placeslist', function(){
         chai.request(server)
             .get('/api/geocoding/placeslist')
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('array');
-                done();
+            .end(function(err, res){
+                assert.equal(res.status, 200);
+                assert.typeOf(res.body, 'array');
             });
     });
-});
 
-describe('/GET places', () => {
-    it('it should GET all the places', (done) => {
+    test('Get places', function (){
         chai.request(server)
             .get('/api/geocoding/places')
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('array');
-                done();
+            .end(function(err, res){
+                assert.equal(res.status, 200);
+                assert.typeOf(res.body, 'array');
             });
-    });
-});
+    })
 
-describe('/GET streets', () => {
-    it('it should GET all the streets', (done) => {
+    test('Get streets', function (){
         chai.request(server)
             .get('/api/geocoding/streets')
-            .end((err, res) => {
-                res.should.have.status(200);
-                res.body.should.be.a('array');
-                done();
+            .end(function(err, res){
+                assert.equal(res.status, 200);
+                assert.typeOf(res.body, 'array');
             });
-    });
+    })
+
 });

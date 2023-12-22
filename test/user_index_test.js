@@ -2,6 +2,9 @@ const chaiHttp = require('chai-http');
 const server = require('../app');
 const chai = require("chai");
 const assert = chai.assert;
+const mocha = require('mocha');
+const suite = mocha.suite;
+const test = mocha.test;
 
 chai.use(chaiHttp);
 suite('User API tests', function () {
