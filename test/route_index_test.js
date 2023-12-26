@@ -10,6 +10,15 @@ const expectations = require('./route_index_test_expectation');
 chai.use(chaiHttp);
 
 suite('Route index tests', function () {
+    test('get index', function (done) {
+        chai.request(server)
+            .get('/')
+            .end(function (err, res) {
+                assert.equal(res.status, 404);
+                done();
+            });
+    })
+
     test('Get placeslist', function(done){
         const responseJson = "alameda barao de piracicaba, 2, 1908"
         chai.request(server)
