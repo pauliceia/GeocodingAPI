@@ -1,4 +1,4 @@
-const client = require('../database');
+const client = require('../models/database');
 
 function getPlaces(){
     return new Promise((resolve, reject) => {
