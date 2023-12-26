@@ -72,7 +72,8 @@ suite('Route index tests', function () {
             'rua alexandre levy, 15, 1931',
             'rua inexistente, 28, 1800',
             'avenida angelica, 10, 1935',
-            'avenida angelica, 100, 1931'
+            'avenida angelica, 100, 1931',
+            'alameda barao de piracicaba,20,1908'
         ]
 
         let count = 0;

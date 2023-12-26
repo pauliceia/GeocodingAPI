@@ -51,6 +51,12 @@ const expectations = [
         "geom": "POINT(-46.6557305423885 -23.5416188413513)",
         "confidence": 0,
         "status": 1
+    },
+    {
+        "name": "Point Geolocated",
+        "geom": "POINT(-46.64246841920372 -23.534516508951405)",
+        "confidence": 0.6001362125771471,
+        "status": 1
     }
 
 ]
