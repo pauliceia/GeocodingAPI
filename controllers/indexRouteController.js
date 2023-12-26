@@ -45,4 +45,36 @@ function getPlaces(){
     });
 }
 
-module.exports = getPlaces;
+function getStreets(){
+    return new Promise((resolve, reject) =>
+    {
+        const results = [];
+
+        //Build the SQL Query
+        const SQL_Query_Select_List = "select id, name, first_year::integer as firstyear, last_year::integer as lastyear, ST_astext(geom) as geom from streets_pilot_area;";
+
+        //Execute SQL Query
+        client.query(SQL_Query_Select_List)
+            .then(res => {
+                const results = res.rows.map(row => {
+                    return {
+                        id: row.id,
+                        street_name: row.name,
+                        street_geom: row.geom,
+                        street_firstyear: row.firstyear,
+                        street_lastyear: row.lastyear
+                    };
+                });
+                resolve(results);
+            })
+            .catch(err => {
+                console.error('Error executing query', err.stack);
+                reject(err);
+            });
+    });
+}
+
+module.exports = {
+    getPlaces,
+    getStreets
+};

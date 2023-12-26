@@ -32,7 +32,7 @@ var Locate = require('../controllers/lineLocate');
 var Create = require('../controllers/lineSubstring');
 var Match = require('../controllers/dictionary');
 var Calculate = require('../controllers/confidenceRate');
-const getPlaces = require('../controllers/indexRouteController');
+const indexController = require('../controllers/indexRouteController');
 var request = require('request');
 
 /*--------------------------------------------------+
@@ -125,7 +125,7 @@ router.get('/placeslist', (req, response, next) => {
 +-----------------------------------------------*/
 router.get('/places', async (req, response, next) => {
     try{
-        const result = await getPlaces();
+        const result = await indexController.getPlaces();
         return response.json(result);
     } catch (e){
         return response.json(e);
@@ -136,34 +136,13 @@ router.get('/places', async (req, response, next) => {
 /*-----------------------------------------------+
 | Street Dataset                                 |
 +-----------------------------------------------*/
-router.get('/streets', (req, response, next) => {
-    //Results Variable
-    const results = [];
-
-    //Build the SQL Query
-    const SQL_Query_Select_List = "select id, name, first_year::integer as firstyear, last_year::integer as lastyear, ST_astext(geom) as geom from streets_pilot_area;";
-
-    //Execute SQL Query
-    client.query(SQL_Query_Select_List)
-        .then(res => {
-            const results = res.rows.map(row => {
-                return {
-                    id: row.id,
-                    street_name: row.name,
-                    street_geom: row.geom,
-                    street_firstyear: row.firstyear,
-                    street_lastyear: row.lastyear
-                };
-            });
-            return response.json(results);
-        })
-        .catch(err => {
-            console.error('Error executing query', err.stack);
-            return response.status(500).json({
-                success: false,
-                data: err.stack
-            });
-        });
+router.get('/streets', async (req, response, next) => {
+   try{
+       const result = await indexController.getStreets();
+       return response.json(result);
+   } catch (e){
+       return response.json(e);
+   }
 });
 
 /*--------------------------------------------------+
@@ -185,7 +164,7 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
     //Set the url
     url = webServiceAddress + '/api/geocoding/places';
 
-    const body = await getPlaces();
+    const body = await indexController.getPlaces();
     //Request the json with all places
 
             //Set the bodyjson with the body of the request
@@ -328,18 +307,12 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
 
                     // Else (Not Saboya)
                 } else {
-
                     /*-----------------------+
                     | Geocode              S  |
                     +-----------------------*/
-                    url = webServiceAddress + '/api/geocoding/streets';
-
-                    //Request the json with all streets
-                    request(url, function(error, response, body) {
-                        if (!error) {
 
                             //Set the bodyjson with the body of the request
-                            var streets = JSON.parse(body);
+                            var streets = await indexController.getStreets();
 
                             //Filter json streets using the entering variables
                             var streets_filter = streets.filter(el => el.street_name == textpoint);
@@ -605,8 +578,8 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                             //Return the json with results
                             return res.json(head);
 
-                        }
-                    });
+
+
                 }
             }
 });
