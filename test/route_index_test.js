@@ -73,7 +73,8 @@ suite('Route index tests', function () {
             'rua inexistente, 28, 1800',
             'avenida angelica, 10, 1935',
             'avenida angelica, 100, 1931',
-            'alameda barao de piracicaba,20,1908'
+            'alameda barao de piracicaba,20,1908',
+            'alameda barao de piracicaba,21,1908'
         ]
 
         let count = 0;
