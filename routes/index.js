@@ -185,14 +185,11 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
     //Set the url
     url = webServiceAddress + '/api/geocoding/places';
 
-    body()
-
+    const body = await getPlaces();
     //Request the json with all places
-    request(url, function(error, response, body) {
-        if (!error) {
 
             //Set the bodyjson with the body of the request
-            var places = JSON.parse(body);
+            var places = body
 
             //Filter json places using the entering variables
             var places_filter = places.filter(el => el.street_name == textpoint);
@@ -301,33 +298,33 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                 +-----------------------*/
                 if (year > 1931) {
 
-                    //Build the SQL Query ::float
-                    let SQL_Query = client.query('SELECT saboya_geometry($1, $2) AS saboya_geometry;', [id_street, number]);
+                    client.query('SELECT saboya_geometry($1, $2) AS saboya_geometry;', [id_street, number])
+                        .then(result => {
+                            const row = result.rows[0];
 
-                    //Push Results
-                    SQL_Query.on('row', (row) => {
+                            //Organize the Json results
+                            results.push({
+                                name: "Point Geolocated S",
+                                geom: row.saboya_geometry,
+                                confidence: 0.9,
+                                status: 1
+                            });
 
-                        //Organize the Json results
-                        results.push({
-                            name: "Point Geolocated S",
-                            geom: row.saboya_geometry,
-                            confidence: 0.9,
-                            status: 1
+                            //Write header
+                            head.push({
+                                createdAt: getDateTime(),
+                                type: 'GET'
+                            });
+
+                            //Push Head
+                            head.push(results);
+
+                            //Return the json with results
+                            return res.json(head);
+                        })
+                        .catch(err => {
+                            console.error('Error executing query', err.stack);
                         });
-
-                        //Write header
-                        head.push({
-                            createdAt: getDateTime(),
-                            type: 'GET'
-                        });
-
-                        //Push Head
-                        head.push(results);
-
-                        //Return the json with results
-                        return res.json(head);
-
-                    });
 
                     // Else (Not Saboya)
                 } else {
@@ -612,8 +609,6 @@ router.get('/geolocation/:textpoint,:number,:year/json', async function(req, res
                     });
                 }
             }
-        }
-    });
 });
 
 /*---------------------------------------------------+
