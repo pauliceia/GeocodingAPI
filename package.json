@@ -37,6 +37,7 @@
     "serialization": "^0.2.0",
     "serve-favicon": "^2.4.5",
     "shp-write": "^0.3.2",
+    "sinon": "^17.0.1",
     "supertest": "^3.4.2",
     "supervisor": "^0.12.0"
   },

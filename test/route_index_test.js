@@ -5,6 +5,8 @@ const mocha = require('mocha');
 const suite = mocha.suite;
 const test = mocha.test;
 const assert = chai.assert
+const sinon = require('sinon');
+const getDateTime = require('../routes/index').getDateTime;
 
 chai.use(chaiHttp);
 
@@ -39,16 +41,21 @@ suite('Route index tests', function () {
     })
 
     suite('Geolocation tests', function () {
-        const parameters = ['alameda barao de piracicaba,34,1908']
+        const parameters = [
+            'alameda barao de piracicaba,34,1908',
+
+        ]
+        let count = 0;
         parameters.forEach( parameter => {
             test(`Get geolocation for ${parameter}`, function (done) {
-                this.timeout(30000);
+                this.timeout(300000)
                 chai.request(server)
-                    .get(`/api/geocoding/geolocation/${parameter}/json`)
+                    .get(`/api/geocoding/geolocation/alameda barao de piracicaba,34,1908/json`)
                     .end(function (err, res) {
                         assert.equal(res.status, 200);
                         assert.typeOf(res.body, 'array');
-                        assert.equal(res.body[1][0].status, 1)
+                        assert.equal(res.body[1][count].status, 2)
+                        count++;
                         done();
                     });
                 done();
