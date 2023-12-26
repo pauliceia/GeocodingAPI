@@ -200,7 +200,7 @@ function getGeolocation(textpoint, year, number){
             places_filter = places_filter.filter(el => el.place_firstyear <= year);
 
             places_filter.sort((a, b) => {
-                resolve(parseInt(a.place_number) - parseInt(b.place_number))
+                return parseInt(a.place_number) - parseInt(b.place_number)
             })
 
             /*-----------------------+
