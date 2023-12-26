@@ -123,9 +123,9 @@ router.get('/placeslist', (req, response, next) => {
 /*-----------------------------------------------+
 | Places Dataset                                 |
 +-----------------------------------------------*/
-router.get('/places', (req, response, next) => {
+router.get('/places', async (req, response, next) => {
     try{
-        const result = getPlaces();
+        const result = await getPlaces();
         return response.json(result);
     } catch (e){
         return response.json(e);
