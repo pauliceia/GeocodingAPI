@@ -1,5 +1,4 @@
 const client = require('../models/database');
-const Match = require("./dictionary");
 const Locate = require("./lineLocate");
 const Create = require("./lineSubstring");
 const Search = require("./searchPoint");
@@ -9,26 +8,23 @@ const Calculate = require("./confidenceRate");
 | function getDateTime()                           |
 +-------------------------------------------------*/
 function getDateTime() {
-    var date = new Date();
-    var hour = date.getHours();
+    const date = new Date();
+    let hour = date.getHours();
     hour = (hour < 10 ? "0" : "") + hour;
-    var min = date.getMinutes();
+    let min = date.getMinutes();
     min = (min < 10 ? "0" : "") + min;
-    var sec = date.getSeconds();
+    let sec = date.getSeconds();
     sec = (sec < 10 ? "0" : "") + sec;
-    var year = date.getFullYear();
-    var month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    let month = date.getMonth() + 1;
     month = (month < 10 ? "0" : "") + month;
-    var day = date.getDate();
+    let day = date.getDate();
     day = (day < 10 ? "0" : "") + day;
     return hour + ":" + min + ":" + sec + " " + day + "/" + month + "/" + year;
 }
 
 function getPlacesList(){
     return new Promise((resolve, reject) => {
-
-        const results = [];
-
         //Build the SQL Query
         const SQL_Query_Select_List = "select a.id as places_id, b.name as name_s, a.number::float, a.first_year::integer as firstyear, a.last_year::integer as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area2 as a on a.id_street::integer = b.id::integer where a.number::float > 1 and b.name IS NOT NULL order by name_s, a.first_year, a.last_year, a.number;";
 
@@ -53,8 +49,6 @@ function getPlacesList(){
 
 function getPlaces(){
     return new Promise((resolve, reject) => {
-        //Results Variable
-        const results = [];
 
         //Build the SQL Query
         const SQL_Query_Select_List = "select a.id as places_id, a.id_street, b.name as name_s, a.number::float, a.first_year::integer as firstyear, a.last_year::integer as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area2 as a on a.id_street::integer = b.id::integer union select a.id as places_id, a.id_street, b.name as name_s, a.number::float, a.first_year::integer as firstyear, a.last_year::integer as lastyear, ST_AsText(a.geom) as geom from streets_pilot_area as b join places_pilot_area as a on a.id_street::integer = b.id::integer where a.number::float = 0.0 order by number;";
@@ -99,8 +93,6 @@ function getPlaces(){
 function getStreets(){
     return new Promise((resolve, reject) =>
     {
-        const results = [];
-
         //Build the SQL Query
         const SQL_Query_Select_List = "select id, name, first_year::integer as firstyear, last_year::integer as lastyear, ST_astext(geom) as geom from streets_pilot_area;";
 
@@ -127,15 +119,19 @@ function getStreets(){
 
 function getGeolocation(textpoint, year, number){
     return new Promise(async (resolve, reject) => {
-        //Results variables
+        let geometry;
+        let sublinestring;
+        //Else if end is bigger then start
+
+//Results variables
         let results = [];
         let head = [];
 
         //Set the bodyjson with the body of the request
-        var places = await getPlaces();
+        const places = await getPlaces();
 
         //Filter json places using the entering variables
-        var places_filter = places.filter(el => el.street_name == textpoint);
+        let places_filter = places.filter(el => el.street_name == textpoint);
         //Results if there is no point in the searched street
         if (places_filter.length == 0) {
             console.log('entrous')
@@ -190,7 +186,6 @@ function getGeolocation(textpoint, year, number){
 
             //Return the json with results
             resolve(head);
-            return;
 
         } else {
 
@@ -278,14 +273,15 @@ function getGeolocation(textpoint, year, number){
                 | Geocode              S  |
                 +-----------------------*/
 
-                //Set the bodyjson with the body of the request
-                var streets = await getStreets();
+                let i;
+//Set the bodyjson with the body of the request
+                const streets = await getStreets();
 
                 //Filter json streets using the entering variables
-                var streets_filter = streets.filter(el => el.street_name == textpoint);
+                const streets_filter = streets.filter(el => el.street_name == textpoint);
 
                 //Get the street and merge it into linestring
-                var linemerge = (streets_filter[0].street_geom);
+                const linemerge = (streets_filter[0].street_geom);
 
                 //Filter json places using the entering variables
                 places_filter = places.filter(el => el.street_name == textpoint);
@@ -300,19 +296,19 @@ function getGeolocation(textpoint, year, number){
                 const numbers = [];
 
                 //Loop to fill the array numbers
-                for (var i = 0; i < places_filter.length; i++) {
+                for (i = 0; i < places_filter.length; i++) {
                     numbers[i] = places_filter[i].place_number;
                 }
 
                 //Filter the json places to get the p1
-                var p1 = places_filter.filter(el => el.place_number < number);
+                let p1 = places_filter.filter(el => el.place_number < number);
 
                 //define array numbers 1
-                var numbers_p1 = [];
-                var j = 0;
+                const numbers_p1 = [];
+                let j = 0;
 
                 //Loop to fill the array numbers
-                for (var i = 0; i < p1.length; i++) {
+                for (i = 0; i < p1.length; i++) {
 
                     //Check if the number is even if that so append it to the array numbers
                     if (number % 2 == 0) {
@@ -342,14 +338,14 @@ function getGeolocation(textpoint, year, number){
                 p1 = p1.filter(el => el.place_number == Math.max.apply(Math, numbers_p1));
 
                 //Filter the json places to get the p2
-                var p2 = places_filter.filter(el => el.place_number > number);
+                let p2 = places_filter.filter(el => el.place_number > number);
 
                 //define array numbers 1-
-                var numbers_p2 = [];
+                let numbers_p2 = [];
                 j = 0;
 
                 //Loop to fill the array numbers
-                for (var i = 0; i < p2.length; i++) {
+                for (i = 0; i < p2.length; i++) {
 
                     let numero = '' + number
                     numero = numero.replace(".", ",")
@@ -468,63 +464,61 @@ function getGeolocation(textpoint, year, number){
                 }
 
                 //set the geometry of the P1 and P2
-                var p1_geom = p1[0].place_geom;
-                var p2_geom = p2[0].place_geom;
+                let p1_geom = p1[0].place_geom;
+                let p2_geom = p2[0].place_geom;
 
                 //get the startfraction
-                var startfraction = Locate.lineLocate(linemerge, p1_geom);
+                const startfraction = Locate.lineLocate(linemerge, p1_geom);
 
                 //get the endfraction
-                var endfraction = Locate.lineLocate(linemerge, p2_geom);
+                const endfraction = Locate.lineLocate(linemerge, p2_geom);
 
                 //check if end is bigger then start
                 if (endfraction > startfraction) {
 
                     //get the geom of lineSubString
-                    var sublinestring = Create.lineSubstring(linemerge, startfraction, endfraction);
-
-                    //Else if end is bigger then start
+                    sublinestring = Create.lineSubstring(linemerge, startfraction, endfraction);
                 } else {
 
                     //get the geom of lineSubString
-                    var sublinestring = Create.lineSubstring(linemerge, endfraction, startfraction);
+                    sublinestring = Create.lineSubstring(linemerge, endfraction, startfraction);
 
                 }
 
                 //take the geom number of p1_geom
-                p1_geom = p1_geom.substr(p1_geom.indexOf("(") + 1);
-                p1_geom = p1_geom.substr(0, p1_geom.indexOf(")"));
-                var p1_g = p1_geom;
+                p1_geom = p1_geom.substring(p1_geom.indexOf("(") + 1);
+                p1_geom = p1_geom.substring(0, p1_geom.indexOf(")"));
+                const p1_g = p1_geom;
 
                 //take the geom number of p2_geom
-                p2_geom = p2_geom.substr(p2_geom.indexOf("(") + 1);
-                p2_geom = p2_geom.substr(0, p2_geom.indexOf(")"));
-                var p2_g = p2_geom;
+                p2_geom = p2_geom.substring(p2_geom.indexOf("(") + 1);
+                p2_geom = p2_geom.substring(0, p2_geom.indexOf(")"));
+                const p2_g = p2_geom;
 
                 //MULTILINESTRING Handler
                 if (sublinestring == ',') {
 
                     //build the street geom
-                    var geometry = ("MULTILINESTRING((" + p1_geom + "," + p2_geom + "))");
+                    geometry = ("MULTILINESTRING((" + p1_geom + "," + p2_geom + "))");
 
                 } else {
                     if (!sublinestring) {
 
                         //build the street geom
-                        var geometry = ("MULTILINESTRING((" + p1_geom + "," + p2_geom + "))");
+                        geometry = ("MULTILINESTRING((" + p1_geom + "," + p2_geom + "))");
 
                     } else {
 
                         //build the street geom
-                        var geometry = ("MULTILINESTRING((" + p1_geom + "," + sublinestring + p2_geom + "))");
+                        geometry = ("MULTILINESTRING((" + p1_geom + "," + sublinestring + p2_geom + "))");
 
                     }
                 }
 
                 //Get the four variable to geocode
-                var nl = p2[0].place_number;
-                var nf = p1[0].place_number;
-                var num = parseInt(number);
+                const nl = p2[0].place_number;
+                const nf = p1[0].place_number;
+                const num = parseInt(number);
 
                 //Organize the Json results
                 results.push({
