@@ -40,10 +40,10 @@ exports.lineSubstring = function(street, startfraction, endfraction){
     for (i = 0; i < distances.length; i++) {
 
         //variavel para calcular distancia até um ponto
-        var distPoint = 0;
+        let distPoint = 0;
 
         //loop para somar as distancias até aquele ponto
-        for (var j = 0; j < i; j++) {
+        for (let j = 0; j < i; j++) {
             
             //somatoria
             distPoint = distPoint + distances[j]
