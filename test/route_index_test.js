@@ -96,8 +96,7 @@ suite('Route index tests', function () {
                     .end(function (err, res) {
                         assert.equal(res.status, 200);
                         assert.typeOf(res.body, 'array');
-                        assert.include(res.body[1][0], expectations[count]);
-                        count++;
+                        assert.include(res.body[1][0], expectations[count++]);
                         done();
                     });
             });
