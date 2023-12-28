@@ -1,28 +1,34 @@
 //line -> geometria do rua
+
+//FUNÇÕES AUXILIARES
+const getDistance = function(x1, y1, x2, y2){
+    return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+};
 //point-> geometria do ponto
 
 exports.lineLocate = function(line, point){
     
-    //tratar a string da geometria ponto
-    var geomPoint = point.substr(point.indexOf("(")+1);
-    geomPoint = geomPoint.substr(0,geomPoint.indexOf(")"));
+    let i;
+//tratar a string da geometria ponto
+    let geomPoint = point.substring(point.indexOf("(") + 1);
+    geomPoint = geomPoint.substring(0,geomPoint.indexOf(")"));
 
     //tratar a string da geometria linha
-    var geomLine = line.substr(line.indexOf("(")+2);
-    geomLine = geomLine.substr(0,geomLine.indexOf(")"));
+    let geomLine = line.substring(line.indexOf("(") + 2);
+    geomLine = geomLine.substring(0,geomLine.indexOf(")"));
 
     //divide a rua em grupo de pontos
-    var pointsLine = geomLine.split(',');
-    
+    const pointsLine = geomLine.split(',');
+
     //variaveis globais
-    var distances = [];
-    var distTotal = 0;
-    var minDistance = 1000;
-    var index = 0;
-    var distDesired = 0;
-    
+    const distances = [];
+    let distTotal = 0;
+    let minDistance = 1000;
+    let index = 0;
+    let distDesired = 0;
+
     //loop para somar as distancias
-    for (var i = 1; i < pointsLine.length; i++) {
+    for (i = 1; i < pointsLine.length; i++) {
 
         //insere as distancias no array distances
         distances[i] = getDistance(pointsLine[(i-1)].split(' ')[0], pointsLine[(i-1)].split(' ')[1], pointsLine[(i)].split(' ')[0], pointsLine[(i)].split(' ')[1]);
@@ -47,7 +53,7 @@ exports.lineLocate = function(line, point){
     }else{
     
         //loop para somar a distancia entre o ponto inicial e o ponto procurado
-        for (var i = 1; i < index; i++) {
+        for (i = 1; i < index; i++) {
             
             //insere as distancias no array 
             distDesired = distDesired + getDistance(pointsLine[(i-1)].split(' ')[0], pointsLine[(i-1)].split(' ')[1], pointsLine[(i)].split(' ')[0], pointsLine[(i)].split(' ')[1]);
@@ -61,9 +67,4 @@ exports.lineLocate = function(line, point){
         return (distDesired)/(distTotal)
     }
 
-}
-
-//FUNÇÕES AUXILIARES
-var getDistance = function(x1, y1, x2, y2){
-    return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
 }

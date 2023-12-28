@@ -292,14 +292,6 @@ function getGeolocation(textpoint, year, number){
                 //Filter json places using the entering variables
                 places_filter = places_filter.filter(el => el.place_firstyear <= year);
 
-                //Declare array with numbers
-                const numbers = [];
-
-                //Loop to fill the array numbers
-                for (i = 0; i < places_filter.length; i++) {
-                    numbers[i] = places_filter[i].place_number;
-                }
-
                 //Filter the json places to get the p1
                 let p1 = places_filter.filter(el => el.place_number < number);
 
