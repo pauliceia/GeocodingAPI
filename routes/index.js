@@ -24,9 +24,9 @@ if (process.env.HOST && process.env.PORT) {
 
 console.log('webServiceAddress: ', webServiceAddress)
 
-var express = require('express');
-var router = express.Router();
-var Match = require('../controllers/dictionary');
+const express = require('express');
+const router = express.Router();
+const Match = require('../controllers/dictionary');
 const indexController = require('../controllers/indexRouteController');
 
 /* ------------------------------------------------------------------------+
