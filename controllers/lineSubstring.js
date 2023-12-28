@@ -8,12 +8,11 @@ const getDistance = function(x1, y1, x2, y2){
 //endfraction-> porcentagem onde se termina o trecho em relação a rua
 
 exports.lineSubstring = function(street, startfraction, endfraction){
-//function lineSubstring(street, startfraction, endfraction){
 
     let i;
 //tratar a string da geometria linha
-    let geomStreet = street.substr(street.indexOf("(") + 2);
-    geomStreet = geomStreet.substr(0,geomStreet.indexOf(")"));
+    let geomStreet = street.substring(street.indexOf("(") + 2);
+    geomStreet = geomStreet.substring(0,geomStreet.indexOf(")"));
     
     //divide a rua em grupo de pontos
     const pointsLine = geomStreet.split(',');
