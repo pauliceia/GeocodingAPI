@@ -68,6 +68,12 @@ const expectations = [
         "name": "Point not found",
         "alertMsg": "Não encontramos pontos necessarios para a geolocalização nesse logradouro no ano buscado (alameda barao de piracicaba, 0, 1908)",
         "status": 0
+    },
+    {
+        "name": "Point Geolocated",
+        "geom": "POINT(-46.636238968103186 -23.54652446673687)",
+        "confidence": 0.7625302136416297,
+        "status": 1
     }
 
 ]
