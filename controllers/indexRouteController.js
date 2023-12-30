@@ -184,6 +184,31 @@ async function saboyaGeolocation(id_street, number){
     });
 }
 
+
+function notFound(textpoint, number, year){
+    const results = [];
+    const head = [];
+
+    //Result
+    results.push({
+        name: "Point not found",
+        alertMsg: "Não encontramos pontos nesse logradouro referentes ao ano buscado (" + textpoint + ", " + number + ", " + year + ")",
+        status: 0
+    });
+
+    //Write header
+    head.push({
+        createdAt: getDateTime(),
+        type: 'GET'
+    });
+
+    //Push Head
+    head.push(results);
+
+    //Return the json with results
+    return head;
+}
+
 function getGeolocation(textpoint, year, number){
     return new Promise(async (resolve, reject) => {
         let geometry;
@@ -201,25 +226,7 @@ function getGeolocation(textpoint, year, number){
         let places_filter = places.filter(el => el.street_name == textpoint);
         //Results if there is no point in the searched street
         if (places_filter.length == 0) {
-            console.log('entrous')
-            //Result
-            results.push({
-                name: "Point not found",
-                alertMsg: "Não encontramos pontos nesse logradouro referentes ao ano buscado (" + textpoint + ", " + number + ", " + year + ")",
-                status: 0
-            });
-
-            //Write header
-            head.push({
-                createdAt: getDateTime(),
-                type: 'GET'
-            });
-
-            //Push Head
-            head.push(results);
-
-            //Return the json with results
-            resolve(head);
+            resolve(notFound(textpoint, number, year));
             return;
         }
 
@@ -264,6 +271,11 @@ function getGeolocation(textpoint, year, number){
             places_filter.sort((a, b) => {
                 return parseInt(a.place_number) - parseInt(b.place_number)
             })
+
+            if(places_filter.length == 0){
+                resolve(notFound(textpoint, number, year));
+                return;
+            }
 
             /*-----------------------+
             | Spatial Extrapolation  |
