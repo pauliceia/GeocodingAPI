@@ -118,6 +118,38 @@ function getStreets(){
     });
 }
 
+function spatialExtrapolation(places, textpoint, places_filter){
+    const results = [];
+    const head = [];
+
+    places_filter = places.filter(el => el.street_name == textpoint);
+    places_filter = places_filter.filter(el => el.place_number == parseInt(places_filter[places_filter.length - 1].place_number));
+
+    //Check if only one result was found
+    if (places_filter.length == 1 && places_filter[0].place_number > 0) {
+
+        //Organize the Json results
+        results.push({
+            name: 'Point Spatial Extrapolated',
+            geom: places_filter[0].place_geom,
+            confidence: 0,
+            status: 1
+        });
+
+        //Write header
+        head.push({
+            createdAt: getDateTime(),
+            type: 'GET'
+        });
+
+        //Push Head
+        head.push(results);
+
+        //Return the json with results
+        return head;
+    }
+}
+
 async function saboyaGeolocation(id_street, number){
     return new Promise((resolve, reject) => {
         const results = [];
@@ -238,34 +270,10 @@ function getGeolocation(textpoint, year, number){
             +-----------------------*/
 
             if (parseFloat(places_filter[places_filter.length - 1].place_number) < number) {
+                const spatialExtrapolationResult = spatialExtrapolation(places, textpoint, places_filter);
+                resolve(spatialExtrapolationResult);
+                return;
 
-                places_filter = places.filter(el => el.street_name == textpoint);
-                places_filter = places_filter.filter(el => el.place_number == parseInt(places_filter[places_filter.length - 1].place_number));
-
-                //Check if only one result was found
-                if (places_filter.length == 1 && places_filter[0].place_number > 0) {
-
-                    //Organize the Json results
-                    results.push({
-                        name: 'Point Spatial Extrapolated',
-                        geom: places_filter[0].place_geom,
-                        confidence: 0,
-                        status: 1
-                    });
-
-                    //Write header
-                    head.push({
-                        createdAt: getDateTime(),
-                        type: 'GET'
-                    });
-
-                    //Push Head
-                    head.push(results);
-
-                    //Return the json with results
-                    resolve(head);
-                    return
-                }
             }
 
             /*-----------------------+
