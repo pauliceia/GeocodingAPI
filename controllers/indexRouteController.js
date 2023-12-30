@@ -369,16 +369,13 @@ for (let i = 0; i < p1.length; i++) {
     const endfraction = Locate.lineLocate(linemerge, p2_geom);
 
     //check if end is bigger then start
-    let sublinestring;
+
+    let sublinestring = Create.lineSubstring(linemerge, endfraction, startfraction);
+
     if (endfraction > startfraction) {
 
         //get the geom of lineSubString
         sublinestring = Create.lineSubstring(linemerge, startfraction, endfraction);
-    } else {
-
-        //get the geom of lineSubString
-        sublinestring = Create.lineSubstring(linemerge, endfraction, startfraction);
-
     }
 
     //take the geom number of p1_geom
