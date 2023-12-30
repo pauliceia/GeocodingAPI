@@ -237,7 +237,6 @@ async function geocode(textpoint, year, number, places) {
     const results = [];
     const head = [];
 
-    let i;
     //Set the bodyjson with the body of the request
     const streets = await getStreets();
 
