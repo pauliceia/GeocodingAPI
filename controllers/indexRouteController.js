@@ -118,11 +118,11 @@ function getStreets(){
     });
 }
 
-function spatialExtrapolation(places, textpoint, places_filter){
+function spatialExtrapolation(places, textpoint){
     const results = [];
     const head = [];
 
-    places_filter = places.filter(el => el.street_name == textpoint);
+    let places_filter = places.filter(el => el.street_name == textpoint);
     places_filter = places_filter.filter(el => el.place_number == parseInt(places_filter[places_filter.length - 1].place_number));
 
     //Check if only one result was found
