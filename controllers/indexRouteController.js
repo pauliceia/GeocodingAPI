@@ -264,31 +264,13 @@ async function geocode(textpoint, year, number, places) {
     let j = 0;
 
     //Loop to fill the array numbers
-    for (i = 0; i < p1.length; i++) {
-
-        //Check if the number is even if that so append it to the array numbers
-        if (number % 2 == 0) {
-
-            let numero = '' + p1[i].place_number
-            numero = numero.replace(".", ",")
-
-            if (numero % 2 == 0) {
-                numbers_p1[j] = p1[i].place_number;
-                j++;
-            }
-
-            //Check if the number is odd if that so append it to the array numbers
-        } else {
-
-            let numero = '' + p1[i].place_number
-            numero = numero.replace(".", ",")
-
-            if (numero % 2 != 0) {
-                numbers_p1[j] = p1[i].place_number;
-                j++;
-            }
-        }
+for (let i = 0; i < p1.length; i++) {
+    let numero = parseFloat(('' + p1[i].place_number).replace(".", ","));
+    if (numero % 2 === parseFloat(('' + number).replace(".", ",")) % 2) {
+        numbers_p1[j] = p1[i].place_number;
+        j++;
     }
+}
 
     //filter the p1
     p1 = p1.filter(el => el.place_number == Math.max.apply(Math, numbers_p1));
@@ -301,32 +283,11 @@ async function geocode(textpoint, year, number, places) {
     j = 0;
 
     //Loop to fill the array numbers
-    for (i = 0; i < p2.length; i++) {
-
-        let numero = '' + number
-        numero = numero.replace(".", ",")
-
-        //Check if the number is even if that so append it to the array numbers
-        if (numero % 2 == 0) {
-
-            let numero = '' + p2[i].place_number
-            numero = numero.replace(".", ",")
-
-            if (parseFloat(numero) % 2 == 0) {
-                numbers_p2[j] = p2[i].place_number;
-                j++;
-            }
-
-            //Check if the number is odd if that so append it to the array numbers
-        } else {
-
-            let numero = '' + p2[i].place_number
-            numero = numero.replace(".", ",")
-
-            if (parseFloat(numero) % 2 != 0) {
-                numbers_p2[j] = p2[i].place_number;
-                j++;
-            }
+    for (let i = 0; i < p2.length; i++) {
+        let numero = parseFloat(('' + p2[i].place_number).replace(".", ","));
+        if (numero % 2 === parseFloat(('' + number).replace(".", ",")) % 2) {
+            numbers_p2[j] = p2[i].place_number;
+            j++;
         }
     }
 
@@ -385,31 +346,10 @@ async function geocode(textpoint, year, number, places) {
 
         //Loop to fill the array numbers
         for (let i = 0; i < new_p2.length; i++) {
-
-            let numero = '' + number
-            numero = numero.replace(".", ",")
-
-            //Check if the number is even if that so append it to the array numbers
-            if (numero % 2 == 0) {
-
-                let numero = '' + new_p2[i].place_number
-                numero = numero.replace(".", ",")
-
-                if (parseFloat(numero) % 2 == 0) {
-                    numbers_p2[j] = new_p2[i].place_number;
-                    j++
-                }
-
-                //Check if the number is odd if that so append it to the array numbers
-            } else {
-
-                let numero = '' + new_p2[i].place_number
-                numero = numero.replace(".", ",")
-
-                if (parseFloat(numero) % 2 != 0) {
-                    numbers_p2[j] = new_p2[i].place_number;
-                    j++;
-                }
+            let numero = parseFloat(('' + new_p2[i].place_number).replace(".", ","));
+            if (numero % 2 === parseFloat(('' + number).replace(".", ",")) % 2) {
+                numbers_p2[j] = new_p2[i].place_number;
+                j++;
             }
         }
 
@@ -429,6 +369,7 @@ async function geocode(textpoint, year, number, places) {
     const endfraction = Locate.lineLocate(linemerge, p2_geom);
 
     //check if end is bigger then start
+    let sublinestring;
     if (endfraction > startfraction) {
 
         //get the geom of lineSubString
@@ -451,7 +392,7 @@ async function geocode(textpoint, year, number, places) {
     const p2_g = p2_geom;
 
     //MULTILINESTRING Handler
-    geometry = multilineStringHandler(p1_geom, p2_geom, sublinestring);
+    let geometry = multilineStringHandler(p1_geom, p2_geom, sublinestring);
 
     //Get the four variable to geocode
     const nl = p2[0].place_number;
