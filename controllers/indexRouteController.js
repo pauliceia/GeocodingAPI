@@ -414,7 +414,7 @@ async function geocode(textpoint, year, number, places) {
 }
 
 function getGeolocation(textpoint, year, number) {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async (resolve) => {
         //Else if end is bigger then start
 
 //Results variables
