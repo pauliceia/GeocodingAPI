@@ -3,6 +3,7 @@ const Locate = require("./lineLocate");
 const Create = require("./lineSubstring");
 const Search = require("./searchPoint");
 const Calculate = require("./confidenceRate");
+const {throws} = require("assert");
 
 /*-------------------------------------------------+
 | function getDateTime()                           |
@@ -113,6 +114,40 @@ function getStreets(){
             .catch(err => {
                 console.error('Error executing query', err.stack);
                 reject(err);
+            });
+    });
+}
+
+async function saboyaGeolocation(id_street, number){
+    return new Promise((resolve, reject) => {
+        const results = [];
+        const head = [];
+
+        client.query('SELECT saboya_geometry($1, $2) AS saboya_geometry;', [id_street, number])
+            .then(result => {
+                const row = result.rows[0];
+
+                //Organize the Json results
+                results.push({
+                    name: "Point Geolocated S",
+                    geom: row.saboya_geometry,
+                    confidence: 0.9,
+                    status: 1
+                });
+
+                //Write header
+                head.push({
+                    createdAt: getDateTime(),
+                    type: 'GET'
+                });
+
+                //Push Head
+                head.push(results);
+                //Return the json with results
+                resolve(head);
+            })
+            .catch(err => {
+                throws(err)
             });
     });
 }
@@ -238,34 +273,8 @@ function getGeolocation(textpoint, year, number){
             +-----------------------*/
             if (year > 1931) {
 
-                client.query('SELECT saboya_geometry($1, $2) AS saboya_geometry;', [id_street, number])
-                    .then(result => {
-                        const row = result.rows[0];
-
-                        //Organize the Json results
-                        results.push({
-                            name: "Point Geolocated S",
-                            geom: row.saboya_geometry,
-                            confidence: 0.9,
-                            status: 1
-                        });
-
-                        //Write header
-                        head.push({
-                            createdAt: getDateTime(),
-                            type: 'GET'
-                        });
-
-                        //Push Head
-                        head.push(results);
-
-                        //Return the json with results
-                        resolve(head);
-                    })
-                    .catch(err => {
-                        console.error('Error executing query', err.stack);
-                        reject(err);
-                    });
+                const saboyaResult = await saboyaGeolocation(id_street, number);
+                resolve(saboyaResult);
 
                 // Else (Not Saboya)
             } else {
