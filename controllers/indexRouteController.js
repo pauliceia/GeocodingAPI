@@ -209,6 +209,31 @@ function notFound(textpoint, number, year){
     return head;
 }
 
+function multilineStringHandler(p1_geom, p2_geom, sublinestring){
+   let geometry;
+
+    if(sublinestring == ','){
+
+        //build the street geom
+        geometry = ("MULTILINESTRING((" + p1_geom + "," + p2_geom + "))");
+
+    } else {
+        if (!sublinestring) {
+
+            //build the street geom
+            geometry = ("MULTILINESTRING((" + p1_geom + "," + p2_geom + "))");
+
+        } else {
+
+            //build the street geom
+            geometry = ("MULTILINESTRING((" + p1_geom + "," + sublinestring + p2_geom + "))");
+
+        }
+    }
+
+    return geometry;
+}
+
 function getGeolocation(textpoint, year, number){
     return new Promise(async (resolve, reject) => {
         let geometry;
@@ -517,24 +542,7 @@ function getGeolocation(textpoint, year, number){
                 const p2_g = p2_geom;
 
                 //MULTILINESTRING Handler
-                if (sublinestring == ',') {
-
-                    //build the street geom
-                    geometry = ("MULTILINESTRING((" + p1_geom + "," + p2_geom + "))");
-
-                } else {
-                    if (!sublinestring) {
-
-                        //build the street geom
-                        geometry = ("MULTILINESTRING((" + p1_geom + "," + p2_geom + "))");
-
-                    } else {
-
-                        //build the street geom
-                        geometry = ("MULTILINESTRING((" + p1_geom + "," + sublinestring + p2_geom + "))");
-
-                    }
-                }
+                geometry = multilineStringHandler(p1_geom, p2_geom, sublinestring);
 
                 //Get the four variable to geocode
                 const nl = p2[0].place_number;
