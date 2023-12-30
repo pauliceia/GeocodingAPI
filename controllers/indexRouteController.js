@@ -261,16 +261,15 @@ async function geocode(textpoint, year, number, places) {
 
     //define array numbers 1
     const numbers_p1 = [];
-    let j = 0;
 
-    //Loop to fill the array numbers
-for (let i = 0; i < p1.length; i++) {
-    let numero = parseFloat(('' + p1[i].place_number).replace(".", ","));
-    if (numero % 2 === parseFloat(('' + number).replace(".", ",")) % 2) {
-        numbers_p1[j] = p1[i].place_number;
-        j++;
+    let j = 0;
+    for (let place of p1) {
+        let numero = parseFloat(('' + place.place_number).replace(".", ","));
+        if (numero % 2 === parseFloat(('' + number).replace(".", ",")) % 2) {
+            numbers_p1[j] = place.place_number;
+            j++;
+        }
     }
-}
 
     //filter the p1
     p1 = p1.filter(el => el.place_number == Math.max.apply(Math, numbers_p1));
@@ -281,12 +280,10 @@ for (let i = 0; i < p1.length; i++) {
     //define array numbers 1-
     let numbers_p2 = [];
     j = 0;
-
-    //Loop to fill the array numbers
-    for (let i = 0; i < p2.length; i++) {
-        let numero = parseFloat(('' + p2[i].place_number).replace(".", ","));
+    for (let place of p2) {
+        let numero = parseFloat(('' + place.place_number).replace(".", ","));
         if (numero % 2 === parseFloat(('' + number).replace(".", ",")) % 2) {
-            numbers_p2[j] = p2[i].place_number;
+            numbers_p2[j] = place.place_number;
             j++;
         }
     }
@@ -345,10 +342,10 @@ for (let i = 0; i < p1.length; i++) {
         let j = 0;
 
         //Loop to fill the array numbers
-        for (let i = 0; i < new_p2.length; i++) {
-            let numero = parseFloat(('' + new_p2[i].place_number).replace(".", ","));
+        for (let place of new_p2) {
+            let numero = parseFloat(('' + place.place_number).replace(".", ","));
             if (numero % 2 === parseFloat(('' + number).replace(".", ",")) % 2) {
-                numbers_p2[j] = new_p2[i].place_number;
+                numbers_p2[j] = place.place_number;
                 j++;
             }
         }
@@ -370,12 +367,12 @@ for (let i = 0; i < p1.length; i++) {
 
     //check if end is bigger then start
 
-    let sublinestring = Create.lineSubstring(linemerge, endfraction, startfraction);
+    let sublinestring = Create.lineSubstring(linemerge, startfraction, endfraction);
 
-    if (endfraction > startfraction) {
+    if (endfraction < startfraction) {
 
         //get the geom of lineSubString
-        sublinestring = Create.lineSubstring(linemerge, startfraction, endfraction);
+        sublinestring = Create.lineSubstring(linemerge, endfraction, startfraction);
     }
 
     //take the geom number of p1_geom
