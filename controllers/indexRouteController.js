@@ -551,7 +551,7 @@ function getGeolocation(textpoint, year, number) {
         +-----------------------*/
 
         if (parseFloat(places_filter[places_filter.length - 1].place_number) < number) {
-            const spatialExtrapolationResult = spatialExtrapolation(places, textpoint, places_filter);
+            const spatialExtrapolationResult = spatialExtrapolation(places, textpoint);
             resolve(spatialExtrapolationResult);
             return;
 
