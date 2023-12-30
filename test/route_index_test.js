@@ -5,7 +5,7 @@ const mocha = require('mocha');
 const suite = mocha.suite;
 const test = mocha.test;
 const assert = chai.assert
-const expectations = require('./route_index_test_expectation');
+const geolocationTestes = require('./route_index_test_expectation');
 
 chai.use(chaiHttp);
 
@@ -72,23 +72,9 @@ suite('Route index tests', function () {
     })
 
     suite('Geolocation tests', function () {
-        const parameters = [
-            'alameda barao de piracicaba,34,1908',
-            'rua adolpho gordo, 53, 1930',
-            'avenida angelica, 1008, 1935',
-            'avenida brigadeiro luiz antonio, 80, 1919',
-            'avenida rudge, 85, 1915',
-            'rua alexandre levy, 15, 1931',
-            'rua inexistente, 28, 1800',
-            'avenida angelica, 10, 1935',
-            'avenida angelica, 100, 1931',
-            'alameda barao de piracicaba,20,1908',
-            'alameda barao de piracicaba,21,1908',
-            'alameda barao de piracicaba,0,1908',
-            'rua libero badaro,99,1921'
-        ]
-
         let count = 0;
+        const parameters = geolocationTestes.parameters;
+        const expectations = geolocationTestes.expectations;
         parameters.forEach( parameter => {
             test(`Get geolocation for ${parameter}`, function (done) {
                 this.timeout(300000)
