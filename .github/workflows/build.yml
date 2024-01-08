@@ -26,7 +26,7 @@ jobs:
           uses: docker-practice/actions-setup-docker@master
 
         - name: Run Postgres container
-          run:  docker run --name postgres -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 igoraugst/pauliceiadb
+          run:  docker run --name postgres -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 ${{ secrets.DOCKER_IMAGE }}
 
         - name: Setup Node.js
           uses: actions/setup-node@v2
