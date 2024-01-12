@@ -1,27 +1,30 @@
 //street -> geometria da rua
 //startfraction-> porcentagem onde se inicia o trecho em relação a rua
+
+//FUNÇÕES AUXILIARES
+const getDistance = function(x1, y1, x2, y2){
+    return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
+};
 //endfraction-> porcentagem onde se termina o trecho em relação a rua
 
 exports.lineSubstring = function(street, startfraction, endfraction){
-//function lineSubstring(street, startfraction, endfraction){
 
-    //tratar a string da geometria linha
-    var geomStreet = street.substr(street.indexOf("(")+2);
-    geomStreet = geomStreet.substr(0,geomStreet.indexOf(")"));
+    let i;
+//tratar a string da geometria linha
+    let geomStreet = street.substring(street.indexOf("(") + 2);
+    geomStreet = geomStreet.substring(0,geomStreet.indexOf(")"));
     
     //divide a rua em grupo de pontos
-    var pointsLine = geomStreet.split(',');
+    const pointsLine = geomStreet.split(',');
 
-     //variaveis globais
-     var results = [];
-     var distances = [];
-     var frac = [];
-     var index = 0;
-     var distDesired = 0;
-     var distTotal = 0;
+    //variaveis globais
+    const results = [];
+    const distances = [];
+    const frac = [];
+    let distTotal = 0;
 
-     //loop para somar as distancias e 
-     for (var i = 1; i < pointsLine.length; i++) {
+    //loop para somar as distancias e
+     for (i = 1; i < pointsLine.length; i++) {
 
          //insere as distancias no array distances
          distances[i-1] = getDistance(pointsLine[(i-1)].split(' ')[0], pointsLine[(i-1)].split(' ')[1], pointsLine[(i)].split(' ')[0], pointsLine[(i)].split(' ')[1]);
@@ -34,13 +37,13 @@ exports.lineSubstring = function(street, startfraction, endfraction){
     distances[pointsLine.length-1] = distTotal;
 
     //loop para calcular frações
-    for (var i = 0; i < distances.length; i++) {
+    for (i = 0; i < distances.length; i++) {
 
         //variavel para calcular distancia até um ponto
-        var distPoint = 0;
+        let distPoint = 0;
 
         //loop para somar as distancias até aquele ponto
-        for (var j = 0; j < i; j++) {
+        for (let j = 0; j < i; j++) {
             
             //somatoria
             distPoint = distPoint + distances[j]
@@ -51,7 +54,7 @@ exports.lineSubstring = function(street, startfraction, endfraction){
     }
 
     //loop para percorer as frações 
-    for (var i = 0; i < distances.length; i++) {
+    for (i = 0; i < distances.length; i++) {
 
         //verifica o último ponto
         if (frac[i] > endfraction){
@@ -74,9 +77,4 @@ exports.lineSubstring = function(street, startfraction, endfraction){
             results.push(pointsLine[(i)].split(' ')[0] +' '+ pointsLine[(i)].split(' ')[1]);
         } 
     }
-}
-
-//FUNÇÕES AUXILIARES
-var getDistance = function(x1, y1, x2, y2){
-    return Math.sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
 }

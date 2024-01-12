@@ -4,17 +4,22 @@
   "private": true,
   "scripts": {
     "start": "supervisor ./bin/www",
-    "test": "mocha test",
+    "test": "nyc --reporter=lcov mocha",
+    "cucumber": "cucumber-js",
     "apidoc": "apidoc -i routes/doc -o public/apidoc",
     "docker": "npm install && npm start"
   },
   "dependencies": {
+    "assert": "^2.1.0",
     "async": "^2.5.0",
     "body-parser": "^1.18.2",
-    "chai": "^4.1.2",
+    "chai": "^4.3.10",
+    "chai-http": "^4.4.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
+    "cucumber": "^6.0.7",
     "debug": "^2.6.9",
+    "dotenv": "^16.3.1",
     "express": "^4.16.2",
     "geojson": "^0.5.0",
     "geojson-stream": "0.0.1",
@@ -25,18 +30,21 @@
     "limdu": "^0.9.4",
     "mocha": "^3.5.3",
     "morgan": "^1.9.0",
-    "pg": "^6.4.2",
+    "pg": "^8.11.3",
     "postgeo": "^0.1.2",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",
     "serialization": "^0.2.0",
     "serve-favicon": "^2.4.5",
     "shp-write": "^0.3.2",
-    "supertest": "^3.0.0",
+    "sinon": "^17.0.1",
+    "supertest": "^3.4.2",
     "supervisor": "^0.12.0"
   },
   "devDependencies": {
     "apidoc": "^0.17.6",
-    "mocha": "^3.5.3"
+    "mocha": "^3.5.3",
+    "mocha-sonarqube-reporter": "^1.0.2",
+    "nyc": "^15.1.0"
   }
 }
