@@ -79,6 +79,70 @@ function getDateTime() {
 +-------------------------------------------------------------------------*/
 
 /*-----------------------------------------------+
+| Autocomplete                                   |
++-----------------------------------------------*/
+
+router.get('/street-id', (req, res, next) => {
+
+    //Results Variable
+    const results = [];
+
+    // Captura o nome da rua a partir do parametro de consulta e remove espacos
+    const streetName = req.query.name ? req.query.name.replace(/\s+/g, ' ').trim() : '';
+
+    if (!streetName) {
+        return res.status(400).json({ success: false, error: 'Nome da rua nao fornecido.' });
+    }
+
+    //Get a Postgres client from the connection pool
+    pg.connect(connectionString, (err, client, done) => {
+        
+        //Handle connection errors
+        if (err) {
+            done();
+            console.log(err);
+            return res.status(500).json({
+                success: false,
+                data: err
+            });
+        }
+
+        // Construir a consulta SQL, lembrando tb_street = streets_pilot_area, places_pilot_area = tb_places
+        const SQL_Query_Select_Id = "SELECT id_street FROM streets_pilot_area WHERE name = $1;";
+
+        // Executar a consulta SQL
+        const query = client.query(SQL_Query_Select_Id, [streetName]);
+
+        // Processar cada linha do resultado
+        query.on('row', (row) => {
+            results.push({ id_street: row.id_street });
+        });
+
+        // Após o retorno de todos os dados, fechar a conexão e retornar os resultados
+        query.on('end', () => {
+            done();
+
+            if (results.length > 0) {
+                return res.json({ success: true, results });
+            } else {
+                return res.status(404).json({ success: false, error: 'Nome da rua não encontrado.' });
+            }
+        });
+
+        // Tratar erros de execução da consulta
+        query.on('error', (err) => {
+            done();
+            console.log(err);
+            return res.status(500).json({
+                success: false,
+                data: 'Erro ao buscar id_street.'
+            });
+        });
+    });
+        
+});
+
+/*-----------------------------------------------+
 | Places List                                    |
 +-----------------------------------------------*/
 router.get('/placeslist', (req, res, next) => {
