@@ -57,26 +57,26 @@ exports.getPoint = function(geometry, nf, nl, num){
 
     var getInterval = function(distances, distDesired){
         //encontra o indice do trecho em que o ponto deve ser inserido na rua
-        var i, c;
-        for(i=0, c=distances[0]; i<distances.length; i++){
-            if(c>=distDesired) {
-                c+=distances[i+1]
+        var i, c = 0;
+        for(i = 1; i < distances.length; i++){
+            c += distances[i];
+            if(c >= distDesired) {
                 return i;
             }
         }
-        return i-1;
+        return distances.length - 1;
     }
 
     var getRes = function(distDesired, indice, points, distances){
         
         let sum = 0;
 
-        for (let i=0; i <= indice; i++){ 
+        for (let i=0; i < indice; i++){
             sum += distances[i] 
         }
 
         //encontra as coordenadas X e Y
-        var distSearch = (distDesired-distances[indice-1])/sum;
+        var distSearch = distances[indice] > 0 ? (distDesired-sum)/distances[indice] : 0;
 
         var v1=points[indice-1].split(" ");
         var v2=points[indice].split(" ");
