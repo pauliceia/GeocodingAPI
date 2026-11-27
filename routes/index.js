@@ -13,7 +13,7 @@
 // var webServiceAddress = "http://www.pauliceia.dpi.inpe.br";
 
 // default address
-let webServiceAddress = "http://www.pauliceia.dpi.inpe.br"
+let webServiceAddress = "http://pauliceia-dev.unifesp.br"
 
 // if there are environment variables, then get them
 if (process.env.HOST && process.env.PORT) {
